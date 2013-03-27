@@ -74,6 +74,26 @@
 		3B716F4616F8AE5D00D84F85 /* Product_divider_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B716F4516F8AE5D00D84F85 /* Product_divider_list.png */; };
 		3B716F4916F8B95700D84F85 /* no_image_adidas_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B716F4716F8B95700D84F85 /* no_image_adidas_logo.png */; };
 		3B716F4A16F8B95700D84F85 /* no_image_adidas_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B716F4816F8B95700D84F85 /* no_image_adidas_logo@2x.png */; };
+		3B9F089D1703486500CD6C76 /* remove_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F089C1703486500CD6C76 /* remove_icon.png */; };
+		3B9F08A0170348AC00CD6C76 /* separador_hendler.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F089F170348AC00CD6C76 /* separador_hendler.png */; };
+		3B9F08A21703493D00CD6C76 /* Clear all_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08A11703493D00CD6C76 /* Clear all_button.png */; };
+		3B9F08AD17037A3700CD6C76 /* size02_def.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08AB17037A3700CD6C76 /* size02_def.png */; };
+		3B9F08AE17037A3700CD6C76 /* size02_high.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08AC17037A3700CD6C76 /* size02_high.png */; };
+		3B9F08DD1703AAC700CD6C76 /* Aqua.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08CE1703AAC700CD6C76 /* Aqua.png */; };
+		3B9F08DE1703AAC700CD6C76 /* Beige.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08CF1703AAC700CD6C76 /* Beige.png */; };
+		3B9F08DF1703AAC700CD6C76 /* Black.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D01703AAC700CD6C76 /* Black.png */; };
+		3B9F08E01703AAC700CD6C76 /* Blue.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D11703AAC700CD6C76 /* Blue.png */; };
+		3B9F08E11703AAC700CD6C76 /* Brown.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D21703AAC700CD6C76 /* Brown.png */; };
+		3B9F08E21703AAC700CD6C76 /* Gold.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D31703AAC700CD6C76 /* Gold.png */; };
+		3B9F08E31703AAC700CD6C76 /* Green.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D41703AAC700CD6C76 /* Green.png */; };
+		3B9F08E41703AAC700CD6C76 /* Grey.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D51703AAC700CD6C76 /* Grey.png */; };
+		3B9F08E51703AAC700CD6C76 /* Multi.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D61703AAC700CD6C76 /* Multi.png */; };
+		3B9F08E61703AAC700CD6C76 /* Orange.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D71703AAC700CD6C76 /* Orange.png */; };
+		3B9F08E71703AAC700CD6C76 /* Pink.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D81703AAC700CD6C76 /* Pink.png */; };
+		3B9F08E81703AAC700CD6C76 /* Purple.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08D91703AAC700CD6C76 /* Purple.png */; };
+		3B9F08E91703AAC700CD6C76 /* Red.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08DA1703AAC700CD6C76 /* Red.png */; };
+		3B9F08EA1703AAC700CD6C76 /* White.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08DB1703AAC700CD6C76 /* White.png */; };
+		3B9F08EB1703AAC700CD6C76 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08DC1703AAC700CD6C76 /* Yellow.png */; };
 		3BDCA540170208020056D0DE /* XXL.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCA53F170208020056D0DE /* XXL.png */; };
 		3BDE8E531701E46200579921 /* Variant.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE8E521701E46200579921 /* Variant.m */; };
 		3BFB7FB016F74E6700964FF2 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FAF16F74E6700964FF2 /* Product.m */; };
@@ -239,6 +259,26 @@
 		3B716F4516F8AE5D00D84F85 /* Product_divider_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Product_divider_list.png; path = Images/Product_divider_list.png; sourceTree = "<group>"; };
 		3B716F4716F8B95700D84F85 /* no_image_adidas_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image_adidas_logo.png; sourceTree = "<group>"; };
 		3B716F4816F8B95700D84F85 /* no_image_adidas_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_image_adidas_logo@2x.png"; sourceTree = "<group>"; };
+		3B9F089C1703486500CD6C76 /* remove_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = remove_icon.png; sourceTree = "<group>"; };
+		3B9F089F170348AC00CD6C76 /* separador_hendler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = separador_hendler.png; sourceTree = "<group>"; };
+		3B9F08A11703493D00CD6C76 /* Clear all_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clear all_button.png"; sourceTree = "<group>"; };
+		3B9F08AB17037A3700CD6C76 /* size02_def.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = size02_def.png; sourceTree = "<group>"; };
+		3B9F08AC17037A3700CD6C76 /* size02_high.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = size02_high.png; sourceTree = "<group>"; };
+		3B9F08CE1703AAC700CD6C76 /* Aqua.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Aqua.png; sourceTree = "<group>"; };
+		3B9F08CF1703AAC700CD6C76 /* Beige.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beige.png; sourceTree = "<group>"; };
+		3B9F08D01703AAC700CD6C76 /* Black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Black.png; sourceTree = "<group>"; };
+		3B9F08D11703AAC700CD6C76 /* Blue.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Blue.png; sourceTree = "<group>"; };
+		3B9F08D21703AAC700CD6C76 /* Brown.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Brown.png; sourceTree = "<group>"; };
+		3B9F08D31703AAC700CD6C76 /* Gold.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Gold.png; sourceTree = "<group>"; };
+		3B9F08D41703AAC700CD6C76 /* Green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Green.png; sourceTree = "<group>"; };
+		3B9F08D51703AAC700CD6C76 /* Grey.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Grey.png; sourceTree = "<group>"; };
+		3B9F08D61703AAC700CD6C76 /* Multi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Multi.png; sourceTree = "<group>"; };
+		3B9F08D71703AAC700CD6C76 /* Orange.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Orange.png; sourceTree = "<group>"; };
+		3B9F08D81703AAC700CD6C76 /* Pink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pink.png; sourceTree = "<group>"; };
+		3B9F08D91703AAC700CD6C76 /* Purple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Purple.png; sourceTree = "<group>"; };
+		3B9F08DA1703AAC700CD6C76 /* Red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red.png; sourceTree = "<group>"; };
+		3B9F08DB1703AAC700CD6C76 /* White.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = White.png; sourceTree = "<group>"; };
+		3B9F08DC1703AAC700CD6C76 /* Yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Yellow.png; sourceTree = "<group>"; };
 		3BDCA53F170208020056D0DE /* XXL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XXL.png; sourceTree = "<group>"; };
 		3BDE8E511701E46200579921 /* Variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Variant.h; sourceTree = "<group>"; };
 		3BDE8E521701E46200579921 /* Variant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Variant.m; sourceTree = "<group>"; };
@@ -381,6 +421,8 @@
 		3B27782E16F7B2EE007F228F /* Product */ = {
 			isa = PBXGroup;
 			children = (
+				3B9F08AB17037A3700CD6C76 /* size02_def.png */,
+				3B9F08AC17037A3700CD6C76 /* size02_high.png */,
 				3B27783716F7C344007F228F /* product_adi_logo.png */,
 				3B27783816F7C344007F228F /* Product_icon_green_shop_cart.png */,
 				3B27783316F7C32D007F228F /* new_comment_icon.png */,
@@ -449,6 +491,28 @@
 				3B716F4716F8B95700D84F85 /* no_image_adidas_logo.png */,
 			);
 			name = General;
+			sourceTree = "<group>";
+		};
+		3B9F08AF1703921A00CD6C76 /* Colors */ = {
+			isa = PBXGroup;
+			children = (
+				3B9F08CE1703AAC700CD6C76 /* Aqua.png */,
+				3B9F08CF1703AAC700CD6C76 /* Beige.png */,
+				3B9F08D01703AAC700CD6C76 /* Black.png */,
+				3B9F08D11703AAC700CD6C76 /* Blue.png */,
+				3B9F08D21703AAC700CD6C76 /* Brown.png */,
+				3B9F08D31703AAC700CD6C76 /* Gold.png */,
+				3B9F08D41703AAC700CD6C76 /* Green.png */,
+				3B9F08D51703AAC700CD6C76 /* Grey.png */,
+				3B9F08D61703AAC700CD6C76 /* Multi.png */,
+				3B9F08D71703AAC700CD6C76 /* Orange.png */,
+				3B9F08D81703AAC700CD6C76 /* Pink.png */,
+				3B9F08D91703AAC700CD6C76 /* Purple.png */,
+				3B9F08DA1703AAC700CD6C76 /* Red.png */,
+				3B9F08DB1703AAC700CD6C76 /* White.png */,
+				3B9F08DC1703AAC700CD6C76 /* Yellow.png */,
+			);
+			name = Colors;
 			sourceTree = "<group>";
 		};
 		3BFB7FAC16F74E3A00964FF2 /* Models */ = {
@@ -635,6 +699,7 @@
 		84132FF416F6704300C295C0 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				3B9F08AF1703921A00CD6C76 /* Colors */,
 				848A371416FAC77E00FCE8BD /* EMELDO ORDENA ESTO */,
 				3B6D44F916F94D6D001D99D2 /* Store */,
 				3B6D443816F93A46001D99D2 /* Setting */,
@@ -733,6 +798,9 @@
 		8493A5B416F6B22F00F23DF6 /* Catalog */ = {
 			isa = PBXGroup;
 			children = (
+				3B9F08A11703493D00CD6C76 /* Clear all_button.png */,
+				3B9F089F170348AC00CD6C76 /* separador_hendler.png */,
+				3B9F089C1703486500CD6C76 /* remove_icon.png */,
 				84A50C8716FEA3B800BC4943 /* left_drag_handle.png */,
 				3B716F4516F8AE5D00D84F85 /* Product_divider_list.png */,
 				3B716F3E16F8AE4D00D84F85 /* icon_green_shop_cart.png */,
@@ -913,6 +981,26 @@
 				84A50C8A16FEAB1B00BC4943 /* space.png in Resources */,
 				84A50C9216FEADDF00BC4943 /* icon_search_big.png in Resources */,
 				3BDCA540170208020056D0DE /* XXL.png in Resources */,
+				3B9F089D1703486500CD6C76 /* remove_icon.png in Resources */,
+				3B9F08A0170348AC00CD6C76 /* separador_hendler.png in Resources */,
+				3B9F08A21703493D00CD6C76 /* Clear all_button.png in Resources */,
+				3B9F08AD17037A3700CD6C76 /* size02_def.png in Resources */,
+				3B9F08AE17037A3700CD6C76 /* size02_high.png in Resources */,
+				3B9F08DD1703AAC700CD6C76 /* Aqua.png in Resources */,
+				3B9F08DE1703AAC700CD6C76 /* Beige.png in Resources */,
+				3B9F08DF1703AAC700CD6C76 /* Black.png in Resources */,
+				3B9F08E01703AAC700CD6C76 /* Blue.png in Resources */,
+				3B9F08E11703AAC700CD6C76 /* Brown.png in Resources */,
+				3B9F08E21703AAC700CD6C76 /* Gold.png in Resources */,
+				3B9F08E31703AAC700CD6C76 /* Green.png in Resources */,
+				3B9F08E41703AAC700CD6C76 /* Grey.png in Resources */,
+				3B9F08E51703AAC700CD6C76 /* Multi.png in Resources */,
+				3B9F08E61703AAC700CD6C76 /* Orange.png in Resources */,
+				3B9F08E71703AAC700CD6C76 /* Pink.png in Resources */,
+				3B9F08E81703AAC700CD6C76 /* Purple.png in Resources */,
+				3B9F08E91703AAC700CD6C76 /* Red.png in Resources */,
+				3B9F08EA1703AAC700CD6C76 /* White.png in Resources */,
+				3B9F08EB1703AAC700CD6C76 /* Yellow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

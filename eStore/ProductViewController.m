@@ -383,8 +383,6 @@
 
 -(void)loadingImagesFromWeb:(NSString *)c_color:(NSArray *)imageGroupsImages  {
     
-    
-    
     self.articleColor = c_color;
     self.product_color.text = self.articleColor;
     
@@ -446,13 +444,9 @@
         short_description = [mainDict objectForKey:@"short_description"];
         
         for(NSString *bullet in bullets){
-            
-           // NSLog(@"<br> - %@ ",bullet);
-            
             bullets_description = [NSMutableString stringWithFormat:@" %@  <br> - %@",bullets_description,bullet];
         }
         
-        //self.webviewName = [NSMutableString stringWithFormat:@"%@ \n %@",short_description,bullets_description];
         
         [self.webviewName loadHTMLString:[NSString stringWithFormat:@"<div align='justify' style='font-size:11px;font-family=helvetica;'>%@ <br> %@<div>",short_description,bullets_description] baseURL:nil];
         
@@ -479,17 +473,17 @@
         NSString *nameSize = [sizeDict objectForKey:@"name"];
         
         UIButton *playButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        playButton.frame = CGRectMake(positionx, positiony, 45.0, 35.0);        [playButton setTitle:nameSize forState:UIControlStateNormal];
+        playButton.frame = CGRectMake(positionx, positiony, 43.0, 35.0);        [playButton setTitle:nameSize forState:UIControlStateNormal];
         playButton.backgroundColor = [UIColor clearColor];
         [playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
-        UIImage *buttonImageNormal = [UIImage imageNamed:@"XXL.png"];
+        UIImage *buttonImageNormal = [UIImage imageNamed:@"size02_def.png"];
         UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
         [playButton setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
-        UIImage *buttonImagePressed = [UIImage imageNamed:@"XXL.png"];
+        UIImage *buttonImagePressed = [UIImage imageNamed:@"size02_high.png"];
         UIImage *strechableButtonImagePressed = [buttonImagePressed stretchableImageWithLeftCapWidth:12 topCapHeight:0];
         [playButton setBackgroundImage:strechableButtonImagePressed forState:UIControlStateHighlighted];
 
-        positionx = positionx + 45;
+        positionx = positionx + 46;
         counter++;
         if(counter >= 7){
             positiony = positiony + 40;
@@ -527,7 +521,6 @@
         NSString *productid = productVariant.product_id;
         NSString *nameColor = productVariant.color_variant;
         
-        //NSLog(@"name %@", nameColor);
         
         for(int j=0;j<[images count]; j++){
             
@@ -540,7 +533,7 @@
                 NSMutableArray *imagesArray = [imageInformation objectForKey:@"images"];
                 NSDictionary *imageDict = [imagesArray objectAtIndex:0];
                 
-                NSLog(@"esperando %@",[imageDict objectForKey:@"link"]);
+                //NSLog(@"esperando %@",[imageDict objectForKey:@"link"]);
                 
                 NSURL *urlImage = [NSURL URLWithString:[[imageDict objectForKey:@"link"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
                 
@@ -556,7 +549,6 @@
                  }
                                completed:^(UIImage *imageView, NSError *error, SDImageCacheType cacheType, BOOL dummy)
                  {
-                     NSLog(@"TERMINO ");
                      ListItem *item1 = [[ListItem alloc] initWithFrame:CGRectZero image:imageView text:nameColor text:productid];
                      [freeList addObject:item1];
                      //if([product_list count] == i){

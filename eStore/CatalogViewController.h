@@ -16,6 +16,8 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 @property (strong, nonatomic) IBOutlet UIView *rightMenu;
 @property (strong, nonatomic) IBOutlet UITableView *menuTableView;
 @property (strong, nonatomic) IBOutlet UITableView *productTableView;
+@property (strong, nonatomic) IBOutlet UITableView *selectionTableView;
+
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSString *searchQuery;

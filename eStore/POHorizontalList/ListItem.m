@@ -21,15 +21,9 @@
         self.imageTitle = imageTitle;
         self.image = image;
         self.Product_id = Product_id;
+        // UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
         
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        
-        CALayer *roundCorner = [imageView layer];
-        [roundCorner setMasksToBounds:YES];
-        [roundCorner setCornerRadius:8.0];
-        [roundCorner setBorderColor:[UIColor blackColor].CGColor];
-        [roundCorner setBorderWidth:1.0];
-        
+                
         UILabel *title = [[UILabel alloc] init];
         [title setBackgroundColor:[UIColor whiteColor]];
         [title setFont:[UIFont boldSystemFontOfSize:12.0]];
@@ -39,8 +33,23 @@
         imageRect = CGRectMake(0.0, 0.0, 72.0, 72.0);
         textRect = CGRectMake(0.0, imageRect.origin.y + imageRect.size.height + 10.0, 80.0, 20.0);
         
-        [title setFrame:textRect];
+        
+        UIImageView *imageView = [[UIImageView alloc] init];
         [imageView setFrame:imageRect];
+        imageView.contentMode = UIViewContentModeScaleAspectFit;
+        UIImage *image1 = self.image;
+        const float colorMasking[6] = {255, 255, 255, 255, 255, 255};
+        imageView.image = [UIImage imageWithCGImage: CGImageCreateWithMaskingColors(image1.CGImage, colorMasking)];
+        
+        CALayer *roundCorner = [imageView layer];
+        [roundCorner setMasksToBounds:YES];
+        [roundCorner setCornerRadius:8.0];
+        [roundCorner setBorderColor:[UIColor whiteColor].CGColor];
+        [roundCorner setBorderWidth:1.0];
+
+        
+        [title setFrame:textRect];
+        
         
         [self addSubview:title];
         [self addSubview:imageView];

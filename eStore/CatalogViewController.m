@@ -150,9 +150,9 @@
     }
     
     
-    self.filterCategories = [[NSArray alloc] initWithObjects: @"c_filters", @"c_productType", @"c_sport", @"cgid", @"c_division", @"c_searchColor",  @"c_sizeSearchValue", nil];
+    self.filterCategories = [[NSArray alloc] initWithObjects: @"c_productType", @"c_sport", @"cgid", @"c_division", @"c_searchColor",  @"c_sizeSearchValue", @"c_filters", nil];
     
-    self.filterLabels = [[NSArray alloc] initWithObjects: @"Filters", @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size",nil];
+    self.filterLabels = [[NSArray alloc] initWithObjects: @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size", @"Filters", nil];
     
     
     
@@ -463,9 +463,24 @@
         
         NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
         NSMutableArray *arrayActiveFilters2 = [self.arrays objectForKey:@"Filters"];
+        
         NSArray *keys = [self.selected_refinements allKeys];
         
-        UIView *breadcumView = (UIView *)[self.view viewWithTag:2];
+        UIView *breadcumViewComplete = (UIView *)[self.view viewWithTag:2];
+        
+        int iteration = [self.selected_refinements count];
+        
+        UIView *breadcumView = nil;
+        
+        if(iteration == 1){
+            breadcumView = [[UIView alloc] init];
+            [breadcumView setTag:888];
+        }else{
+            breadcumView = (UIView *)[self.view viewWithTag:888];
+            [breadcumView removeFromSuperview];
+            breadcumView = [[UIView alloc] init];
+            [breadcumView setTag:888];
+        }
         // values in foreach loop
         int x = 100;
         
@@ -491,10 +506,11 @@
             [breadcumView addSubview:breadcumImage];
             
             
-            x = x + 65;
+            x = x + textSize.width + 40;
             
         }
-        
+        [breadcumViewComplete addSubview:breadcumView];
+
         
         for (int k=0; k< self.refinementsValues.count; k++) {
             NSDictionary *TypeRefinement = [self.refinementsValues objectAtIndex:k];
@@ -599,6 +615,7 @@
         }
         
         [self.menuTableView reloadData];
+        [self.selectionTableView reloadData];
         [self.collectionView reloadData];
         [self.productTableView reloadData];
         
@@ -648,7 +665,8 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (tableView == self.menuTableView ) {
-        return [self.filterCategories count];
+        //int value = [self.filterCategories count];
+        return 6;
     }
     
     return 1;
@@ -662,15 +680,28 @@
             if ([expandedSections containsIndex:section])
             {
                 NSString *SubCategoryLabel = [self.filterCategories objectAtIndex:section];
-                NSMutableArray *arrayInfoDisplay = [self.arrays objectForKey:SubCategoryLabel];
-                
-                return [arrayInfoDisplay count]+1;
+                 NSMutableArray *arrayInfoDisplay = [self.arrays objectForKey:SubCategoryLabel];
+                 int valortotal = [arrayInfoDisplay count]+1;
+                if([SubCategoryLabel isEqualToString:@"c_searchColor"]
+                   || [SubCategoryLabel isEqualToString:@"c_sizeSearchValue"]){
+                    float x = [arrayInfoDisplay count]/4;
+                    valortotal = (int)x;
+                    valortotal = valortotal + 1;
+                }else{
+                  valortotal = [arrayInfoDisplay count]+1;
+                }
+                return valortotal;
             }
             return 1; // only top row showing
         }
+    }else if(tableView == self.selectionTableView){
+        NSMutableArray *arraySelection = [self.arrays objectForKey:@"Filters"];
+        
+        return [arraySelection count];
     }
     
-    return [self.producthits count];;
+    return [self.producthits count];
+    
 }
 
 
@@ -685,6 +716,20 @@
         } else {
             cellIdentifier = @"SubCategoryCell";
         }
+        
+        if (indexPath.row){
+         NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
+        
+         if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
+             cellIdentifier = @"ColourCell";
+                       
+         }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
+             cellIdentifier = @"SizeCell";
+         }
+        }
+        
+    } else if(tableView == self.selectionTableView) {
+        cellIdentifier = @"SelectionCell";
     } else {
         cellIdentifier = @"CatalogCell";
     }
@@ -703,6 +748,11 @@
             if (!indexPath.row)
             {
                 UILabel *categoryName = (UILabel *)[cell viewWithTag:5];
+                UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
+                UIView *accesorySection = (UIView *)[cell viewWithTag:13];
+                
+                cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+                accesorySection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"desplegar_icon.png"]];
                 
                 NSString *CategoryLabel = [self.filterLabels objectAtIndex:indexPath.section];
                 
@@ -714,6 +764,7 @@
                         categoryName.text = CategoryLabel;
                         break;
                 }
+                
             }
             else
             {
@@ -723,6 +774,86 @@
                 NSString *SubCategoryLabel = [self.filterLabels objectAtIndex:indexPath.section];
                 NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
                 
+                if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
+                    
+                    UIImageView *color1 = (UIImageView *)[cell viewWithTag:20];
+                    UIImageView *color2 = (UIImageView *)[cell viewWithTag:21];
+                    UIImageView *color3 = (UIImageView *)[cell viewWithTag:22];
+                    UIImageView *color4 = (UIImageView *)[cell viewWithTag:23];
+                   
+                        NSString  *col1, *col2, *col3,*col4 = nil;
+                        @try {
+                            NSLog(@"trying...");
+                              col1 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4 - 3];
+                        }
+                        @catch (NSException * e) {
+                            NSLog(@"catching reason");
+                            col1 = nil;
+                        }
+                        @finally {
+                            NSLog(@"finally");
+                        }
+                        
+                        @try {
+                            NSLog(@"trying...");
+                            col2 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4 - 2];
+                        }
+                        @catch (NSException * e) {
+                            NSLog(@"catching reason");
+                            col2 = nil;
+                        }
+                        @finally {
+                            NSLog(@"finally");
+                        }
+                        
+                        @try {
+                            NSLog(@"trying...");
+                            col3 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4 - 1];
+                        }
+                        @catch (NSException * e) {
+                            col3 = nil;
+                            NSLog(@"catching reason");
+                        }
+                        @finally {
+                            NSLog(@"finally");
+                        }
+                        
+                        @try {
+                            NSLog(@"trying...");
+                            col4 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4];
+                        }
+                        @catch (NSException * e) {
+                            NSLog(@"catching reason ");
+                            col4 = nil;
+                        }
+                        @finally {
+                            NSLog(@"finally");
+                        }
+                        
+                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                                       
+
+                  
+                    //;@"Colour_15.png"
+                    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col1]];
+                    [color1 setImage:image];
+                    
+                    UIImage *image1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col2]];
+                    [color2 setImage:image1];
+                    
+                    UIImage *image2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col3]];
+                    [color3 setImage:image2];
+                    
+                    UIImage *image3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col4]];
+                    [color4 setImage:image3];
+                   
+                    
+                    
+                }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
+                
+                }else{
+                    
+                 if(![SubCategoryLabel isEqualToString: @"Filters"]){
                 if (indexPath.row == 0) {
                     
                     subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row];
@@ -738,6 +869,9 @@
                     }
                     subCategoryValue.hidden = true;
                 }
+                }// quitando filters
+                    
+                }
             }
         }
         else
@@ -745,10 +879,14 @@
             cell.accessoryView = nil;
             cell.textLabel.text = @"Normal Cell";
         }
-    }
     
-    else
-    {
+    }else if(tableView == self.selectionTableView){
+        UILabel *filters = (UILabel *)[cell viewWithTag:13];
+        filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
+;
+        NSLog(@"%i indexPath.row",indexPath.row);
+    
+    }else{
         
         UILabel *ProductName = (UILabel *)[cell viewWithTag:203];
         UILabel *ProducCode = (UILabel *)[cell viewWithTag:204];
@@ -797,7 +935,7 @@
         ProductName.text = product.product_name;
         ProductPrice.text = [NSString stringWithFormat:@"%@", string];
         ProductCurrency.text = product.currency;
-
+        
     }
     
     
@@ -813,9 +951,13 @@
 {
     if (tableView == self.menuTableView ) {
         if (!indexPath.row) {
-            cell.backgroundColor = [UIColor darkGrayColor];
+            
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
+            cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+            
         } else {
-            cell.backgroundColor = [UIColor lightGrayColor];
+            //cell.backgroundColor = [UIColor lightGrayColor];
         }
     }
 }
@@ -856,26 +998,35 @@
                     [tmpArray addObject:tmpIndexPath];
                 }
                 
-                //UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
+                UIView *accesorySection = (UIView *)[cell viewWithTag:13];
+                
+                cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+                
+                
                 
                 if (currentlyExpanded)
                 {
-                    [tableView deleteRowsAtIndexPaths:tmpArray
-                                     withRowAnimation:UITableViewRowAnimationTop];
+                    [tableView deleteRowsAtIndexPaths:tmpArray withRowAnimation:UITableViewRowAnimationTop];
+                    cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+                    accesorySection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"desplegar_icon.png"]];
                     
-                }else{
-                    [tableView insertRowsAtIndexPaths:tmpArray
-                                     withRowAnimation:UITableViewRowAnimationTop];
-                    //cell.accessoryView =  [DTCustomColoredAccessory accessoryWithColor:[UIColor grayColor] type:DTCustomColoredAccessoryTypeUp];
+                } else {
+                    [tableView insertRowsAtIndexPaths:tmpArray withRowAnimation:UITableViewRowAnimationTop];
+                    cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"opened_filter.png"]];
+                    accesorySection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Colapse_icon.png"]];
                     
                 }
             } else {
+                
                 
                 UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
                 UITableViewCell *cellSelected = [tableView cellForRowAtIndexPath:indexPath];
                 UILabel *subCategoryName = (UILabel *)[cell viewWithTag:2];
                 UILabel *subCategorySelected = (UILabel *)[cellSelected viewWithTag:7];
                 UILabel *subCategoryValueSelected = (UILabel *)[cellSelected viewWithTag:8];
+                
                 subCategoryName.text = subCategorySelected.text;
                 
                 NSString *categoryType = [self.filterCategories objectAtIndex:indexPath.section];
@@ -923,7 +1074,7 @@
                 
                 
                 self.menuQuery = [NSString stringWithFormat:@"%@=%@",
-                                     categoryType, subCategoryValueSelected.text];
+                                  categoryType, subCategoryValueSelected.text];
                 
                 [self.producthits  removeAllObjects];
                 
@@ -939,7 +1090,6 @@
     }
     
 }
-
 
 
 #pragma mark - Collection View DataSource
