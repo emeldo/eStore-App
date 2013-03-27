@@ -10,6 +10,8 @@
 #import "CatalogViewController.h"
 #import "CoreDataHelper.h"
 #import "Products.h"
+#import "Product.h"
+#import "ProductViewController.h"
 
 
 @interface HomeViewController () {
@@ -124,11 +126,22 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
+    if ([segue.identifier isEqualToString:@"showProductDetail"]) {
+        
+        NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
+        ProductViewController *destViewController = segue.destinationViewController;
+        destViewController.product = [self.products objectAtIndex:indexPath.row];
+        
+    }else{
+
+    
     CatalogViewController *catalogViewController = [segue destinationViewController];
     catalogViewController.menuQuery = category;
     catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     catalogViewController.managedObjectContext = self.managedObjectContext;
     self.searchBar.text = nil;
+    }
 }
 
 - (IBAction)categorySelected:(id)sender

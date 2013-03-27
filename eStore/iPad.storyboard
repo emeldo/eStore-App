@@ -117,6 +117,9 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <rect key="contentStretch" x="1" y="0.0" width="1" height="1"/>
+                                        <connections>
+                                            <segue destination="6Za-Ta-kB6" kind="push" identifier="showProductDetail" id="f6Q-ta-hsj"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <connections>
@@ -213,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rum-zR-vtP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="921" y="-663"/>
+            <point key="canvasLocation" x="1403" y="-139"/>
         </scene>
         <!--Catalog View Controller-->
         <scene sceneID="vid-Q1-hNB">
@@ -589,7 +592,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ae-xi-v7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2459" y="-1098"/>
+            <point key="canvasLocation" x="2763" y="-1056"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="E0o-v4-VSO">
@@ -610,6 +613,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="fZn-se-9rV"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bdF-ZC-kFj" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -911,7 +915,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jAq-TA-j8h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3956" y="-826"/>
+            <point key="canvasLocation" x="3712" y="170"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Lrv-XG-WId">
@@ -1017,4 +1021,7 @@
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
+    <inferredMetricsTieBreakers>
+        <segue reference="f6Q-ta-hsj"/>
+    </inferredMetricsTieBreakers>
 </document>
