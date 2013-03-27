@@ -131,7 +131,17 @@
         
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
         ProductViewController *destViewController = segue.destinationViewController;
-        destViewController.product = [self.products objectAtIndex:indexPath.row];
+        
+        Products *productDatacore = [self.products objectAtIndex:indexPath.row];
+        
+        Product *product = [Product new];
+        product.product_id = productDatacore.identifier;
+        product.product_name = productDatacore.name;
+        product.price = productDatacore.price;
+        product.currency = productDatacore.currency;
+        product.link = productDatacore.link;
+        
+        destViewController.product = product;
         
     }else{
 
