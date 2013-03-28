@@ -267,8 +267,7 @@
     self.masterlink = [[NSString alloc] init];
     //6cb8ee1e-8951-421e-a3e6-b738b816dfc3
     NSString *wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/products/%@?client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&expand=variations,prices,availability,images",wsProduct_SKU];
-    //
-    NSLog(@"PRODUCTINFO %@",wsStringQuery);
+    //NSLog(@"PRODUCTINFO %@",wsStringQuery);
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsStringQuery]];
     
@@ -282,7 +281,7 @@
         self.master =[mainDict objectForKey:@"master"];
         self.imageslow = [mainDict objectForKey:@"image_groups"];
         NSString *c_color = [mainDict objectForKey:@"c_color"];
-        //NSLog(@"historial %@",[mainDict objectForKey:@"image_groups"]);
+        //NSLog(@"historial %@",self.imageslow);
         
         
         [self loadingImagesFromWeb:c_color:self.imageslow];
@@ -390,7 +389,8 @@
     //NSDictionary *imagesDic = [imageGroups objectAtIndex:0];
     
     for (NSDictionary *imagesDic in imageGroups) {
-        if ([[imagesDic objectForKey:@"variation_value"] isEqualToString:self.articleColor]) {
+        if ([[imagesDic objectForKey:@"variation_value"] isEqualToString:self.articleColor]
+            && [[imagesDic objectForKey:@"view_type"] isEqualToString:@"quickview"]) {
             self.imagesByArticle = [imagesDic objectForKey:@"images"];
         }
     }
@@ -473,7 +473,8 @@
         NSString *nameSize = [sizeDict objectForKey:@"name"];
         
         UIButton *playButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        playButton.frame = CGRectMake(positionx, positiony, 43.0, 35.0);        [playButton setTitle:nameSize forState:UIControlStateNormal];
+        playButton.frame = CGRectMake(positionx, positiony, 43.0, 35.0);
+        [playButton setTitle:nameSize forState:UIControlStateNormal];
         playButton.backgroundColor = [UIColor clearColor];
         [playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
         UIImage *buttonImageNormal = [UIImage imageNamed:@"size02_def.png"];
@@ -527,7 +528,7 @@
             NSDictionary *imageInformation = [images objectAtIndex:j];
             
             if([[imageInformation objectForKey:@"variation_value"] isEqualToString:nameColor]
-               && [[imageInformation objectForKey:@"view_type"] isEqualToString:@"extralarge"]){
+               && [[imageInformation objectForKey:@"view_type"] isEqualToString:@"large"]){
                 
                 //NSLog(@"entro %@",[imageInformation objectForKey:@"images"]);
                 NSMutableArray *imagesArray = [imageInformation objectForKey:@"images"];

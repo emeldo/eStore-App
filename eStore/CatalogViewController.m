@@ -776,18 +776,33 @@
                 
                 if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
                     
-                    UIImageView *color1 = (UIImageView *)[cell viewWithTag:20];
-                    UIImageView *color2 = (UIImageView *)[cell viewWithTag:21];
-                    UIImageView *color3 = (UIImageView *)[cell viewWithTag:22];
-                    UIImageView *color4 = (UIImageView *)[cell viewWithTag:23];
+                    UIButton *color1 = (UIButton *)[cell viewWithTag:20];
+                    UIButton *color2 = (UIButton *)[cell viewWithTag:21];
+                    UIButton *color3 = (UIButton *)[cell viewWithTag:22];
+                    UIButton *color4 = (UIButton *)[cell viewWithTag:23];
                    
                         NSString  *col1, *col2, *col3,*col4 = nil;
+                          int N1,N2,N3,N4 = 0;
+                    
+                        //NSLog(@"i-> %i",indexPath.row);
+                        if(indexPath.row == 1){
+                            N1 = 0;
+                            N2 = 1;
+                            N3 = 2;
+                            N4 = 3;
+                        }else{
+                            N1 = indexPath.row * 4 - 4;
+                            N2 = indexPath.row * 4 - 3;
+                            N3 = indexPath.row * 4 - 2;
+                            N4 = indexPath.row * 4 - 1;
+                        }
+                    
                         @try {
-                            NSLog(@"trying...");
-                              col1 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4 - 3];
+                            //NSLog(@"trying...");
+                            col1 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N1];
                         }
                         @catch (NSException * e) {
-                            NSLog(@"catching reason");
+                            //NSLog(@"catching reason");
                             col1 = nil;
                         }
                         @finally {
@@ -795,11 +810,11 @@
                         }
                         
                         @try {
-                            NSLog(@"trying...");
-                            col2 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4 - 2];
+                            //NSLog(@"trying...");
+                            col2 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N2];
                         }
                         @catch (NSException * e) {
-                            NSLog(@"catching reason");
+                            //NSLog(@"catching reason");
                             col2 = nil;
                         }
                         @finally {
@@ -807,49 +822,159 @@
                         }
                         
                         @try {
-                            NSLog(@"trying...");
-                            col3 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4 - 1];
+                            //NSLog(@"trying...");
+                            col3 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N3];
                         }
                         @catch (NSException * e) {
                             col3 = nil;
-                            NSLog(@"catching reason");
+                            //NSLog(@"catching reason");
                         }
                         @finally {
                             NSLog(@"finally");
                         }
                         
                         @try {
-                            NSLog(@"trying...");
-                            col4 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:indexPath.row * 4];
+                            //NSLog(@"trying...");
+                            col4 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N4];
                         }
                         @catch (NSException * e) {
-                            NSLog(@"catching reason ");
+                            //                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+NSLog(@"catching reason ");
                             col4 = nil;
                         }
                         @finally {
                             NSLog(@"finally");
                         }
-                        
-                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                       //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+
+                       //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
                                        
 
                   
                     //;@"Colour_15.png"
-                    UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col1]];
-                    [color1 setImage:image];
+                    //[color1 setTitle:nameSize forState:UIControlStateNormal];
+                    color1.backgroundColor = [UIColor clearColor];
+                    [color1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col1]];
+                    UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color1 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
                     
-                    UIImage *image1 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col2]];
-                    [color2 setImage:image1];
+                   
+                    color2.backgroundColor = [UIColor clearColor];
+                    [color2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col2]];
+                    strechableButtonImageNormal = [buttonImageNormal2 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color2 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
                     
-                    UIImage *image2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col3]];
-                    [color3 setImage:image2];
+                   
+                    color3.backgroundColor = [UIColor clearColor];
+                    [color3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col3]];
+                    strechableButtonImageNormal = [buttonImageNormal3 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color3 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
                     
-                    UIImage *image3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col4]];
-                    [color4 setImage:image3];
+                    
+                    color4.backgroundColor = [UIColor clearColor];
+                    [color4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col4]];
+                    strechableButtonImageNormal = [buttonImageNormal4 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color4 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
+                    
+                    
                    
                     
                     
                 }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
+                    
+                    UIButton *button1 = (UIButton *)[cell viewWithTag:30];
+                    UIButton *button2 = (UIButton *)[cell viewWithTag:31];
+                    UIButton *button3 = (UIButton *)[cell viewWithTag:32];
+                    UIButton *button4 = (UIButton *)[cell viewWithTag:33];
+                    
+                    NSString  *col1, *col2, *col3,*col4 = nil;
+                    int N1,N2,N3,N4 = 0;
+                    
+                    //NSLog(@"i-> %i",indexPath.row);
+                    if(indexPath.row == 1){
+                        N1 = 0;
+                        N2 = 1;
+                        N3 = 2;
+                        N4 = 3;
+                    }else{
+                        N1 = indexPath.row * 4 - 4;
+                        N2 = indexPath.row * 4 - 3;
+                        N3 = indexPath.row * 4 - 2;
+                        N4 = indexPath.row * 4 - 1;
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col1 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N1];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col1 = nil;
+                    }
+                    @finally {
+                        NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col2 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N2];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col2 = nil;
+                    }
+                    @finally {
+                        NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col3 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N3];
+                    }
+                    @catch (NSException * e) {
+                        col3 = nil;
+                        //NSLog(@"catching reason");
+                    }
+                    @finally {
+                        NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        col4 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N4];
+                    }
+                    @catch (NSException * e) {
+                        NSLog(@"catching reason ");
+                        col4 = nil;
+                    }
+                    @finally {
+                        NSLog(@"finally");
+                    }
+                    //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+                    
+                    //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    [button1 setTitle:col1 forState:UIControlStateNormal];
+                     button1.backgroundColor = [UIColor clearColor];
+                    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    
+                    
+                    [button2 setTitle:col2 forState:UIControlStateNormal];
+                    button2.backgroundColor = [UIColor clearColor];
+                    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    
+                    [button3 setTitle:col3 forState:UIControlStateNormal];
+                    button3.backgroundColor = [UIColor clearColor];
+                    [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+
+                    [button4 setTitle:col4 forState:UIControlStateNormal];
+                    button4.backgroundColor = [UIColor clearColor];
+                    [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    
+
+                    
                 
                 }else{
                     
