@@ -695,16 +695,20 @@
                                         <rect key="frame" x="9" y="282" width="206" height="2"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Your selection_bg.png" id="yrj-iY-m0d">
+                                        <rect key="frame" x="9" y="63" width="210" height="132"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="JzD-ue-vLL" userLabel="Selections">
-                                        <rect key="frame" x="9" y="61" width="218" height="135"/>
+                                        <rect key="frame" x="18" y="68" width="194" height="128"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
                                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectionCell" rowHeight="23" id="00C-Rw-WpS" userLabel="Filter Body">
-                                                <rect key="frame" x="0.0" y="22" width="218" height="23"/>
+                                                <rect key="frame" x="0.0" y="22" width="194" height="23"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="22"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="194" height="22"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4hl-FK-sut">
@@ -1129,6 +1133,7 @@
         <image name="Sort_by_list.png" width="41" height="24"/>
         <image name="Sort_by_thumbnail.png" width="40" height="24"/>
         <image name="White.png" width="36" height="25"/>
+        <image name="Your selection_bg.png" width="210" height="117"/>
         <image name="acordion_icon.png" width="15" height="14"/>
         <image name="home_img_holder.png" width="1024" height="312"/>
         <image name="home_men_category.png" width="136" height="47"/>

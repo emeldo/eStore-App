@@ -356,7 +356,7 @@
 
 -(void)loadingFromWeb : (NSString *)wsString : (NSString *)wsquery
 {
-    
+    NSLog(@" %@",wsString);
     //Show Loading View
     UIView *loadingView = (UIView *)[self.view viewWithTag:10];
    
@@ -389,7 +389,8 @@
     NSMutableString  *wsRefines = [[NSMutableString alloc] init];
     BOOL isFirst = YES;
     
-    //NSLog(@"LOg %i",[self.selected_refinements count]);
+    NSLog(@"LOg %i",[self.selected_refinements count]);
+    
     if([self.selected_refinements count]>0){
         NSInteger valor = [self.selected_refinements count]+1;
         //NSLog(@"LOg %i",valor);
@@ -424,6 +425,7 @@
         filters = wsRefines;
     }
     
+     NSLog(@" %@",filters);
     
     NSString  *wsStringQuery = [[NSString alloc] init];
     if (!(wsquery == nil) && !(wsString ==nil) ){
@@ -437,7 +439,7 @@
     }
     
     
-    //NSLog(@"valor wsquery %@ ",wsStringQuery);
+    NSLog(@"valor wsquery %@ ",wsStringQuery);
     
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsStringQuery]];
@@ -806,7 +808,7 @@
                             col1 = nil;
                         }
                         @finally {
-                            NSLog(@"finally");
+                           // NSLog(@"finally");
                         }
                         
                         @try {
@@ -818,7 +820,7 @@
                             col2 = nil;
                         }
                         @finally {
-                            NSLog(@"finally");
+                           // NSLog(@"finally");
                         }
                         
                         @try {
@@ -830,7 +832,7 @@
                             //NSLog(@"catching reason");
                         }
                         @finally {
-                            NSLog(@"finally");
+                           // NSLog(@"finally");
                         }
                         
                         @try {
@@ -839,11 +841,11 @@
                         }
                         @catch (NSException * e) {
                             //                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
-NSLog(@"catching reason ");
+                            //NSLog(@"catching reason ");
                             col4 = nil;
                         }
                         @finally {
-                            NSLog(@"finally");
+                          //  NSLog(@"finally");
                         }
                        //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
 
@@ -851,8 +853,16 @@ NSLog(@"catching reason ");
                                        
 
                   
-                    //;@"Colour_15.png"
-                    //[color1 setTitle:nameSize forState:UIControlStateNormal];
+                    [color1 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [color2 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [color3 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [color4 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    color1.tag = N1;
+                    color2.tag = N2;
+                    color3.tag = N3;
+                    color4.tag = N4;
+                    
                     color1.backgroundColor = [UIColor clearColor];
                     [color1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
                     UIImage *buttonImageNormal = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col1]];
@@ -891,6 +901,12 @@ NSLog(@"catching reason ");
                     UIButton *button3 = (UIButton *)[cell viewWithTag:32];
                     UIButton *button4 = (UIButton *)[cell viewWithTag:33];
                     
+                    
+                    [button1 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [button2 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [button3 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [button4 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    
                     NSString  *col1, *col2, *col3,*col4 = nil;
                     int N1,N2,N3,N4 = 0;
                     
@@ -916,7 +932,7 @@ NSLog(@"catching reason ");
                         col1 = nil;
                     }
                     @finally {
-                        NSLog(@"finally");
+                       // NSLog(@"finally");
                     }
                     
                     @try {
@@ -928,7 +944,7 @@ NSLog(@"catching reason ");
                         col2 = nil;
                     }
                     @finally {
-                        NSLog(@"finally");
+                       // NSLog(@"finally");
                     }
                     
                     @try {
@@ -947,15 +963,21 @@ NSLog(@"catching reason ");
                         col4 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N4];
                     }
                     @catch (NSException * e) {
-                        NSLog(@"catching reason ");
+                       // NSLog(@"catching reason ");
                         col4 = nil;
                     }
                     @finally {
-                        NSLog(@"finally");
+                        //NSLog(@"finally");
                     }
                     //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
                     
                     //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    button1.tag = N1;
+                    button2.tag = N2;
+                    button3.tag = N3;
+                    button4.tag = N4;
+
+                    
                     [button1 setTitle:col1 forState:UIControlStateNormal];
                      button1.backgroundColor = [UIColor clearColor];
                     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -1009,7 +1031,7 @@ NSLog(@"catching reason ");
         UILabel *filters = (UILabel *)[cell viewWithTag:13];
         filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
 ;
-        NSLog(@"%i indexPath.row",indexPath.row);
+        // NSLog(@"%i indexPath.row",indexPath.row);
     
     }else{
         
@@ -1301,6 +1323,8 @@ NSLog(@"catching reason ");
         NSIndexPath *indexPath = [[self.collectionView indexPathsForSelectedItems] lastObject];
         ProductViewController *destViewController = segue.destinationViewController;
         destViewController.product = [self.producthits objectAtIndex:indexPath.row];
+        destViewController.selected_refinements = self.selected_refinements;
+        destViewController.arrays = self.arrays;
         
     }
 }
@@ -1386,6 +1410,55 @@ NSLog(@"catching reason ");
 -(int) getRandomNumberBetweenMin:(int)min andMax:(int)max
 {
 	return ( (arc4random() % (max-min+1)) + min );
+}
+
+
+- (void)colorPressed:(id)sender
+{
+    
+    UIButton *colorButton = (UIButton *)sender;
+    int valueSelected = (int)colorButton.tag;
+    
+    NSString *colorValue = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:valueSelected];
+    
+    NSString *colorLabel = [[self.arrays objectForKey:@"Colour"] objectAtIndex:valueSelected];
+    
+    NSLog(@"Tag del boton presionado : %i %@ %@", (int)colorButton.tag, colorValue, colorLabel);
+    
+    
+    self.menuQuery = [NSString stringWithFormat:@"c_searchColor=%@",
+                      colorValue];
+    
+    
+    [self closeMenu:self.leftMenu];
+    
+    //[self loadingFromWeb : wsQuery :  @"Chelsea"];
+    
+    [self loadingFromWeb : self.menuQuery : self.searchQuery];
+    
+}
+
+- (void)sizePressed:(id)sender
+{
+    
+    UIButton *SizeButton = (UIButton *)sender;
+    int valueSelected = (int)SizeButton.tag;
+    
+    NSString *sizeValue = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:valueSelected];
+    
+    NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
+    
+    NSLog(@"Tag del boton presionado : %i %@ %@", (int)SizeButton.tag, sizeValue, sizeLabel);
+    
+    self.menuQuery = [NSString stringWithFormat:@"c_sizeSearchValue=%@",
+                      sizeValue];
+    
+    
+    [self closeMenu:self.leftMenu];
+    
+    //[self loadingFromWeb : wsQuery :  @"Chelsea"];
+    
+    [self loadingFromWeb : self.menuQuery : self.searchQuery];
 }
 
 @end

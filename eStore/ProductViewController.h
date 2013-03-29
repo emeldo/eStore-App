@@ -48,6 +48,8 @@
 
 
 @property (nonatomic, strong) Product *product;
+@property (nonatomic, strong) NSMutableDictionary *selected_refinements;
+@property (nonatomic, readwrite, retain) NSMutableDictionary *arrays;
 
 
 

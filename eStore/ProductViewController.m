@@ -25,6 +25,7 @@
 @property (strong, nonatomic) NSDictionary *eCommInfo;
 @property (strong, nonatomic) NSMutableArray *imagesByArticle;
 
+
 @property (nonatomic, strong) NSMutableDictionary *master;
 @property (nonatomic, strong) NSString *masterlink;
 
@@ -48,6 +49,8 @@
 @implementation ProductViewController
 
 @synthesize product;
+@synthesize arrays;
+@synthesize selected_refinements;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -84,8 +87,6 @@
     UIView *productView = (UIView *)[self.view viewWithTag:1];
     productView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
     
-    UIView *breadcumView = (UIView *)[self.view viewWithTag:2];
-    breadcumView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Bread_Crumbs_holder.png"]];
     
     UIImageView* img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_adidas_02.png"]];
     self.navigationItem.titleView = img;
@@ -95,6 +96,74 @@
     searchBar.showsSearchResultsButton = YES;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchBar];
     
+    
+    NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
+    NSMutableArray *arrayActiveFilters2 = [self.arrays objectForKey:@"Filters"];
+    
+    UIView *breadcumView = (UIView *)[self.view viewWithTag:2];
+    breadcumView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Bread_Crumbs_holder.png"]];
+    
+    UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 6, 100, 40)];
+    [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+    [breadcumLabel setText:@"Home"];
+    [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+    [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+    [breadcumView addSubview:breadcumLabel];
+    
+    
+    CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+    
+    UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+    [breadcumImage setFrame:CGRectMake(20 + textSize.width + 10, 10, 13, 36)];
+    [breadcumView addSubview:breadcumImage];
+    
+    
+    NSArray *keys = [self.selected_refinements allKeys];
+    
+    UIView *breadcumViewComplete = (UIView *)[self.view viewWithTag:2];
+    
+    int iteration = [self.selected_refinements count];
+    
+    breadcumView = nil;
+    
+    if(iteration == 1){
+        breadcumView = [[UIView alloc] init];
+        [breadcumView setTag:888];
+    }else{
+        breadcumView = (UIView *)[self.view viewWithTag:888];
+        [breadcumView removeFromSuperview];
+        breadcumView = [[UIView alloc] init];
+        [breadcumView setTag:888];
+    }
+    // values in foreach loop
+    int x = 100;
+    
+    for (NSString *key in keys) {
+        
+        [arrayActiveFilters addObject:key];
+        [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
+        
+        
+        UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+        
+        [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+        [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
+        [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+        [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [breadcumView addSubview:breadcumLabel];
+        
+        
+        CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+        
+        UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+        [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+        [breadcumView addSubview:breadcumImage];
+        
+        
+        x = x + textSize.width + 40;
+        
+    }
+    [breadcumViewComplete addSubview:breadcumView];
     
     
     [self loadingProductFromWeb:product.product_id];
@@ -256,7 +325,7 @@
     loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
 
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.frame = CGRectMake(403, 225, 10, 10);
+    indicator.frame = CGRectMake(499, 225, 10, 10);
     indicator.color = [UIColor darkGrayColor];
     [indicator startAnimating];
     [loadingView addSubview:indicator];
@@ -289,7 +358,7 @@
         self.masterlink = [self.master objectForKey:@"link"];
         self.variation_attributes = [mainDict objectForKey:@"variation_attributes"];
         
-        NSLog(@"atributos de variation %@",self.variation_attributes);
+        //NSLog(@"atributos de variation %@",self.variation_attributes);
         
         for(int i= 0; i < [self.variation_attributes count]; i++){
             NSDictionary *valueInformation = [self.variation_attributes objectAtIndex:i];
