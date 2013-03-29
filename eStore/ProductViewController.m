@@ -14,6 +14,7 @@
 #import "UIViewController+MJPopupViewController.h"
 #import "DYRateView.h"
 #import "Variant.h"
+#import "CatalogViewController.h"
 
 @interface ProductViewController ()
 @property (strong, nonatomic) NSString *eCommServer;
@@ -24,7 +25,6 @@
 @property (strong, nonatomic) NSArray *products;
 @property (strong, nonatomic) NSDictionary *eCommInfo;
 @property (strong, nonatomic) NSMutableArray *imagesByArticle;
-
 
 @property (nonatomic, strong) NSMutableDictionary *master;
 @property (nonatomic, strong) NSString *masterlink;
@@ -87,14 +87,8 @@
     UIView *productView = (UIView *)[self.view viewWithTag:1];
     productView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
     
-    
     UIImageView* img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_adidas_02.png"]];
     self.navigationItem.titleView = img;
-    
-    UISearchBar *searchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, 184, 27)];
-    searchBar.backgroundImage = [[UIImage alloc] init];
-    searchBar.showsSearchResultsButton = YES;
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:searchBar];
     
     
     NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
@@ -224,7 +218,7 @@
 }
 
 
-#pragma mark - UIScrollViewDelegate
+#pragma mark - ScrollView Delegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // Load the pages which are now on screen
@@ -420,8 +414,8 @@
         [self loadingOverviewtFromWeb : self.masterlink];
         
         
-        DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 0, 250, 20) fullStar:[UIImage imageNamed:@"StarFullLarge.png"] emptyStar:[UIImage imageNamed:@"StarEmptyLarge.png"]];
-        rateView.padding = 20;
+        DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 0, 150, 20) fullStar:[UIImage imageNamed:@"StarFull.png"] emptyStar:[UIImage imageNamed:@"StarEmpty.png"]];
+        rateView.padding = 5;
         rateView.rate = 3.3;
         rateView.alignment = RateViewAlignmentLeft;
         rateView.editable = YES;
@@ -517,7 +511,7 @@
         }
         
         
-        [self.webviewName loadHTMLString:[NSString stringWithFormat:@"<div align='justify' style='font-size:11px;font-family=helvetica;'>%@ <br> %@<div>",short_description,bullets_description] baseURL:nil];
+        [self.webviewName loadHTMLString:[NSString stringWithFormat:@"<div align='justify' style='font-size:15px;font-family='Trebuchet MS'';'>%@ <br> %@<div>",short_description,bullets_description] baseURL:nil];
         
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -531,7 +525,7 @@
 
 
 -(void)addButtonsSize{
-    int positionx = 0;
+    int positionx = 20;
     int positiony = 0;
     int counter = 0;
    
@@ -542,10 +536,12 @@
         NSString *nameSize = [sizeDict objectForKey:@"name"];
         
         UIButton *playButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        playButton.frame = CGRectMake(positionx, positiony, 43.0, 35.0);
+        playButton.frame = CGRectMake(positionx, positiony, 35.0, 26.0);
         [playButton setTitle:nameSize forState:UIControlStateNormal];
         playButton.backgroundColor = [UIColor clearColor];
-        [playButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+        [playButton setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+        playButton.titleLabel.font = [UIFont systemFontOfSize:13.0];
+        
         UIImage *buttonImageNormal = [UIImage imageNamed:@"size02_def.png"];
         UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
         [playButton setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
@@ -557,7 +553,7 @@
         counter++;
         if(counter >= 7){
             positiony = positiony + 40;
-            positionx = 0;
+            positionx = 20;
             counter = 0;
         }
         
@@ -619,7 +615,7 @@
                  }
                                completed:^(UIImage *imageView, NSError *error, SDImageCacheType cacheType, BOOL dummy)
                  {
-                     ListItem *item1 = [[ListItem alloc] initWithFrame:CGRectZero image:imageView text:nameColor text:productid];
+                     ListItem *item1 = [[ListItem alloc] initWithFrame:CGRectZero image:imageView text:nil text:productid];
                      [freeList addObject:item1];
                      //if([product_list count] == i){
                          [self.tableView reloadData];
@@ -642,7 +638,7 @@
 }
 
 //////////////////////////////////////////////////////////////////EMELDO
-#pragma mark TableView
+#pragma mark - TableView
 
 - (int)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -671,7 +667,7 @@
     if ([indexPath row] == 0) {
         // title = @"Colors";
         
-        list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 0.0, 300.0, 155.0) title:title items:freeList];
+        list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 0.0, 352.0, 155.0) title:title items:freeList];
     }
     
     [list setDelegate:self];
@@ -680,7 +676,7 @@
     return cell;
 }
 
-#pragma mark POHorizontalListDelegate
+#pragma mark - POHorizontalListDelegate
 
 - (void) didSelectItem:(ListItem *)item {
     NSLog(@"Horizontal List Item %@ selected %@", item.imageTitle, item.Product_id);

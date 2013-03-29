@@ -58,20 +58,6 @@
     [self.searchBar  setLeftViewMode:UITextFieldViewModeAlways];
 
     
-    //Setting Navigation Bar
-    
-    UIView *menuBar = [[UIView alloc] initWithFrame:CGRectMake(15, 5, 91, 33)];
-    menuBar.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"top_buttons_holder.png"]];
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:menuBar];
-
-    
-    UIImage *historyImage = [UIImage imageNamed:@"top_buttons_recent.png"];
-    UIButton *historyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    historyButton.frame = CGRectMake(5, 5, 22, 22);
-    [historyButton setBackgroundImage:historyImage forState:UIControlStateNormal];
-    
-    [menuBar addSubview:historyButton];
-    
     category = nil;
     self.searchBar.text = nil;
     
@@ -115,11 +101,6 @@
     } else {
         self.pageControl.numberOfPages = pageCount;
     }
-    
-    
-    // Change Collection View
-    CGPoint offset = CGPointMake(2 * self.collectionView.frame.size.width, 0);
-    [self.collectionView setContentOffset:offset animated:YES];
 
 }
 
@@ -143,14 +124,13 @@
         
         destViewController.product = product;
         
-    }else{
-
-    
-    CatalogViewController *catalogViewController = [segue destinationViewController];
-    catalogViewController.menuQuery = category;
-    catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    catalogViewController.managedObjectContext = self.managedObjectContext;
-    self.searchBar.text = nil;
+    } else {
+        
+        CatalogViewController *catalogViewController = [segue destinationViewController];
+        catalogViewController.menuQuery = category;
+        catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        catalogViewController.managedObjectContext = self.managedObjectContext;
+        self.searchBar.text = nil;
     }
 }
 
