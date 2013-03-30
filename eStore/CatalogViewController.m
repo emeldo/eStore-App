@@ -356,7 +356,6 @@
 
 -(void)loadingFromWeb : (NSString *)wsString : (NSString *)wsquery
 {
-    NSLog(@" %@",wsString);
     //Show Loading View
     UIView *loadingView = (UIView *)[self.view viewWithTag:10];
    
@@ -370,7 +369,6 @@
     
     if([self.arrays count] >0){
         [self.arrays removeAllObjects];
-        //  self.arrays = [NSMutableDictionary dictionary];
     }else{
         self.arrays = [[NSMutableDictionary alloc] init];
     }
@@ -387,18 +385,18 @@
     
     
     NSMutableString  *wsRefines = [[NSMutableString alloc] init];
-    BOOL isFirst = YES;
+    BOOL isNoFirst = YES;
     
-    NSLog(@"LOg %i",[self.selected_refinements count]);
+    NSLog(@"Product Hits actual %i",[self.producthits count]);
     
     if([self.selected_refinements count]>0){
         NSInteger valor = [self.selected_refinements count]+1;
         //NSLog(@"LOg %i",valor);
         wsRefines  = [NSMutableString stringWithFormat:@"refine_%i=%@",valor,wsString];
-        isFirst = YES;
+        isNoFirst = YES;
     }else{
         wsRefines  = [NSMutableString stringWithFormat:@"refine_1=%@",wsString];
-        isFirst = NO;
+        isNoFirst = NO;
     }
     
     
@@ -406,7 +404,7 @@
     
     
     
-    if(isFirst){
+    if(isNoFirst){
         NSArray *keys = [self.selected_refinements allKeys];
         int i = 1;
         for (NSString *key in keys) {
@@ -418,17 +416,21 @@
             // }
             
         }
-        filters = [NSString stringWithFormat:@"%@%@",filters,wsRefines];
-        
+        if(wsString != nil){
+            
+        filters = [NSString stringWithFormat:@"%@%@",filters,[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
         
     }else{
-        filters = wsRefines;
+        if(wsString != nil){
+        filters = [NSString stringWithFormat:@"%@",[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        }
     }
     
-     NSLog(@" %@",filters);
+     //NSLog(@" %@",filters);
     
     NSString  *wsStringQuery = [[NSString alloc] init];
-    if (!(wsquery == nil) && !(wsString ==nil) ){
+    if (!(wsquery == nil) && !(wsString == nil) ){
         
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=30&expand=prices,images", filters, wsquery];
         
@@ -956,7 +958,7 @@
                         //NSLog(@"catching reason");
                     }
                     @finally {
-                        NSLog(@"finally");
+                      //  NSLog(@"finally");
                     }
                     
                     @try {
@@ -1029,9 +1031,17 @@
     
     }else if(tableView == self.selectionTableView){
         UILabel *filters = (UILabel *)[cell viewWithTag:13];
+        UILabel *filterName = (UILabel *)[cell viewWithTag:14];
+        UIImageView *filterImageView = (UIImageView *)[cell viewWithTag:15];
         filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
 ;
-        // NSLog(@"%i indexPath.row",indexPath.row);
+        filterName.text = [[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row];
+        
+        if([filterName.text isEqualToString:@"cgid"]){
+            filterImageView.hidden = YES;
+        }
+        
+        NSLog(@" indexPath.row %@ %@ ",filters.text,filterName.text);
     
     }else{
         
@@ -1234,6 +1244,35 @@
             }
             
         }
+        
+    }else if(tableView == self.selectionTableView){
+        //UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+        UITableViewCell *cellSelected = [tableView cellForRowAtIndexPath:indexPath];
+        //UILabel *refine1 = (UILabel *)[cellSelected viewWithTag:13];
+        UILabel *refine2 = (UILabel *)[cellSelected viewWithTag:14];
+        
+        NSMutableDictionary *SinFiltro = [[NSMutableDictionary alloc] init];
+        NSArray *keys = [self.selected_refinements allKeys];
+      
+        for (NSString *key in keys) {
+            if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
+            NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+            //[self.selected_refinements removeObjectForKey:key];
+            }else{
+                [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];
+            }
+            
+        }
+        
+        [self.producthits  removeAllObjects];
+        
+        [self closeMenu:self.leftMenu];
+        
+        self.selected_refinements = SinFiltro;
+        NSLog(@" %@ ",self.selected_refinements);
+        
+        [self loadingFromWeb :nil : self.searchQuery];
+    
     }
     
 }
@@ -1421,19 +1460,11 @@
     
     NSString *colorValue = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:valueSelected];
     
-    NSString *colorLabel = [[self.arrays objectForKey:@"Colour"] objectAtIndex:valueSelected];
-    
-    NSLog(@"Tag del boton presionado : %i %@ %@", (int)colorButton.tag, colorValue, colorLabel);
-    
-    
     self.menuQuery = [NSString stringWithFormat:@"c_searchColor=%@",
                       colorValue];
     
-    
     [self closeMenu:self.leftMenu];
-    
-    //[self loadingFromWeb : wsQuery :  @"Chelsea"];
-    
+    [self.producthits removeAllObjects];
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
     
 }
@@ -1456,7 +1487,7 @@
     
     [self closeMenu:self.leftMenu];
     
-    //[self loadingFromWeb : wsQuery :  @"Chelsea"];
+    [self.producthits removeAllObjects];
     
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
 }
