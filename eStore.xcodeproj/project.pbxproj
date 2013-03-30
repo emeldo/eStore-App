@@ -442,6 +442,7 @@
 		3B6D443616F938F4001D99D2 /* Modal */ = {
 			isa = PBXGroup;
 			children = (
+				3BFB800D16F74FCF00964FF2 /* Source */,
 				3BFB7FDF16F74FB400964FF2 /* MJDetailViewController.h */,
 				3BFB7FE016F74FB400964FF2 /* MJDetailViewController.m */,
 				3BFB7FE116F74FB400964FF2 /* MJDetailViewController.xib */,
@@ -541,10 +542,10 @@
 		3BFB7FB116F74F7300964FF2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3B6D443616F938F4001D99D2 /* Modal */,
 				84A50C9916FEC4C900BC4943 /* CoreDataHelper */,
 				3BFB805116F750A700964FF2 /* AFNetworking */,
 				3BFB7FF716F74FCF00964FF2 /* SDWebImage */,
-				3BFB800D16F74FCF00964FF2 /* Source */,
 				3BFB7FE216F74FB400964FF2 /* POHorizontalList */,
 				3BFB7FC616F74F9200964FF2 /* DYRateView */,
 			);
@@ -671,7 +672,6 @@
 		84132FD616F6325800C295C0 /* eStore */ = {
 			isa = PBXGroup;
 			children = (
-				3B6D443616F938F4001D99D2 /* Modal */,
 				3BFB7FB116F74F7300964FF2 /* Libraries */,
 				3BFB7FAC16F74E3A00964FF2 /* Models */,
 				84132FDF16F6325900C295C0 /* AppDelegate.h */,

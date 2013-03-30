@@ -81,7 +81,6 @@
 {
     self.products = [CoreDataHelper getObjectsForEntity:@"Products" withSortKey:@"sortDate" andSortAscending:NO andContext:self.managedObjectContext];
 
-    
     // Set up the page control
     NSInteger pageCount;
     
@@ -102,6 +101,8 @@
         self.pageControl.numberOfPages = pageCount;
     }
 
+    [self.collectionView reloadData];
+    
 }
 
 
@@ -234,6 +235,26 @@
     return cell;
     
  }
+
+
+#pragma mark - Collection View Delegate
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Products *product = [self.products objectAtIndex:indexPath.row];
+    
+    
+    // Saving data in Core Data for historcial use
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(identifier == %@)", product.identifier];
+    NSMutableArray *products = [CoreDataHelper searchObjectsForEntity:@"Products" withPredicate:predicate andSortKey:@"sortDate" andSortAscending:YES andContext:self.managedObjectContext];
+    
+    Products *productToUpdate = nil;
+    productToUpdate = [products objectAtIndex:0];
+    
+    productToUpdate.sortDate = [NSDate date];
+    [self.managedObjectContext save:nil];
+    
+}
 
 
 #pragma mark - Scroll View Delegate

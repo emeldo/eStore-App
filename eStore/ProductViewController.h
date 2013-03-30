@@ -12,47 +12,28 @@
 #import "DYRateView.h"
 
 @interface ProductViewController : UIViewController <UIScrollViewDelegate,UITableViewDelegate, UITableViewDataSource, POHorizontalListDelegate, DYRateViewDelegate>
-{
-    NSMutableArray *itemArray;
-    
-    NSMutableArray *freeList;
-    NSMutableArray *paidList;
-    NSMutableArray *grossingList;
-}
-
-
 
 
 @property (weak, nonatomic) IBOutlet UILabel *productNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *productIDLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currencyLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *productColor;
 
-@property (weak, nonatomic) IBOutlet UILabel *product_idLabel; // name of product_id
-@property (weak, nonatomic) IBOutlet UILabel *linklabel; // link
-@property (weak, nonatomic) IBOutlet UILabel *imagelabel; // image link
-@property (weak, nonatomic) IBOutlet UILabel *currencylabel; // currency
-@property (weak, nonatomic) IBOutlet UILabel *pricelabel; // price
-@property (weak, nonatomic) IBOutlet UILabel *product_color; // color
-@property (nonatomic, retain) IBOutlet UITextView *textView;// overview
-
-@property (nonatomic, retain) IBOutlet UIWebView *webviewName;
+@property (strong, nonatomic) IBOutlet UIWebView *webviewName;
 
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView; //scrollview
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollViewSize; //scrollview
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;     //Product Images
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollViewSize; //Sizes
 
 @property (strong, nonatomic) IBOutlet UIImageView *productImage;
-@property (nonatomic, retain) IBOutlet UITableView *tableView;// VISTA HORIZONTAL
-@property (nonatomic, retain) IBOutlet UIView *rateView;// rate
-
-@property (strong, nonatomic) IBOutlet UIButton *mybutton;
-
+@property (strong, nonatomic) IBOutlet UITableView *tableView;      //Other Colors
+@property (strong, nonatomic) IBOutlet UIView *rateView;
 
 
 @property (nonatomic, strong) Product *product;
 @property (nonatomic, strong) NSMutableDictionary *selected_refinements;
-@property (nonatomic, readwrite, retain) NSMutableDictionary *arrays;
-
-
-
+@property (nonatomic, strong) NSMutableDictionary *arrays;
 
 
 @end
