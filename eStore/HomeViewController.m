@@ -16,6 +16,7 @@
 
 @interface HomeViewController () {
     NSString *category;
+    NSString *categoryName;
 }
 
 @property (strong, nonatomic) NSArray *products;
@@ -59,6 +60,7 @@
 
     
     category = nil;
+    categoryName = nil;
     self.searchBar.text = nil;
     
 }
@@ -127,11 +129,14 @@
         
     } else {
         
+        //NSLog(@"SELECT %@ %@",[self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],category);
         CatalogViewController *catalogViewController = [segue destinationViewController];
         catalogViewController.menuQuery = category;
+        catalogViewController.titleQuery = categoryName;
         catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         catalogViewController.managedObjectContext = self.managedObjectContext;
         self.searchBar.text = nil;
+        category = nil;
     }
 }
 
@@ -146,15 +151,20 @@
     switch (buttonTag) {
         case 1:
             category = @"cgid=men";
+            categoryName = @"Men";
             [self performSegueWithIdentifier:@"Catalog" sender:nil];
             break;
             
         case 2:
             category = @"cgid=women";
+            categoryName = @"Women";
+            [self performSegueWithIdentifier:@"Catalog" sender:nil];
             break;
             
         case 3:
             category = @"cgid=kids";
+            categoryName = @"Kids";
+            [self performSegueWithIdentifier:@"Catalog" sender:nil];
             break;
     }
 
@@ -269,21 +279,6 @@
 }
 
 
-#pragma mark - DYRateView Delegate
-
-- (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate {
-    
-}
-
-- (void)setUpEditableRateView {
-    DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 40, self.view.bounds.size.width, 20) fullStar:[UIImage imageNamed:@"StarFullLarge.png"] emptyStar:[UIImage imageNamed:@"StarEmptyLarge.png"]];
-    rateView.padding = 20;
-    rateView.alignment = RateViewAlignmentCenter;
-    rateView.editable = YES;
-    rateView.delegate = self;
-    [self.view addSubview:rateView];
-    
-}
 
 -(int) getRandomNumberBetweenMin:(int)min andMax:(int)max
 {

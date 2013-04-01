@@ -155,18 +155,7 @@
     self.filterLabels = [[NSArray alloc] initWithObjects: @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size", @"Filters", nil];
     
     
-    
-    
-    //  NSString *wscategorySelected = [[NSString alloc] init];
-    
-    //NSString *wsQuery = [[NSString alloc] init];
-    
     self.producthits = [[NSMutableArray alloc] init];
-    //wsQuery = nil;
-    
-    //wscategorySelected = [self.mainCategory lowercaseString];
-    
-    //[self loadingFromWeb : @"cgid=kids" : wsQuery];
     
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
     
@@ -197,7 +186,7 @@
         self.productTableView.hidden = YES;
         self.collectionView.hidden = NO;
     }
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -261,7 +250,7 @@
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
     }
-
+    
 }
 
 #pragma mark - Lateral Menu Methods
@@ -358,7 +347,7 @@
 {
     //Show Loading View
     UIView *loadingView = (UIView *)[self.view viewWithTag:10];
-   
+    
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
     indicator.frame = CGRectMake(403, 225, 10, 10);
     indicator.color = [UIColor darkGrayColor];
@@ -387,7 +376,7 @@
     NSMutableString  *wsRefines = [[NSMutableString alloc] init];
     BOOL isNoFirst = YES;
     
-    NSLog(@"Product Hits actual %i",[self.producthits count]);
+    //NSLog(@"Product Hits actual %i",[self.producthits count]);
     
     if([self.selected_refinements count]>0){
         NSInteger valor = [self.selected_refinements count]+1;
@@ -418,16 +407,16 @@
         }
         if(wsString != nil){
             
-        filters = [NSString stringWithFormat:@"%@%@",filters,[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            filters = [NSString stringWithFormat:@"%@%@",filters,[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
         
     }else{
         if(wsString != nil){
-        filters = [NSString stringWithFormat:@"%@",[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            filters = [NSString stringWithFormat:@"%@",[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
     }
     
-     //NSLog(@" %@",filters);
+    //NSLog(@" %@",filters);
     
     NSString  *wsStringQuery = [[NSString alloc] init];
     if (!(wsquery == nil) && !(wsString == nil) ){
@@ -472,19 +461,20 @@
         
         UIView *breadcumViewComplete = (UIView *)[self.view viewWithTag:2];
         
-        int iteration = [self.selected_refinements count];
+        //int iteration = [self.selected_refinements count];
         
         UIView *breadcumView = nil;
         
-        if(iteration == 1){
-            breadcumView = [[UIView alloc] init];
-            [breadcumView setTag:888];
-        }else{
-            breadcumView = (UIView *)[self.view viewWithTag:888];
-            [breadcumView removeFromSuperview];
-            breadcumView = [[UIView alloc] init];
-            [breadcumView setTag:888];
-        }
+        //if(iteration == 1 && wsquery != nil){
+        //    breadcumView = [[UIView alloc] init];
+        //   [breadcumView setTag:888];
+        //}else{
+        breadcumView = (UIView *)[self.view viewWithTag:888];
+        [breadcumView removeFromSuperview];
+        breadcumView = [[UIView alloc] init];
+        [breadcumView setTag:888];
+        //}
+        
         // values in foreach loop
         int x = 100;
         
@@ -493,6 +483,7 @@
             [arrayActiveFilters addObject:key];
             [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
             
+            NSLog(@"KEY %@",[self.selected_refinements objectForKey:key]);
             
             UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
             
@@ -514,7 +505,7 @@
             
         }
         [breadcumViewComplete addSubview:breadcumView];
-
+        
         
         for (int k=0; k< self.refinementsValues.count; k++) {
             NSDictionary *TypeRefinement = [self.refinementsValues objectAtIndex:k];
@@ -684,15 +675,15 @@
             if ([expandedSections containsIndex:section])
             {
                 NSString *SubCategoryLabel = [self.filterCategories objectAtIndex:section];
-                 NSMutableArray *arrayInfoDisplay = [self.arrays objectForKey:SubCategoryLabel];
-                 int valortotal = [arrayInfoDisplay count]+1;
+                NSMutableArray *arrayInfoDisplay = [self.arrays objectForKey:SubCategoryLabel];
+                int valortotal = [arrayInfoDisplay count]+1;
                 if([SubCategoryLabel isEqualToString:@"c_searchColor"]
                    || [SubCategoryLabel isEqualToString:@"c_sizeSearchValue"]){
                     float x = [arrayInfoDisplay count]/4;
                     valortotal = (int)x;
                     valortotal = valortotal + 1;
                 }else{
-                  valortotal = [arrayInfoDisplay count]+1;
+                    valortotal = [arrayInfoDisplay count]+1;
                 }
                 return valortotal;
             }
@@ -722,15 +713,15 @@
         }
         
         if (indexPath.row){
-         NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
-        
-            NSLog(@" NTYPE %@",SubCategoryInfoValue);
-         if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
-             cellIdentifier = @"ColourCell";
-                       
-         }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
-             cellIdentifier = @"SizeCell";
-         }
+            NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
+            
+            //NSLog(@" NTYPE %@",SubCategoryInfoValue);
+            if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
+                cellIdentifier = @"ColourCell";
+                
+            }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
+                cellIdentifier = @"SizeCell";
+            }
         }
         
     } else if(tableView == self.selectionTableView) {
@@ -763,7 +754,11 @@
                 
                 switch (indexPath.section) {
                     case 2:
-                        categoryName.text = @"Men";
+                        if(self.titleQuery != nil){
+                            categoryName.text = self.titleQuery;
+                        }else{
+                            categoryName.text = @"Category";
+                        }
                         break;
                     default:
                         categoryName.text = CategoryLabel;
@@ -783,78 +778,78 @@
                     UIButton *color2 = (UIButton *)[cell viewWithTag:21];
                     UIButton *color3 = (UIButton *)[cell viewWithTag:22];
                     UIButton *color4 = (UIButton *)[cell viewWithTag:23];
-                   
-                        NSString  *col1, *col2, *col3,*col4 = nil;
-                          int N1,N2,N3,N4 = 0;
                     
-                        //NSLog(@"i-> %i",indexPath.row);
-                        if(indexPath.row == 1){
-                            N1 = 0;
-                            N2 = 1;
-                            N3 = 2;
-                            N4 = 3;
-                        }else{
-                            N1 = indexPath.row * 4 - 4;
-                            N2 = indexPath.row * 4 - 3;
-                            N3 = indexPath.row * 4 - 2;
-                            N4 = indexPath.row * 4 - 1;
-                        }
+                    NSString  *col1, *col2, *col3,*col4 = nil;
+                    int N1,N2,N3,N4 = 0;
                     
-                        @try {
-                            //NSLog(@"trying...");
-                            col1 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N1];
-                        }
-                        @catch (NSException * e) {
-                            //NSLog(@"catching reason");
-                            col1 = nil;
-                        }
-                        @finally {
-                           // NSLog(@"finally");
-                        }
-                        
-                        @try {
-                            //NSLog(@"trying...");
-                            col2 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N2];
-                        }
-                        @catch (NSException * e) {
-                            //NSLog(@"catching reason");
-                            col2 = nil;
-                        }
-                        @finally {
-                           // NSLog(@"finally");
-                        }
-                        
-                        @try {
-                            //NSLog(@"trying...");
-                            col3 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N3];
-                        }
-                        @catch (NSException * e) {
-                            col3 = nil;
-                            //NSLog(@"catching reason");
-                        }
-                        @finally {
-                           // NSLog(@"finally");
-                        }
-                        
-                        @try {
-                            //NSLog(@"trying...");
-                            col4 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N4];
-                        }
-                        @catch (NSException * e) {
-                            //                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
-                            //NSLog(@"catching reason ");
-                            col4 = nil;
-                        }
-                        @finally {
-                          //  NSLog(@"finally");
-                        }
+                    //NSLog(@"i-> %i",indexPath.row);
+                    if(indexPath.row == 1){
+                        N1 = 0;
+                        N2 = 1;
+                        N3 = 2;
+                        N4 = 3;
+                    }else{
+                        N1 = indexPath.row * 4 - 4;
+                        N2 = indexPath.row * 4 - 3;
+                        N3 = indexPath.row * 4 - 2;
+                        N4 = indexPath.row * 4 - 1;
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col1 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N1];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col1 = nil;
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col2 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N2];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col2 = nil;
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col3 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N3];
+                    }
+                    @catch (NSException * e) {
+                        col3 = nil;
+                        //NSLog(@"catching reason");
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col4 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N4];
+                    }
+                    @catch (NSException * e) {
+                        //                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                        //NSLog(@"catching reason ");
+                        col4 = nil;
+                    }
+                    @finally {
+                        //  NSLog(@"finally");
+                    }
                     
                     
-                     NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
-                     NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
-                                       
-
-                  
+                    NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+                    NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    
+                    
+                    
                     [color1 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
                     [color2 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
                     [color3 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -871,14 +866,14 @@
                     UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
                     [color1 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
                     
-                   
+                    
                     color2.backgroundColor = [UIColor clearColor];
                     [color2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
                     UIImage *buttonImageNormal2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col2]];
                     strechableButtonImageNormal = [buttonImageNormal2 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
                     [color2 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
                     
-                   
+                    
                     color3.backgroundColor = [UIColor clearColor];
                     [color3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
                     UIImage *buttonImageNormal3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col3]];
@@ -893,7 +888,7 @@
                     [color4 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
                     
                     
-                   
+                    
                     
                     
                 }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
@@ -934,7 +929,7 @@
                         col1 = nil;
                     }
                     @finally {
-                       // NSLog(@"finally");
+                        // NSLog(@"finally");
                     }
                     
                     @try {
@@ -946,7 +941,7 @@
                         col2 = nil;
                     }
                     @finally {
-                       // NSLog(@"finally");
+                        // NSLog(@"finally");
                     }
                     
                     @try {
@@ -958,14 +953,14 @@
                         //NSLog(@"catching reason");
                     }
                     @finally {
-                      //  NSLog(@"finally");
+                        //  NSLog(@"finally");
                     }
                     
                     @try {
                         col4 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N4];
                     }
                     @catch (NSException * e) {
-                       // NSLog(@"catching reason ");
+                        // NSLog(@"catching reason ");
                         col4 = nil;
                     }
                     @finally {
@@ -978,10 +973,10 @@
                     button2.tag = N2;
                     button3.tag = N3;
                     button4.tag = N4;
-
+                    
                     
                     [button1 setTitle:col1 forState:UIControlStateNormal];
-                     button1.backgroundColor = [UIColor clearColor];
+                    button1.backgroundColor = [UIColor clearColor];
                     [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                     
                     
@@ -992,37 +987,37 @@
                     [button3 setTitle:col3 forState:UIControlStateNormal];
                     button3.backgroundColor = [UIColor clearColor];
                     [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-
+                    
                     [button4 setTitle:col4 forState:UIControlStateNormal];
                     button4.backgroundColor = [UIColor clearColor];
                     [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
                     
-
                     
-                
+                    
+                    
                 }else{
-                
+                    
                     UILabel *subCategoryName = (UILabel *)[cell viewWithTag:7];
                     UILabel *subCategoryValue = (UILabel *)[cell viewWithTag:8];
- 
                     
-                 if(![SubCategoryLabel isEqualToString: @"Filters"]){
-                if (indexPath.row == 0) {
                     
-                    subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row];
                     if(![SubCategoryLabel isEqualToString: @"Filters"]){
-                        subCategoryValue.text = [[self.arrays objectForKey:SubCategoryInfoValue] objectAtIndex:indexPath.row];
-                        
-                    }
-                    subCategoryValue.hidden = true;
-                } else {
-                    subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row-1];
-                    if(![SubCategoryLabel isEqualToString: @"Filters"]){
-                        subCategoryValue.text = [[self.arrays objectForKey:SubCategoryInfoValue] objectAtIndex:indexPath.row-1];
-                    }
-                    subCategoryValue.hidden = true;
-                }
-                }// quitando filters
+                        if (indexPath.row == 0) {
+                            
+                            subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row];
+                            if(![SubCategoryLabel isEqualToString: @"Filters"]){
+                                subCategoryValue.text = [[self.arrays objectForKey:SubCategoryInfoValue] objectAtIndex:indexPath.row];
+                                
+                            }
+                            subCategoryValue.hidden = true;
+                        } else {
+                            subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row-1];
+                            if(![SubCategoryLabel isEqualToString: @"Filters"]){
+                                subCategoryValue.text = [[self.arrays objectForKey:SubCategoryInfoValue] objectAtIndex:indexPath.row-1];
+                            }
+                            subCategoryValue.hidden = true;
+                        }
+                    }// quitando filters
                     
                 }
             }
@@ -1032,13 +1027,12 @@
             cell.accessoryView = nil;
             cell.textLabel.text = @"Normal Cell";
         }
-    
+        
     }else if(tableView == self.selectionTableView){
         UILabel *filters = (UILabel *)[cell viewWithTag:13];
         UILabel *filterName = (UILabel *)[cell viewWithTag:14];
         UIImageView *filterImageView = (UIImageView *)[cell viewWithTag:15];
         filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
-;
         filterName.text = [[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row];
         
         if([filterName.text isEqualToString:@"cgid"]){
@@ -1046,7 +1040,7 @@
         }
         
         //NSLog(@" indexPath.row %@ %@ ",filters.text,filterName.text);
-    
+        
     }else{
         
         UILabel *ProductName = (UILabel *)[cell viewWithTag:203];
@@ -1117,8 +1111,6 @@
             UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
             cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
             
-        } else {
-            //cell.backgroundColor = [UIColor lightGrayColor];
         }
     }
 }
@@ -1238,10 +1230,7 @@
                                   categoryType, subCategoryValueSelected.text];
                 
                 [self.producthits  removeAllObjects];
-                
                 [self closeMenu:self.leftMenu];
-                
-                //[self loadingFromWeb : wsQuery :  @"Chelsea"];
                 
                 [self loadingFromWeb : self.menuQuery : self.searchQuery];
                 
@@ -1257,11 +1246,11 @@
         
         NSMutableDictionary *SinFiltro = [[NSMutableDictionary alloc] init];
         NSArray *keys = [self.selected_refinements allKeys];
-      
+        
         for (NSString *key in keys) {
             if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
-            NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
-            //[self.selected_refinements removeObjectForKey:key];
+                //NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+                //[self.selected_refinements removeObjectForKey:key];
             }else{
                 [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];
             }
@@ -1273,10 +1262,10 @@
         [self closeMenu:self.leftMenu];
         
         self.selected_refinements = SinFiltro;
-        NSLog(@" %@ ",self.selected_refinements);
+        //NSLog(@" %@ ",self.selected_refinements);
         
         [self loadingFromWeb :nil : self.searchQuery];
-    
+        
     }
     
 }
@@ -1493,6 +1482,27 @@
     
     [self.producthits removeAllObjects];
     
+    [self loadingFromWeb : self.menuQuery : self.searchQuery];
+}
+
+- (IBAction)CleanAllPressed:(id)sender
+{
+   
+    [self closeMenu:self.leftMenu];
+    
+    [self.producthits removeAllObjects];
+    
+    NSArray *keys = [self.selected_refinements allKeys];
+    self.menuQuery = nil;
+    for (NSString *key in keys) {
+        if([key isEqualToString: @"cgid"]){
+            self.menuQuery = [NSMutableString stringWithFormat:@"%@=%@",key, [self.selected_refinements objectForKey:key]];
+            NSLog(@"refine %@ %@",key, [self.selected_refinements objectForKey:key]);
+            }
+        
+    }
+    NSLog(@"NEW QUERY %@",self.menuQuery);
+    self.selected_refinements = nil;
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
 }
 

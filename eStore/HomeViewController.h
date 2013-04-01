@@ -7,9 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DYRateView.h"
 
-@interface HomeViewController : UIViewController <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelegate, UIScrollViewDelegate>
+@interface HomeViewController : UIViewController <UITextFieldDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITextField *searchBar;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

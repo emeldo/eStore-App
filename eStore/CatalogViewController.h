@@ -22,6 +22,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSString *searchQuery;
 @property (strong, nonatomic) NSString *menuQuery;
+@property (strong, nonatomic) NSString *titleQuery;
 
 @property (strong, nonatomic) IBOutlet UILabel *bread;
 @property (strong, nonatomic) UILabel *rateLabel;
@@ -29,5 +30,6 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 
 - (IBAction)hideAndUnhide:(id)sender;
 - (IBAction)changeViews:(id)sender;
+- (IBAction)CleanAllPressed:(id)sender;
 
 @end
