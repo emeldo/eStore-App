@@ -724,6 +724,7 @@
         if (indexPath.row){
          NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
         
+            NSLog(@" NTYPE %@",SubCategoryInfoValue);
          if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
              cellIdentifier = @"ColourCell";
                        
@@ -772,8 +773,6 @@
             }
             else
             {
-                UILabel *subCategoryName = (UILabel *)[cell viewWithTag:7];
-                UILabel *subCategoryValue = (UILabel *)[cell viewWithTag:8];
                 
                 NSString *SubCategoryLabel = [self.filterLabels objectAtIndex:indexPath.section];
                 NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
@@ -849,9 +848,10 @@
                         @finally {
                           //  NSLog(@"finally");
                         }
-                       //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
-
-                       //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    
+                    
+                     NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+                     NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
                                        
 
                   
@@ -1001,6 +1001,10 @@
                     
                 
                 }else{
+                
+                    UILabel *subCategoryName = (UILabel *)[cell viewWithTag:7];
+                    UILabel *subCategoryValue = (UILabel *)[cell viewWithTag:8];
+ 
                     
                  if(![SubCategoryLabel isEqualToString: @"Filters"]){
                 if (indexPath.row == 0) {
@@ -1041,7 +1045,7 @@
             filterImageView.hidden = YES;
         }
         
-        NSLog(@" indexPath.row %@ %@ ",filters.text,filterName.text);
+        //NSLog(@" indexPath.row %@ %@ ",filters.text,filterName.text);
     
     }else{
         
