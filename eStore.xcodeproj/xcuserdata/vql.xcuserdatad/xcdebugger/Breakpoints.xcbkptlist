@@ -86,12 +86,51 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eStore/CatalogViewController.m"
-         timestampString = "386544414.462966"
+         timestampString = "386556392.746473"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1492"
-         endingLineNumber = "1492"
+         startingLineNumber = "1497"
+         endingLineNumber = "1497"
          landmarkName = "-CleanAllPressed:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eStore/CatalogViewController.m"
+         timestampString = "386556392.746473"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "1250"
+         endingLineNumber = "1250"
+         landmarkName = "-tableView:didSelectRowAtIndexPath:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eStore/CatalogViewController.m"
+         timestampString = "386556967.525641"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "349"
+         endingLineNumber = "349"
+         landmarkName = "-loadingFromWeb::"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eStore/CatalogViewController.m"
+         timestampString = "386557100.21159"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "392"
+         endingLineNumber = "392"
+         landmarkName = "-loadingFromWeb::"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

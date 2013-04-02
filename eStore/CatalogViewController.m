@@ -381,10 +381,10 @@
     if([self.selected_refinements count]>0){
         NSInteger valor = [self.selected_refinements count]+1;
         //NSLog(@"LOg %i",valor);
-        wsRefines  = [NSMutableString stringWithFormat:@"refine_%i=%@",valor,wsString];
+        wsRefines  = [NSMutableString stringWithFormat:@"refine_%i=%@",valor,[wsString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         isNoFirst = YES;
     }else{
-        wsRefines  = [NSMutableString stringWithFormat:@"refine_1=%@",wsString];
+        wsRefines  = [NSMutableString stringWithFormat:@"refine_1=%@",[wsString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         isNoFirst = NO;
     }
     
@@ -416,14 +416,14 @@
         }
     }
     
-    //NSLog(@" %@",filters);
+    NSLog(@"filters %@",filters);
     
     NSString  *wsStringQuery = [[NSString alloc] init];
     if (!(wsquery == nil) && !(wsString == nil) ){
         
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=30&expand=prices,images", filters, wsquery];
         
-    }else if(wsquery == nil){
+    }else if(wsquery == nil && filters != nil){
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&start=1&count=30&expand=prices,images", filters];
     }else{
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&q=%@&start=1&count=30&expand=images,prices", wsquery];
@@ -1035,11 +1035,14 @@
         filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
         filterName.text = [[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row];
         
+        NSLog(@" %@ %@ ",filters.text,filterName.text);
+        
         if([filterName.text isEqualToString:@"cgid"]){
             filterImageView.hidden = YES;
+        }else{
+            filterImageView.hidden = NO;
         }
         
-        //NSLog(@" indexPath.row %@ %@ ",filters.text,filterName.text);
         
     }else{
         
@@ -1248,8 +1251,9 @@
         NSArray *keys = [self.selected_refinements allKeys];
         
         for (NSString *key in keys) {
+            NSLog(@"%@ >>>>>>> %@ %@",key, refine2.text, [self.selected_refinements objectForKey:key]);
             if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
-                //NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+                NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
                 //[self.selected_refinements removeObjectForKey:key];
             }else{
                 [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];
@@ -1262,7 +1266,8 @@
         [self closeMenu:self.leftMenu];
         
         self.selected_refinements = SinFiltro;
-        //NSLog(@" %@ ",self.selected_refinements);
+        
+        NSLog(@" %@ ",self.selected_refinements);
         
         [self loadingFromWeb :nil : self.searchQuery];
         
