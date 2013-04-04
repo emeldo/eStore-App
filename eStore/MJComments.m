@@ -8,31 +8,21 @@
 
 #import "MJComments.h"
 
-@interface MJComments ()
-
-@end
-
 @implementation MJComments
+@synthesize Commenthits;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    //Setting Main Background
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_sett_body.png"]];
+    
+    //Setting Navigation Bar
+    //UIImageView* img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_adidas_02.png"]];
+    //self.navigationItem.titleView = img;
+    
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface MJComments : UIViewController
 
+@property (nonatomic, strong) NSMutableArray  *Commenthits;
+
 @end

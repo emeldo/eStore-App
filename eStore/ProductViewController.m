@@ -12,7 +12,9 @@
 #import "UIImageView+WebCache.h"
 #import "DYRateView.h"
 #import "Variant.h"
+#import "Comments.h"
 #import "CatalogViewController.h"
+#import "CommentsViewController.h"
 
 @interface ProductViewController () {
     NSMutableArray *itemArray;
@@ -37,6 +39,8 @@
 @property (strong, nonatomic) NSMutableArray *imageslow;
 @property (strong, nonatomic) NSMutableArray *imageshigh;
 @property (assign, nonatomic) BOOL noImage;
+
+@property (nonatomic, strong) NSMutableArray  *Commenthits;
 
 @end
 
@@ -145,10 +149,23 @@
     
     [breadcumViewComplete addSubview:breadcumView];
     
-    
+    self.Commenthits = [[NSMutableArray alloc] init];
+
     //Loading Overview and Color Information
     [self loadingProductFromWeb:product.product_id];
+    [self loadingCommentProductFromWeb:product.product_id];
+
+      [self.mybuttonComments addTarget:self action:@selector(myButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
     
+}
+
+
+- (void)myButtonClick:(id)sender {
+    NSLog(@"Clicked");
+    //MJComments *mjViewController = [[MJComments alloc] initWithNibName:@"MJComments" bundle:nil];
+    //mjViewController.Commenthits = self.Commenthits;
+    
+    //[self presentPopupViewController:mjViewController animationType:0];
 }
 
 
@@ -160,7 +177,7 @@
 
 
 - (void)loadScrollView {
-    NSLog(@"pageimage %i - images %i ",[self.pageImages count],[self.imagesByArticle count]);
+    //NSLog(@"pageimage %i - images %i ",[self.pageImages count],[self.imagesByArticle count]);
     
     if ([self.pageImages count] == [self.imagesByArticle count]) {
         
@@ -380,13 +397,79 @@
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
         
-          [self performSegueWithIdentifier:@"notFound" sender:nil];
+        //  [self performSegueWithIdentifier:@"notFound" sender:nil];
     }];
     
     
     [operation start];
     
 }
+
+
+-(void)loadingCommentProductFromWeb : (NSString *)wsProduct_SKU
+{
+    
+    //wsProduct_SKU
+    
+    NSString *wsStringQuery = [NSString stringWithFormat:@"http://adidas.ugc.bazaarvoice.com/bvstaging/data/reviews.json?apiversion=5.2&passkey=a7p8xf6e8y8gsmt3pfemzqkx&filter=ProductId:test2&Sort=Rating:desc&Limit=10"];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsStringQuery]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        
+        NSDictionary *mainDictComment = JSON;
+        
+      
+        NSString *TotalResults = [mainDictComment objectForKey:@"TotalResults"];
+        //NSString *HasErrors = [mainDictComment objectForKey:@"HasErrors"];
+        self.commentValue.text = [NSString stringWithFormat:@"%@", TotalResults];
+        
+        NSArray *Results = [mainDictComment objectForKey:@"Results"];
+        for (int i = 0, cantidad = [Results count]; i < cantidad; i = i + 1)
+        {
+            NSDictionary *ResultsValues = [Results objectAtIndex:i];
+            Comments *Comment = [Comments new];
+            Comment.UserNickname = [ResultsValues objectForKey:@"UserNickname"];
+            Comment.UserLocation = [ResultsValues objectForKey:@"UserLocation"];
+            Comment.AuthorId = [ResultsValues objectForKey:@"AuthorId"];
+
+            Comment.ProductId = [ResultsValues objectForKey:@"ProductId"];
+            Comment.Title = [ResultsValues objectForKey:@"Title"];
+            
+            if([ResultsValues objectForKey:@"ReviewText"] != nil){
+            Comment.ReviewText = [ResultsValues objectForKey:@"ReviewText"];
+            }else{
+            Comment.ReviewText = @"Datitos";
+            }
+            Comment.ModerationStatus = [ResultsValues objectForKey:@"ModerationStatus"];
+            Comment.LastModeratedTime = [ResultsValues objectForKey:@"LastModeratedTime"];
+
+            Comment.Id = [ResultsValues objectForKey:@"Id"];
+            Comment.Rating = [ResultsValues objectForKey:@"Rating"];
+            Comment.ContentLocale = [ResultsValues objectForKey:@"ContentLocale"];
+            Comment.RatingRange = [ResultsValues objectForKey:@"RatingRange"];
+
+            Comment.Photos = [ResultsValues objectForKey:@"Photos"];
+            Comment.Videos = [ResultsValues objectForKey:@"Videos"];
+
+            [self.Commenthits addObject:Comment];
+            //NSLog(@" %@",ResultsValues);
+        }
+       
+
+        
+    }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        
+        //[self performSegueWithIdentifier:@"notFound" sender:nil];
+    }];
+    
+    
+    [operation start];
+    
+}
+
+
 
 -(void)loadingImagesFromWeb:(NSString *)c_color :(NSArray *)imageGroupsImages  {
     
@@ -609,6 +692,16 @@
 - (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate {
     //self.rateLabel.text = [NSString stringWithFormat:@"Rate: %d", rate.intValue;
 }
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Comments"]) {
+        
+        CommentsViewController *destViewController = segue.destinationViewController;
+        destViewController.Commenthits = self.Commenthits;
+            
+    }
+}
+
 
 
 

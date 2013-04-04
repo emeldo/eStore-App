@@ -40,6 +40,8 @@
 //////////////////////////////////////////////////EMELDO
 @property (nonatomic, strong) NSArray *filterCategories;
 @property (nonatomic, strong) NSArray *filterLabels;
+@property (nonatomic, strong) NSArray *filterOrder;
+
 @property (nonatomic, strong) NSArray *refinementsValues;
 @property (nonatomic, strong) NSArray *hitsValues;
 @property (nonatomic, strong) NSArray *sorting_optionsValues;
@@ -154,6 +156,8 @@
     
     self.filterLabels = [[NSArray alloc] initWithObjects: @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size", @"Filters", nil];
     
+    
+    self.filterOrder = [[NSArray alloc] initWithObjects:  @"cgid", @"c_productType", @"c_sport", @"c_division", @"c_searchColor",  @"c_sizeSearchValue", nil];
     
     self.producthits = [[NSMutableArray alloc] init];
     
@@ -478,32 +482,44 @@
         // values in foreach loop
         int x = 100;
         
-        for (NSString *key in keys) {
+        // values in foreach loop
+        for (int k=0; k< self.filterOrder.count; k++) {
+            NSString *filterName = [self.filterOrder objectAtIndex:k];
+           
             
-            [arrayActiveFilters addObject:key];
-            [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
-            
-            NSLog(@"KEY %@",[self.selected_refinements objectForKey:key]);
-            
-            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
-            
-            [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-            [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
-            [breadcumLabel setTextColor:[UIColor darkGrayColor]];
-            [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
-            [breadcumView addSubview:breadcumLabel];
-            
-            
-            CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
-            
-            UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
-            [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
-            [breadcumView addSubview:breadcumImage];
-            
-            
-            x = x + textSize.width + 40;
-            
+            for (NSString *key in keys) {
+                
+                if([key isEqualToString:filterName]){
+                     NSLog(@" %i %@",k,filterName);
+                    [arrayActiveFilters addObject:key];
+                    [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
+                    
+                    //NSLog(@"KEY %@",[self.selected_refinements objectForKey:key]);
+                    
+                    UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+                    
+                    [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+                    [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
+                    [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+                    [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+                    [breadcumView addSubview:breadcumLabel];
+                    
+                    
+                    CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+                    
+                    UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+                    [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+                    [breadcumView addSubview:breadcumImage];
+                    
+                    
+                    x = x + textSize.width + 40;
+                    break;
+                }
+                
+            }
+        
         }
+    
         [breadcumViewComplete addSubview:breadcumView];
         
         
@@ -845,8 +861,8 @@
                     }
                     
                     
-                    NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
-                    NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+                    //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
                     
                     
                     
@@ -1035,7 +1051,7 @@
         filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
         filterName.text = [[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row];
         
-        NSLog(@" %@ %@ ",filters.text,filterName.text);
+        //NSLog(@" %@ %@ ",filters.text,filterName.text);
         
         if([filterName.text isEqualToString:@"cgid"]){
             filterImageView.hidden = YES;
@@ -1251,9 +1267,9 @@
         NSArray *keys = [self.selected_refinements allKeys];
         
         for (NSString *key in keys) {
-            NSLog(@"%@ >>>>>>> %@ %@",key, refine2.text, [self.selected_refinements objectForKey:key]);
+            //NSLog(@"%@ >>>>>>> %@ %@",key, refine2.text, [self.selected_refinements objectForKey:key]);
             if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
-                NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+             //   NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
                 //[self.selected_refinements removeObjectForKey:key];
             }else{
                 [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];
@@ -1477,8 +1493,6 @@
     
     NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
     
-    NSLog(@"Tag del boton presionado : %i %@ %@", (int)SizeButton.tag, sizeValue, sizeLabel);
-    
     self.menuQuery = [NSString stringWithFormat:@"c_sizeSearchValue=%@",
                       sizeValue];
     
@@ -1502,11 +1516,11 @@
     for (NSString *key in keys) {
         if([key isEqualToString: @"cgid"]){
             self.menuQuery = [NSMutableString stringWithFormat:@"%@=%@",key, [self.selected_refinements objectForKey:key]];
-            NSLog(@"refine %@ %@",key, [self.selected_refinements objectForKey:key]);
+            //NSLog(@"refine %@ %@",key, [self.selected_refinements objectForKey:key]);
             }
         
     }
-    NSLog(@"NEW QUERY %@",self.menuQuery);
+    //NSLog(@"NEW QUERY %@",self.menuQuery);
     self.selected_refinements = nil;
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
 }

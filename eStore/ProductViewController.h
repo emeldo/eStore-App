@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *currencyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *productColor;
+@property (weak, nonatomic) IBOutlet UILabel *commentValue;
 
 @property (strong, nonatomic) IBOutlet UIWebView *webviewName;
 
@@ -35,5 +36,7 @@
 @property (nonatomic, strong) NSMutableDictionary *selected_refinements;
 @property (nonatomic, strong) NSMutableDictionary *arrays;
 
+
+@property (strong, nonatomic) IBOutlet UIButton *mybuttonComments;
 
 @end

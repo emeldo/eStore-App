@@ -16,6 +16,8 @@
 		3B27783616F7C32D007F228F /* new_stock_addto_holder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27783416F7C32D007F228F /* new_stock_addto_holder.png */; };
 		3B27783916F7C344007F228F /* product_adi_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27783716F7C344007F228F /* product_adi_logo.png */; };
 		3B27783A16F7C344007F228F /* Product_icon_green_shop_cart.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27783816F7C344007F228F /* Product_icon_green_shop_cart.png */; };
+		3B305DE9170DD46800DF7334 /* Comments.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B305DE8170DD46800DF7334 /* Comments.m */; };
+		3B305DF5170E0E0400DF7334 /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B305DF4170E0E0400DF7334 /* CommentsViewController.m */; };
 		3B55312A1704941400ED89C5 /* Turquois.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B5531291704941400ED89C5 /* Turquois.png */; };
 		3B55312D1704943B00ED89C5 /* Multicolor.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B55312C1704943B00ED89C5 /* Multicolor.png */; };
 		3B6D443A16F93AD4001D99D2 /* bg_sett_header.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D443916F93AD4001D99D2 /* bg_sett_header.png */; };
@@ -192,6 +194,10 @@
 		3B27783416F7C32D007F228F /* new_stock_addto_holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = new_stock_addto_holder.png; path = Images/new_stock_addto_holder.png; sourceTree = "<group>"; };
 		3B27783716F7C344007F228F /* product_adi_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = product_adi_logo.png; path = Images/product_adi_logo.png; sourceTree = "<group>"; };
 		3B27783816F7C344007F228F /* Product_icon_green_shop_cart.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Product_icon_green_shop_cart.png; path = Images/Product_icon_green_shop_cart.png; sourceTree = "<group>"; };
+		3B305DE7170DD46800DF7334 /* Comments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Comments.h; sourceTree = "<group>"; };
+		3B305DE8170DD46800DF7334 /* Comments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Comments.m; sourceTree = "<group>"; };
+		3B305DF3170E0E0300DF7334 /* CommentsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsViewController.h; sourceTree = "<group>"; };
+		3B305DF4170E0E0400DF7334 /* CommentsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsViewController.m; sourceTree = "<group>"; };
 		3B5531291704941400ED89C5 /* Turquois.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Turquois.png; sourceTree = "<group>"; };
 		3B55312C1704943B00ED89C5 /* Multicolor.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Multicolor.png; sourceTree = "<group>"; };
 		3B6D443916F93AD4001D99D2 /* bg_sett_header.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = bg_sett_header.png; path = Images/bg_sett_header.png; sourceTree = "<group>"; };
@@ -538,6 +544,8 @@
 				84A50C9B16FFB01500BC4943 /* Settings.m */,
 				3BFB7FAE16F74E6700964FF2 /* Product.h */,
 				3BFB7FAF16F74E6700964FF2 /* Product.m */,
+				3B305DE7170DD46800DF7334 /* Comments.h */,
+				3B305DE8170DD46800DF7334 /* Comments.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -688,6 +696,8 @@
 				8493A5BE16F6B5A100F23DF6 /* CatalogViewController.m */,
 				3B27782A16F7B1FA007F228F /* ProductViewController.h */,
 				3B27782B16F7B1FA007F228F /* ProductViewController.m */,
+				3B305DF3170E0E0300DF7334 /* CommentsViewController.h */,
+				3B305DF4170E0E0400DF7334 /* CommentsViewController.m */,
 			);
 			path = eStore;
 			sourceTree = "<group>";
@@ -1066,6 +1076,8 @@
 				84A50C9C16FFB01500BC4943 /* Settings.m in Sources */,
 				84A50C9F16FFFF5A00BC4943 /* Products.m in Sources */,
 				3BDE8E531701E46200579921 /* Variant.m in Sources */,
+				3B305DE9170DD46800DF7334 /* Comments.m in Sources */,
+				3B305DF5170E0E0400DF7334 /* CommentsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
