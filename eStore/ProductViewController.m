@@ -429,6 +429,8 @@
         {
             NSDictionary *ResultsValues = [Results objectAtIndex:i];
             Comments *Comment = [Comments new];
+            
+            
             Comment.UserNickname = [ResultsValues objectForKey:@"UserNickname"];
             Comment.UserLocation = [ResultsValues objectForKey:@"UserLocation"];
             Comment.AuthorId = [ResultsValues objectForKey:@"AuthorId"];
@@ -439,7 +441,7 @@
             if([ResultsValues objectForKey:@"ReviewText"] != nil){
             Comment.ReviewText = [ResultsValues objectForKey:@"ReviewText"];
             }else{
-            Comment.ReviewText = @"Datitos";
+            Comment.ReviewText = @"No Review";
             }
             Comment.ModerationStatus = [ResultsValues objectForKey:@"ModerationStatus"];
             Comment.LastModeratedTime = [ResultsValues objectForKey:@"LastModeratedTime"];
@@ -452,9 +454,30 @@
             Comment.Photos = [ResultsValues objectForKey:@"Photos"];
             Comment.Videos = [ResultsValues objectForKey:@"Videos"];
 
+             NSArray *ContextDataValues = [ResultsValues objectForKey:@"ContextDataValues"];
+             NSArray *ContextDataValuesOrder = [ResultsValues objectForKey:@"ContextDataValuesOrder"];
+            // NSArray *Context = [ContextDataValues allKeys];
+            
+             NSLog(@"total  %i", [ContextDataValues count]);
+            
+            for(int j = 0 ; j < [ContextDataValuesOrder count]; j++){
+               NSString *value =  [ContextDataValuesOrder objectAtIndex:j];
+               NSLog(@" %@",value);
+               
+                
+                 for(int K = 0 ; K < [ContextDataValues count]; K++){
+                // NSDictionary *xa =  [ContextDataValues :K];
+                // NSLog(@" %@ ", xa );
+                 }
+            
+                   
+                
+  
+            }
+            
+            
             [self.Commenthits addObject:Comment];
-            //NSLog(@" %@",ResultsValues);
-        }
+           }
        
 
         
@@ -698,6 +721,8 @@
         
         CommentsViewController *destViewController = segue.destinationViewController;
         destViewController.Commenthits = self.Commenthits;
+        destViewController.pageImages = self.pageImages;
+        destViewController.product = self.product;
             
     }
 }

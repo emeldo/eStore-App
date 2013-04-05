@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Product.h"
 
 @interface CommentsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @property (strong, nonatomic) IBOutlet UITableView *CommentsTableView;
+@property (strong, nonatomic) NSMutableArray *pageImages;
 @property (nonatomic, strong) NSMutableArray  *Commenthits;
+@property (nonatomic, strong) Product *product;
 
 @end
