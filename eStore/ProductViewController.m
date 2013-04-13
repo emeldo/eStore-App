@@ -2,7 +2,7 @@
 // ProductViewController.m
 // eComm Mobile
 //
-// Created by VQL Developer on 3/4/13.
+// Created by HNL on 3/4/13.
 // Copyright (c) 2013 CLH. All rights reserved.
 //
 
@@ -205,6 +205,18 @@
         
     }
     
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"Comments"]) {
+        
+        CommentsViewController *destViewController = segue.destinationViewController;
+        destViewController.Commenthits = self.Commenthits;
+        destViewController.pageImages = self.pageImages;
+        destViewController.product = self.product;
+        
+    }
 }
 
 
@@ -716,16 +728,6 @@
     //self.rateLabel.text = [NSString stringWithFormat:@"Rate: %d", rate.intValue;
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"Comments"]) {
-        
-        CommentsViewController *destViewController = segue.destinationViewController;
-        destViewController.Commenthits = self.Commenthits;
-        destViewController.pageImages = self.pageImages;
-        destViewController.product = self.product;
-            
-    }
-}
 
 
 

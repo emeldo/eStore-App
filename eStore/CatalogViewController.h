@@ -2,7 +2,7 @@
 //  CatalogViewController.h
 //  eComm Mobile
 //
-//  Created by Axel De Leon on 2/28/13.
+//  Created by HNL on 2/28/13.
 //  Copyright (c) 2013 CLH. All rights reserved.
 //
 

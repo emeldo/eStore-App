@@ -2,7 +2,7 @@
 //  CatalogViewController.m
 //  eComm Mobile
 //
-//  Created by Axel De Leon on 2/28/13.
+//  Created by HNL on 2/28/13.
 //  Copyright (c) 2013 CLH. All rights reserved.
 //
 
@@ -157,7 +157,7 @@
     self.filterLabels = [[NSArray alloc] initWithObjects: @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size", @"Filters", nil];
     
     
-    self.filterOrder = [[NSArray alloc] initWithObjects:  @"cgid", @"c_productType", @"c_sport", @"c_division", @"c_searchColor",  @"c_sizeSearchValue", nil];
+    self.filterOrder = [[NSArray alloc] initWithObjects:  @"cgid", @"c_division", @"c_sport", @"c_productType", @"c_searchColor",  @"c_sizeSearchValue", nil];
     
     self.producthits = [[NSMutableArray alloc] init];
     
@@ -360,9 +360,9 @@
     loadingView.hidden = NO;
     
     
-    if([self.arrays count] >0){
+    if ([self.arrays count] > 0) {
         [self.arrays removeAllObjects];
-    }else{
+    } else {
         self.arrays = [[NSMutableDictionary alloc] init];
     }
     
@@ -373,48 +373,38 @@
         
         NSString *arrayDisplayValues = [self.filterLabels objectAtIndex:i];
         [self functionCreateArray: arrayDisplayValues];
-        
     }
-    
     
     NSMutableString  *wsRefines = [[NSMutableString alloc] init];
     BOOL isNoFirst = YES;
     
-    //NSLog(@"Product Hits actual %i",[self.producthits count]);
-    
-    if([self.selected_refinements count]>0){
+    if ([self.selected_refinements count] > 0) {
         NSInteger valor = [self.selected_refinements count]+1;
-        //NSLog(@"LOg %i",valor);
-        wsRefines  = [NSMutableString stringWithFormat:@"refine_%i=%@",valor,[wsString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        wsRefines  = [NSMutableString stringWithFormat:@"refine_%i=%@",valor,wsString];
         isNoFirst = YES;
     }else{
-        wsRefines  = [NSMutableString stringWithFormat:@"refine_1=%@",[wsString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+        wsRefines  = [NSMutableString stringWithFormat:@"refine_1=%@",wsString];
         isNoFirst = NO;
     }
     
     
     NSMutableString *filters = [[NSMutableString alloc] init];
     
-    
-    
-    if(isNoFirst){
+    if (isNoFirst) {
         NSArray *keys = [self.selected_refinements allKeys];
         int i = 1;
+        
         for (NSString *key in keys) {
-            //if(![key isEqualToString: @"cgid"]){
-            //NSLog(@"%@ is %@",key, [self.selected_refinements objectForKey:key]);
             NSMutableString *intermedium =[NSString stringWithFormat:@"refine_%i=%@=%@",i,key,[self.selected_refinements objectForKey:key]];
             i++;
             filters = [NSString stringWithFormat:@"%@%@&",filters,intermedium];
-            // }
-            
         }
+        
         if(wsString != nil){
-            
             filters = [NSString stringWithFormat:@"%@%@",filters,[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
         
-    }else{
+    } else {
         if(wsString != nil){
             filters = [NSString stringWithFormat:@"%@",[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         }
@@ -422,23 +412,21 @@
     
     NSLog(@"filters %@",filters);
     
-    NSString  *wsStringQuery = [[NSString alloc] init];
+    NSString *wsStringQuery = [[NSString alloc] init];
     if (!(wsquery == nil) && !(wsString == nil) ){
         
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=30&expand=prices,images", filters, wsquery];
         
-    }else if(wsquery == nil && filters != nil){
+    } else if(wsquery == nil && filters != nil) {
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&start=1&count=30&expand=prices,images", filters];
-    }else{
+    } else {
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&q=%@&start=1&count=30&expand=images,prices", wsquery];
     }
     
-    
-    NSLog(@"valor wsquery %@ ",wsStringQuery);
+    //NSLog(@"valor wsquery %@ ",wsStringQuery);
     
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsStringQuery]];
-    
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
@@ -456,46 +444,32 @@
             expandedSections = [[NSMutableIndexSet alloc] init];
         }
         
-        
-        
         NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
         NSMutableArray *arrayActiveFilters2 = [self.arrays objectForKey:@"Filters"];
         
         NSArray *keys = [self.selected_refinements allKeys];
         
         UIView *breadcumViewComplete = (UIView *)[self.view viewWithTag:2];
-        
-        //int iteration = [self.selected_refinements count];
-        
+
         UIView *breadcumView = nil;
         
-        //if(iteration == 1 && wsquery != nil){
-        //    breadcumView = [[UIView alloc] init];
-        //   [breadcumView setTag:888];
-        //}else{
         breadcumView = (UIView *)[self.view viewWithTag:888];
         [breadcumView removeFromSuperview];
         breadcumView = [[UIView alloc] init];
         [breadcumView setTag:888];
-        //}
         
-        // values in foreach loop
         int x = 100;
         
-        // values in foreach loop
         for (int k=0; k< self.filterOrder.count; k++) {
             NSString *filterName = [self.filterOrder objectAtIndex:k];
            
-            
             for (NSString *key in keys) {
                 
                 if([key isEqualToString:filterName]){
                      NSLog(@" %i %@",k,filterName);
                     [arrayActiveFilters addObject:key];
                     [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
-                    
-                    //NSLog(@"KEY %@",[self.selected_refinements objectForKey:key]);
-                    
+
                     UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
                     
                     [breadcumLabel setBackgroundColor:[UIColor clearColor]];
@@ -504,13 +478,11 @@
                     [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
                     [breadcumView addSubview:breadcumLabel];
                     
-                    
                     CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
                     
                     UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
                     [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
                     [breadcumView addSubview:breadcumImage];
-                    
                     
                     x = x + textSize.width + 40;
                     break;
@@ -538,22 +510,18 @@
                 NSMutableArray *arrayInfoValues = [self.arrays objectForKey:variableInfoValues];
                 
                 
-                
                 NSArray *values =[TypeRefinement objectForKey:@"values"];
                 
                 for (int m=0; m < values.count; m++) {
                     NSDictionary *valueInfo = [values objectAtIndex:m];
                     //PRODUCT TYPE MAYOR A 10 PARA FILTRAR
-                    
-                    
+                
                     if([variableInfoValues  isEqualToString: @"c_productType"]
                        && ([[valueInfo objectForKey:@"hit_count" ] integerValue] > 10)){
                         
                         NSString *information = [NSString stringWithFormat:@"%@  (%@)", [valueInfo objectForKey:@"value"], [[valueInfo objectForKey:@"hit_count"] stringValue]];
                         [arrayInfoDisplay addObject:information];
                         [arrayInfoValues addObject:[valueInfo objectForKey:@"value"]];
-                        
-                        
                     }
                     
                     if([variableInfoValues isEqualToString: @"cgid"]
@@ -568,9 +536,7 @@
                                 [arrayInfoDisplay addObject:information];
                                 [arrayInfoValues addObject:[valueCat objectForKey:@"value"]];
                             }
-                            
                         }
-                        
                     }
                     
                     if([variableInfoValues isEqualToString: @"c_division"] || [variableInfoValues isEqualToString: @"c_sport"]){
@@ -579,15 +545,12 @@
                         [arrayInfoValues addObject:[valueInfo objectForKey:@"value"]];
                         [arrayInfoDisplay addObject:information];
                         
-                        
                     }
                     
                     if([variableInfoValues isEqualToString: @"c_searchColor"] || [variableInfoValues isEqualToString: @"c_sizeSearchValue"]){
                         [arrayInfoDisplay addObject:[valueInfo objectForKey:@"label"]];
                         [arrayInfoValues addObject:[valueInfo objectForKey:@"value"]];
                     }
-                    
-                    
                     
                 }
             }
@@ -596,7 +559,6 @@
         
         for (int k=0; k< self.hitsValues.count; k++) {
             NSDictionary *hits = [self.hitsValues objectAtIndex:k];
-            //NSLog(@" %@",hits);
             
             Product *product = [Product new];
             product.product_id = [hits objectForKey:@"product_id"];
@@ -608,18 +570,13 @@
             
             NSDictionary *imageView = [hits objectForKey:@"image"];
             
-            
             NSArray *keys = [imageView allKeys];
             
-            // values in foreach loop
             for (NSString *key in keys) {
                 if([key isEqualToString: @"link"]){
-                    // NSLog(@"%@ is %@",key, [imageView objectForKey:key]);
                     product.image = [imageView objectForKey:key];
-                    
                 }
             }
-            
             
             [self.producthits addObject:product];
             
@@ -676,7 +633,6 @@
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (tableView == self.menuTableView ) {
-        //int value = [self.filterCategories count];
         return 6;
     }
     
@@ -705,14 +661,11 @@
             }
             return 1; // only top row showing
         }
-    }else if(tableView == self.selectionTableView){
+    } else if (tableView == self.selectionTableView) {
         NSMutableArray *arraySelection = [self.arrays objectForKey:@"Filters"];
-        
         return [arraySelection count];
     }
-    
     return [self.producthits count];
-    
 }
 
 
@@ -1044,23 +997,28 @@
             cell.textLabel.text = @"Normal Cell";
         }
         
-    }else if(tableView == self.selectionTableView){
+    } else if(tableView == self.selectionTableView){
         UILabel *filters = (UILabel *)[cell viewWithTag:13];
         UILabel *filterName = (UILabel *)[cell viewWithTag:14];
         UIImageView *filterImageView = (UIImageView *)[cell viewWithTag:15];
+        
+        //NSString *filterTempLabel = [[NSString alloc] initWithString:[[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row]];
+        
         filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
+        
+        //filters.text = [filterTempLabel stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
         filterName.text = [[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row];
         
         //NSLog(@" %@ %@ ",filters.text,filterName.text);
         
-        if([filterName.text isEqualToString:@"cgid"]){
+        if([[[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row] isEqualToString:@"cgid"]){
             filterImageView.hidden = YES;
         }else{
             filterImageView.hidden = NO;
         }
         
         
-    }else{
+    } else {
         
         UILabel *ProductName = (UILabel *)[cell viewWithTag:203];
         UILabel *ProducCode = (UILabel *)[cell viewWithTag:204];
@@ -1269,7 +1227,7 @@
         for (NSString *key in keys) {
             //NSLog(@"%@ >>>>>>> %@ %@",key, refine2.text, [self.selected_refinements objectForKey:key]);
             if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
-             //   NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+             //NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
                 //[self.selected_refinements removeObjectForKey:key];
             }else{
                 [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];

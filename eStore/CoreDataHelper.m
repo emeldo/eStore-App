@@ -1,6 +1,5 @@
 //
 //  CoreDataHelper.m
-//  TripTime
 //
 //
 

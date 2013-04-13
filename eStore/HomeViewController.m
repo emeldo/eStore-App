@@ -2,7 +2,7 @@
 //  HomeViewController.m
 //  eStore
 //
-//  Created by Axel De Leon on 3/17/13.
+//  Created by HNL on 3/17/13.
 //  Copyright (c) 2013 CLH. All rights reserved.
 //
 
@@ -12,6 +12,7 @@
 #import "Products.h"
 #import "Product.h"
 #import "ProductViewController.h"
+#import "HistoryViewController.h"
 
 
 @interface HomeViewController () {
@@ -102,14 +103,40 @@
     } else {
         self.pageControl.numberOfPages = pageCount;
     }
-
-    [self.collectionView reloadData];
+    
+    
+    UIView *recentBackgroundView = (UIView *)[self.view viewWithTag:6];
+    
+    if ([self.products count] > 0) {
+        
+        recentBackgroundView.hidden = YES;
+        [self.collectionView reloadData];
+    } else {
+        recentBackgroundView.hidden = NO;
+    }
     
 }
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    
+    if ([segue.identifier isEqualToString:@"History"]) {
+        HistoryViewController *historyViewController = [segue destinationViewController];
+        historyViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+    
+    if ([segue.identifier isEqualToString:@"Catalog"]) {
+        
+        CatalogViewController *catalogViewController = [segue destinationViewController];
+        catalogViewController.menuQuery = category;
+        catalogViewController.titleQuery = categoryName;
+        catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        catalogViewController.managedObjectContext = self.managedObjectContext;
+        self.searchBar.text = nil;
+        category = nil;
+    }
     
     if ([segue.identifier isEqualToString:@"showProductDetail"]) {
         
@@ -127,17 +154,7 @@
         
         destViewController.product = product;
         
-    } else {
-        
-        //NSLog(@"SELECT %@ %@",[self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding],category);
-        CatalogViewController *catalogViewController = [segue destinationViewController];
-        catalogViewController.menuQuery = category;
-        catalogViewController.titleQuery = categoryName;
-        catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        catalogViewController.managedObjectContext = self.managedObjectContext;
-        self.searchBar.text = nil;
-        category = nil;
-    }
+    } 
 }
 
 - (IBAction)categorySelected:(id)sender
