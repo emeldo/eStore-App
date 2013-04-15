@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DYRateView.h"
 
-@interface HistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DYRateViewDelegate, NSFetchedResultsControllerDelegate>
+@interface HistoryViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, DYRateViewDelegate, NSFetchedResultsControllerDelegate, UIActionSheetDelegate>
 
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

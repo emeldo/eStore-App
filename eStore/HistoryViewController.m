@@ -11,6 +11,9 @@
 
 @interface HistoryViewController ()
 
+@property (nonatomic, strong) UINavigationBar *naviBarObj;
+@property (nonatomic, strong) UINavigationItem *navigItem;
+
 @end
 
 @implementation HistoryViewController
@@ -33,16 +36,18 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 600, 44)];
-    [self.view addSubview:naviBarObj];
+    self.naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 600, 44)];
+    [self.view addSubview:self.naviBarObj];
     
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
+    self.navigItem = [[UINavigationItem alloc] initWithTitle:@"Searched History"];
     
-    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"Searched History"];
-    navigItem.rightBarButtonItem = cancelItem;
-    naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
+
+    self.navigItem.rightBarButtonItem = self.editButtonItem;
+    self.navigItem.leftBarButtonItem = cancelItem;
     
-    naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    self.naviBarObj.items = [NSArray arrayWithObjects: self.navigItem,nil];
+    self.naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
     
     self.view.superview.bounds = CGRectMake(0, 0, 600, 612);
 }
@@ -64,6 +69,81 @@
 {
 	return ( (arc4random() % (max-min+1)) + min );
 }
+
+
+- (void)deleteAll:(id)sender {
+    
+    UIActionSheet *actionSheet = [[UIActionSheet alloc]
+                                  initWithTitle:@"Are you sure?"
+                                  delegate:self
+                                  cancelButtonTitle:@"No"
+                                  destructiveButtonTitle:@"Yes"
+                                  otherButtonTitles:nil];
+    [actionSheet showInView:self.view];
+}
+
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    
+    if(editing) {
+        [super setEditing:editing animated:animated];
+        [self.tableView setEditing:editing animated:animated];
+        
+        UIBarButtonItem *deleteAllButton = [[UIBarButtonItem alloc]
+                                            initWithTitle:@"Clear All"
+                                            style:UIBarButtonItemStyleBordered
+                                            target:self
+                                            action:@selector(deleteAll:)];
+        
+        self.navigItem.leftBarButtonItem = deleteAllButton;
+        
+    } else {
+        [super setEditing:editing animated:animated];
+        [self.tableView setEditing:editing animated:animated];
+        UIBarButtonItem *closeButton = [[UIBarButtonItem alloc]
+                                        initWithTitle:@"Close"
+                                        style:UIBarButtonItemStyleBordered
+                                        target:self
+                                        action:@selector(cancelButtonPressed)];
+        self.navigItem.leftBarButtonItem = closeButton;
+    }
+}
+
+
+#pragma mark - Action Sheet Delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex != [actionSheet cancelButtonIndex]) {
+        
+        NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+        NSEntityDescription *entity = [[self.fetchedResultsController fetchRequest] entity];
+        
+        // Create fetch request
+        NSFetchRequest *request = [[NSFetchRequest alloc] init];
+        [request setEntity:entity];
+        [request setIncludesPropertyValues:NO];
+        
+        // Execute the count request
+        NSError *error = nil;
+        NSArray *fetchResults = [context executeFetchRequest:request error:&error];
+        
+        // Delete the objects returned if the results weren't nil
+        if (fetchResults != nil) {
+            
+            for (NSManagedObject *manObj in fetchResults) {
+                [context deleteObject:manObj];
+                
+                if (![context save:&error]) {
+                    NSLog(@"Couldn't delete entries: %@", [error localizedDescription]);
+                }
+            }
+        } else {
+            NSLog(@"Couldn't delete objects for entity %@", [entity name]);
+        }
+    }
+}
+
 
 #pragma mark - Table View DataSource
 
@@ -134,6 +214,20 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        [context deleteObject:[self.fetchedResultsController objectAtIndexPath:indexPath]];
+        
+        NSError *error;
+        if (![context save:&error]) {
+            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
+}
 
 #pragma mark - Fetched results controller
 

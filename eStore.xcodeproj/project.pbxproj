@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3B1D73E716FA536C0071B8F6 /* MJComments.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B1D73E616FA536C0071B8F6 /* MJComments.xib */; };
-		3B1D73EB16FA53900071B8F6 /* MJComments.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1D73EA16FA53900071B8F6 /* MJComments.m */; };
 		3B27782C16F7B1FA007F228F /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B27782B16F7B1FA007F228F /* ProductViewController.m */; };
 		3B27783116F7BE67007F228F /* acordion_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27782F16F7BE67007F228F /* acordion_icon.png */; };
 		3B27783216F7BE67007F228F /* Overview_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27783016F7BE67007F228F /* Overview_bar.png */; };
@@ -53,9 +51,6 @@
 		3B6D449116F93DEE001D99D2 /* switch_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D446616F93DEE001D99D2 /* switch_02.png */; };
 		3B6D449216F93DEE001D99D2 /* sync_holder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D446716F93DEE001D99D2 /* sync_holder.png */; };
 		3B6D449316F93DEE001D99D2 /* top_contnr.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D446816F93DEE001D99D2 /* top_contnr.png */; };
-		3B6D44F116F94AA4001D99D2 /* MJStoresDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D44F016F94AA4001D99D2 /* MJStoresDetail.m */; };
-		3B6D44F416F94B16001D99D2 /* MJSettingsDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6D44F316F94B16001D99D2 /* MJSettingsDetail.m */; };
-		3B6D44F816F94CAC001D99D2 /* MJStoresDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D44F716F94CAC001D99D2 /* MJStoresDetail.xib */; };
 		3B6D44FC16F94D97001D99D2 /* map_holder.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D44FA16F94D97001D99D2 /* map_holder.png */; };
 		3B6D44FD16F94D97001D99D2 /* map.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D44FB16F94D97001D99D2 /* map.png */; };
 		3B6D450B16F94DB8001D99D2 /* store_big_adi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6D44FE16F94DB8001D99D2 /* store_big_adi_icon.png */; };
@@ -104,8 +99,6 @@
 		3BDE8E531701E46200579921 /* Variant.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE8E521701E46200579921 /* Variant.m */; };
 		3BFB7FB016F74E6700964FF2 /* Product.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FAF16F74E6700964FF2 /* Product.m */; };
 		3BFB7FD216F74F9200964FF2 /* DYRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FC816F74F9200964FF2 /* DYRateView.m */; };
-		3BFB7FF316F74FB400964FF2 /* MJDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FE016F74FB400964FF2 /* MJDetailViewController.m */; };
-		3BFB7FF416F74FB400964FF2 /* MJDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3BFB7FE116F74FB400964FF2 /* MJDetailViewController.xib */; };
 		3BFB7FF516F74FB400964FF2 /* ListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FE416F74FB400964FF2 /* ListItem.m */; };
 		3BFB7FF616F74FB400964FF2 /* POHorizontalList.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FE616F74FB400964FF2 /* POHorizontalList.m */; };
 		3BFB803016F74FCF00964FF2 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB7FF916F74FCF00964FF2 /* MKAnnotationView+WebCache.m */; };
@@ -118,8 +111,6 @@
 		3BFB803716F74FCF00964FF2 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB800816F74FCF00964FF2 /* SDWebImagePrefetcher.m */; };
 		3BFB803816F74FCF00964FF2 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB800A16F74FCF00964FF2 /* UIButton+WebCache.m */; };
 		3BFB803916F74FCF00964FF2 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB800C16F74FCF00964FF2 /* UIImageView+WebCache.m */; };
-		3BFB803A16F74FCF00964FF2 /* MJPopupBackgroundView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB800F16F74FCF00964FF2 /* MJPopupBackgroundView.m */; };
-		3BFB803B16F74FCF00964FF2 /* UIViewController+MJPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB801116F74FCF00964FF2 /* UIViewController+MJPopupViewController.m */; };
 		3BFB806516F750A700964FF2 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB805316F750A700964FF2 /* AFHTTPClient.m */; };
 		3BFB806616F750A700964FF2 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB805516F750A700964FF2 /* AFHTTPRequestOperation.m */; };
 		3BFB806716F750A800964FF2 /* AFImageRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFB805716F750A700964FF2 /* AFImageRequestOperation.m */; };
@@ -188,9 +179,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3B1D73E616FA536C0071B8F6 /* MJComments.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJComments.xib; sourceTree = "<group>"; };
-		3B1D73E916FA53900071B8F6 /* MJComments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJComments.h; sourceTree = "<group>"; };
-		3B1D73EA16FA53900071B8F6 /* MJComments.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJComments.m; sourceTree = "<group>"; };
 		3B27782A16F7B1FA007F228F /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
 		3B27782B16F7B1FA007F228F /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		3B27782F16F7BE67007F228F /* acordion_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = acordion_icon.png; path = Images/acordion_icon.png; sourceTree = "<group>"; };
@@ -249,11 +237,6 @@
 		3B6D446616F93DEE001D99D2 /* switch_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = switch_02.png; path = Images/switch_02.png; sourceTree = "<group>"; };
 		3B6D446716F93DEE001D99D2 /* sync_holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = sync_holder.png; path = Images/sync_holder.png; sourceTree = "<group>"; };
 		3B6D446816F93DEE001D99D2 /* top_contnr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = top_contnr.png; path = Images/top_contnr.png; sourceTree = "<group>"; };
-		3B6D44EF16F94AA4001D99D2 /* MJStoresDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJStoresDetail.h; sourceTree = "<group>"; };
-		3B6D44F016F94AA4001D99D2 /* MJStoresDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJStoresDetail.m; sourceTree = "<group>"; };
-		3B6D44F216F94B16001D99D2 /* MJSettingsDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJSettingsDetail.h; sourceTree = "<group>"; };
-		3B6D44F316F94B16001D99D2 /* MJSettingsDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJSettingsDetail.m; sourceTree = "<group>"; };
-		3B6D44F716F94CAC001D99D2 /* MJStoresDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJStoresDetail.xib; sourceTree = "<group>"; };
 		3B6D44FA16F94D97001D99D2 /* map_holder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map_holder.png; path = Images/map_holder.png; sourceTree = "<group>"; };
 		3B6D44FB16F94D97001D99D2 /* map.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = map.png; path = Images/map.png; sourceTree = "<group>"; };
 		3B6D44FE16F94DB8001D99D2 /* store_big_adi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = store_big_adi_icon.png; path = Images/store_big_adi_icon.png; sourceTree = "<group>"; };
@@ -305,9 +288,6 @@
 		3BFB7FAF16F74E6700964FF2 /* Product.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Product.m; sourceTree = "<group>"; };
 		3BFB7FC716F74F9200964FF2 /* DYRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRateView.h; sourceTree = "<group>"; };
 		3BFB7FC816F74F9200964FF2 /* DYRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRateView.m; sourceTree = "<group>"; };
-		3BFB7FDF16F74FB400964FF2 /* MJDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJDetailViewController.h; sourceTree = "<group>"; };
-		3BFB7FE016F74FB400964FF2 /* MJDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJDetailViewController.m; sourceTree = "<group>"; };
-		3BFB7FE116F74FB400964FF2 /* MJDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MJDetailViewController.xib; sourceTree = "<group>"; };
 		3BFB7FE316F74FB400964FF2 /* ListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ListItem.h; sourceTree = "<group>"; };
 		3BFB7FE416F74FB400964FF2 /* ListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListItem.m; sourceTree = "<group>"; };
 		3BFB7FE516F74FB400964FF2 /* POHorizontalList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = POHorizontalList.h; sourceTree = "<group>"; };
@@ -334,10 +314,6 @@
 		3BFB800A16F74FCF00964FF2 /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 		3BFB800B16F74FCF00964FF2 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
 		3BFB800C16F74FCF00964FF2 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
-		3BFB800E16F74FCF00964FF2 /* MJPopupBackgroundView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJPopupBackgroundView.h; sourceTree = "<group>"; };
-		3BFB800F16F74FCF00964FF2 /* MJPopupBackgroundView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJPopupBackgroundView.m; sourceTree = "<group>"; };
-		3BFB801016F74FCF00964FF2 /* UIViewController+MJPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MJPopupViewController.h"; sourceTree = "<group>"; };
-		3BFB801116F74FCF00964FF2 /* UIViewController+MJPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MJPopupViewController.m"; sourceTree = "<group>"; };
 		3BFB805216F750A700964FF2 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		3BFB805316F750A700964FF2 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		3BFB805416F750A700964FF2 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -458,25 +434,6 @@
 			name = Product;
 			sourceTree = "<group>";
 		};
-		3B6D443616F938F4001D99D2 /* Modal */ = {
-			isa = PBXGroup;
-			children = (
-				3BFB800D16F74FCF00964FF2 /* Source */,
-				3BFB7FDF16F74FB400964FF2 /* MJDetailViewController.h */,
-				3BFB7FE016F74FB400964FF2 /* MJDetailViewController.m */,
-				3BFB7FE116F74FB400964FF2 /* MJDetailViewController.xib */,
-				3B6D44EF16F94AA4001D99D2 /* MJStoresDetail.h */,
-				3B6D44F016F94AA4001D99D2 /* MJStoresDetail.m */,
-				3B6D44F716F94CAC001D99D2 /* MJStoresDetail.xib */,
-				3B6D44F216F94B16001D99D2 /* MJSettingsDetail.h */,
-				3B6D44F316F94B16001D99D2 /* MJSettingsDetail.m */,
-				3B1D73E616FA536C0071B8F6 /* MJComments.xib */,
-				3B1D73E916FA53900071B8F6 /* MJComments.h */,
-				3B1D73EA16FA53900071B8F6 /* MJComments.m */,
-			);
-			name = Modal;
-			sourceTree = "<group>";
-		};
 		3B6D443816F93A46001D99D2 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -564,7 +521,6 @@
 		3BFB7FB116F74F7300964FF2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				3B6D443616F938F4001D99D2 /* Modal */,
 				84A50C9916FEC4C900BC4943 /* CoreDataHelper */,
 				3BFB805116F750A700964FF2 /* AFNetworking */,
 				3BFB7FF716F74FCF00964FF2 /* SDWebImage */,
@@ -621,17 +577,6 @@
 				3BFB800C16F74FCF00964FF2 /* UIImageView+WebCache.m */,
 			);
 			path = SDWebImage;
-			sourceTree = "<group>";
-		};
-		3BFB800D16F74FCF00964FF2 /* Source */ = {
-			isa = PBXGroup;
-			children = (
-				3BFB800E16F74FCF00964FF2 /* MJPopupBackgroundView.h */,
-				3BFB800F16F74FCF00964FF2 /* MJPopupBackgroundView.m */,
-				3BFB801016F74FCF00964FF2 /* UIViewController+MJPopupViewController.h */,
-				3BFB801116F74FCF00964FF2 /* UIViewController+MJPopupViewController.m */,
-			);
-			path = Source;
 			sourceTree = "<group>";
 		};
 		3BFB805116F750A700964FF2 /* AFNetworking */ = {
@@ -944,7 +889,6 @@
 				8493A5CB16F6CDEE00F23DF6 /* Sort_by_thumbnail.png in Resources */,
 				8493A5CD16F6D07C00F23DF6 /* Shopping_holder.png in Resources */,
 				8493A5CF16F6D13600F23DF6 /* icon_shopping_car.png in Resources */,
-				3BFB7FF416F74FB400964FF2 /* MJDetailViewController.xib in Resources */,
 				3B27783116F7BE67007F228F /* acordion_icon.png in Resources */,
 				3B27783216F7BE67007F228F /* Overview_bar.png in Resources */,
 				3B27783516F7C32D007F228F /* new_comment_icon.png in Resources */,
@@ -993,7 +937,6 @@
 				3B6D449116F93DEE001D99D2 /* switch_02.png in Resources */,
 				3B6D449216F93DEE001D99D2 /* sync_holder.png in Resources */,
 				3B6D449316F93DEE001D99D2 /* top_contnr.png in Resources */,
-				3B6D44F816F94CAC001D99D2 /* MJStoresDetail.xib in Resources */,
 				3B6D44FC16F94D97001D99D2 /* map_holder.png in Resources */,
 				3B6D44FD16F94D97001D99D2 /* map.png in Resources */,
 				3B6D450B16F94DB8001D99D2 /* store_big_adi_icon.png in Resources */,
@@ -1011,7 +954,6 @@
 				3B6D451716F94DB8001D99D2 /* Stores_main_bg.png in Resources */,
 				3B6D451A16F94DCD001D99D2 /* Scroll_bar.png in Resources */,
 				3B6D451B16F94DCD001D99D2 /* set_default_butttom,.png in Resources */,
-				3B1D73E716FA536C0071B8F6 /* MJComments.xib in Resources */,
 				848A371316FAC61B00FCE8BD /* search_bar.png in Resources */,
 				848A371816FACB5B00FCE8BD /* bg_search_bar_small.png in Resources */,
 				84A50C8816FEA3B800BC4943 /* left_drag_handle.png in Resources */,
@@ -1065,7 +1007,6 @@
 				8493A5BF16F6B5A100F23DF6 /* CatalogViewController.m in Sources */,
 				3BFB7FB016F74E6700964FF2 /* Product.m in Sources */,
 				3BFB7FD216F74F9200964FF2 /* DYRateView.m in Sources */,
-				3BFB7FF316F74FB400964FF2 /* MJDetailViewController.m in Sources */,
 				3BFB7FF516F74FB400964FF2 /* ListItem.m in Sources */,
 				3BFB7FF616F74FB400964FF2 /* POHorizontalList.m in Sources */,
 				3BFB803016F74FCF00964FF2 /* MKAnnotationView+WebCache.m in Sources */,
@@ -1078,8 +1019,6 @@
 				3BFB803716F74FCF00964FF2 /* SDWebImagePrefetcher.m in Sources */,
 				3BFB803816F74FCF00964FF2 /* UIButton+WebCache.m in Sources */,
 				3BFB803916F74FCF00964FF2 /* UIImageView+WebCache.m in Sources */,
-				3BFB803A16F74FCF00964FF2 /* MJPopupBackgroundView.m in Sources */,
-				3BFB803B16F74FCF00964FF2 /* UIViewController+MJPopupViewController.m in Sources */,
 				3BFB806516F750A700964FF2 /* AFHTTPClient.m in Sources */,
 				3BFB806616F750A700964FF2 /* AFHTTPRequestOperation.m in Sources */,
 				3BFB806716F750A800964FF2 /* AFImageRequestOperation.m in Sources */,
@@ -1090,9 +1029,6 @@
 				3BFB806C16F750A800964FF2 /* AFXMLRequestOperation.m in Sources */,
 				3BFB806D16F750A800964FF2 /* UIImageView+AFNetworking.m in Sources */,
 				3B27782C16F7B1FA007F228F /* ProductViewController.m in Sources */,
-				3B6D44F116F94AA4001D99D2 /* MJStoresDetail.m in Sources */,
-				3B6D44F416F94B16001D99D2 /* MJSettingsDetail.m in Sources */,
-				3B1D73EB16FA53900071B8F6 /* MJComments.m in Sources */,
 				84A50C9816FEC4C600BC4943 /* CoreDataHelper.m in Sources */,
 				84A50C9C16FFB01500BC4943 /* Settings.m in Sources */,
 				84A50C9F16FFFF5A00BC4943 /* Products.m in Sources */,

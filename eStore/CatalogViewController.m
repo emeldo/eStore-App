@@ -946,20 +946,20 @@
                     
                     [button1 setTitle:col1 forState:UIControlStateNormal];
                     button1.backgroundColor = [UIColor clearColor];
-                    [button1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [button1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                     
                     
                     [button2 setTitle:col2 forState:UIControlStateNormal];
                     button2.backgroundColor = [UIColor clearColor];
-                    [button2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [button2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                     
                     [button3 setTitle:col3 forState:UIControlStateNormal];
                     button3.backgroundColor = [UIColor clearColor];
-                    [button3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [button3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                     
                     [button4 setTitle:col4 forState:UIControlStateNormal];
                     button4.backgroundColor = [UIColor clearColor];
-                    [button4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+                    [button4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
                     
                     
                     
@@ -1449,7 +1449,7 @@
     
     NSString *sizeValue = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:valueSelected];
     
-    NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
+//    NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
     
     self.menuQuery = [NSString stringWithFormat:@"c_sizeSearchValue=%@",
                       sizeValue];

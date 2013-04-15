@@ -457,6 +457,7 @@
             }
             Comment.ModerationStatus = [ResultsValues objectForKey:@"ModerationStatus"];
             Comment.LastModeratedTime = [ResultsValues objectForKey:@"LastModeratedTime"];
+            
 
             Comment.Id = [ResultsValues objectForKey:@"Id"];
             Comment.Rating = [ResultsValues objectForKey:@"Rating"];

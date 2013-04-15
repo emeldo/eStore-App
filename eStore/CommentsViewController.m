@@ -56,6 +56,28 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 600, 44)];
+    [self.view addSubview:naviBarObj];
+    
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
+    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"Ratings and Comments"];
+    
+    navigItem.rightBarButtonItem = cancelItem;
+    
+    naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
+    naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    
+    self.view.superview.bounds = CGRectMake(0, 0, 600, 546);
+}
+
+
+- (void) cancelButtonPressed{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
 #pragma mark - Table View DataSource
 
 
@@ -102,10 +124,8 @@
     UILabel *ReviewText = (UILabel *)[cell viewWithTag:14];
     UIView *Ratespace = (UIView *)[cell viewWithTag:15];
     UILabel *From = (UILabel *)[cell viewWithTag:16];
-    UILabel *Age = (UILabel *)[cell viewWithTag:17];
-    UILabel *Sex = (UILabel *)[cell viewWithTag:18];
-
-    
+//    UILabel *Age = (UILabel *)[cell viewWithTag:17];
+//    UILabel *Sex = (UILabel *)[cell viewWithTag:18];
     
     NickName.text = Comment.UserNickname;
     //Title.text = Comment.Title;
