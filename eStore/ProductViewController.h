@@ -36,7 +36,12 @@
 @property (nonatomic, strong) NSMutableDictionary *selected_refinements;
 @property (nonatomic, strong) NSMutableDictionary *arrays;
 
+@property (strong, nonatomic) IBOutlet UIView *leftMenu;
+@property (strong, nonatomic) IBOutlet UIView *rightMenu;
 
 @property (strong, nonatomic) IBOutlet UIButton *mybuttonComments;
+
+
+- (IBAction)hideAndUnhide:(id)sender;
 
 @end

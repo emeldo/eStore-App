@@ -131,8 +131,8 @@
     //Setting Lateral Menus
     self.leftMenuVisible = NO;
     self.rightMenuVisible = NO;
-    rightMenuY = 105;
-    rightBevelWidth = 25;
+    rightMenuY = 0;
+    rightBevelWidth = 50;
     leftMenuY = 0;
     leftBevelWidth = 50;
     
@@ -281,7 +281,7 @@
             [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
         }
     } else {
-        if (positionX > 900 && positionX < 1090) {
+        if (positionX > 930 && positionX < 1090) {
             recognizer.view.center = CGPointMake(positionX, recognizer.view.center.y + 0);
             [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
         }

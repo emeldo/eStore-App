@@ -34,6 +34,9 @@
     UILabel *ProductName = (UILabel *)[self.view viewWithTag:2];
     UILabel *ProductCode = (UILabel *)[self.view viewWithTag:3];
     UIView *Ratespace = (UIView *)[self.view viewWithTag:4];
+    
+    UIView *productBackgroundView = (UIView *)[self.view viewWithTag:5];
+    productBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"r&c_product_holder.png"]];
 
     ProductName.text =  self.product.product_name;
     ProductCode.text =  self.product.product_id;

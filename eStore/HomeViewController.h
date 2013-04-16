@@ -15,7 +15,11 @@
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 
+@property (strong, nonatomic) IBOutlet UIView *leftMenu;
+@property (strong, nonatomic) IBOutlet UIView *rightMenu;
+
 - (IBAction)categorySelected:(id)sender;
 - (IBAction)hideKeyboard;
+- (IBAction)hideAndUnhide:(id)sender;
 
 @end

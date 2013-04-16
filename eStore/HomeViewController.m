@@ -18,9 +18,15 @@
 @interface HomeViewController () {
     NSString *category;
     NSString *categoryName;
+    int rightMenuY;
+    int rightBevelWidth;
+    int leftMenuY;
+    int leftBevelWidth;
 }
 
 @property (strong, nonatomic) NSArray *products;
+@property (nonatomic, assign) BOOL leftMenuVisible;
+@property (nonatomic, assign) BOOL rightMenuVisible;
 
 @end
 
@@ -50,6 +56,23 @@
     searchBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_search_bar.png"]];
     
     
+    //Setting Lateral Menus
+    self.leftMenuVisible = NO;
+    self.rightMenuVisible = NO;
+    rightMenuY = 0;
+    rightBevelWidth = 50;
+    leftMenuY = 0;
+    leftBevelWidth = 50;
+    
+    UIPanGestureRecognizer *leftRecognizer;
+    leftRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragMenu:)];
+    [self.leftMenu addGestureRecognizer:leftRecognizer];
+    
+    UIPanGestureRecognizer *rightRecognizer;
+    rightRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragMenu:)];
+    [self.rightMenu addGestureRecognizer:rightRecognizer];
+    
+    
     //Setting Search Bar
     
     UIImageView *space = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"space.png"]];
@@ -58,7 +81,6 @@
     [self.searchBar  setRightViewMode:UITextFieldViewModeAlways];
     [self.searchBar  setLeftView:space];
     [self.searchBar  setLeftViewMode:UITextFieldViewModeAlways];
-
     
     category = nil;
     categoryName = nil;
@@ -82,9 +104,17 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    // Set up lateral menus first time
+    self.leftMenu.frame = CGRectMake(self.leftMenu.frame.size.width * -1 + leftBevelWidth, leftMenuY, self.leftMenu.frame.size.width, self.leftMenu.frame.size.height);
+    self.leftMenu.hidden = false;
+    
+    self.rightMenu.frame = CGRectMake(self.view.frame.size.width - rightBevelWidth, rightMenuY, self.rightMenu.frame.size.width, self.rightMenu.frame.size.height);
+    self.rightMenu.hidden = false;
+    
+    
+    // Set up the page control
     self.products = [CoreDataHelper getObjectsForEntity:@"Products" withSortKey:@"sortDate" andSortAscending:NO andContext:self.managedObjectContext];
 
-    // Set up the page control
     NSInteger pageCount;
     
     if ([self.products count] < 6) {
@@ -192,6 +222,96 @@
 {    
     [self.searchBar resignFirstResponder];
 }
+
+
+#pragma mark - Lateral Menu Methods
+
+- (void)dragMenu:(UIPanGestureRecognizer *)recognizer
+{
+    CGPoint translation = [recognizer translationInView:self.view];
+    CGPoint velocity = [recognizer velocityInView:self.view];
+    
+    if(recognizer.state == UIGestureRecognizerStateEnded)
+    {
+        if (recognizer.view.tag == 1) {
+            (velocity.x > 0) ? [self openMenu:self.leftMenu] : [self closeMenu:self.leftMenu];
+        } else {
+            (velocity.x > 0) ? [self closeMenu:self.rightMenu] : [self openMenu:self.rightMenu];
+        }
+    }
+    
+    int positionX = recognizer.view.center.x + translation.x;
+    
+    if (recognizer.view.tag == 1) {
+        if (positionX > -66 && positionX < 101) {
+            recognizer.view.center = CGPointMake(positionX, recognizer.view.center.y + 0);
+            [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
+        }
+    } else {
+        if (positionX > 930 && positionX < 1090) {
+            recognizer.view.center = CGPointMake(positionX, recognizer.view.center.y + 0);
+            [recognizer setTranslation:CGPointMake(0, 0) inView:self.view];
+        }
+    }
+}
+
+
+- (void)openMenu:(UIView *)menu
+{
+    [UIView animateWithDuration:0.5 animations:^{
+        if (menu.tag == 1) {
+            self.leftMenuVisible = YES;
+            self.leftMenu.frame = CGRectMake(0, leftMenuY, self.leftMenu.frame.size.width, self.leftMenu.frame.size.height);
+        } else {
+            self.rightMenuVisible = YES;
+            self.rightMenu.frame = CGRectMake(self.view.frame.size.width - self.rightMenu.frame.size.width, rightMenuY, self.rightMenu.frame.size.width, self.rightMenu.frame.size.height);
+        }
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 animations:^{
+        }];
+    }];
+}
+
+- (void)closeMenu:(UIView *)menu
+{
+    [UIView animateWithDuration:0.5 animations:^{
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.5 animations:^{
+            if (menu.tag == 1) {
+                self.leftMenuVisible = NO;
+                self.leftMenu.frame = CGRectMake(self.leftMenu.frame.size.width * -1 + leftBevelWidth, leftMenuY, self.leftMenu.frame.size.width, self.leftMenu.frame.size.height);
+            } else {
+                self.rightMenuVisible = NO;
+                self.rightMenu.frame = CGRectMake(self.view.frame.size.width - rightBevelWidth, rightMenuY, self.rightMenu.frame.size.width, self.rightMenu.frame.size.height);
+            }
+        }];
+    }];
+}
+
+
+- (IBAction)hideAndUnhide:(id)sender
+{
+    [self.searchBar resignFirstResponder];
+    
+    UIButton *button = (UIButton *)sender;
+    int buttonTag = button.tag;
+    
+    switch (buttonTag) {
+        case 3:
+            self.leftMenuVisible ? [self closeMenu:self.leftMenu] : [self openMenu:self.leftMenu];
+            break;
+            
+        case 4:
+            self.rightMenuVisible ? [self closeMenu:self.rightMenu] : [self openMenu:self.rightMenu];
+            break;
+            
+        default:
+            [self closeMenu:self.leftMenu];
+            [self closeMenu:self.rightMenu];
+            break;
+    }
+}
+
 
 
 #pragma mark - TextField Delegate
