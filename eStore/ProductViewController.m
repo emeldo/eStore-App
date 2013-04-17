@@ -22,6 +22,7 @@
     NSMutableArray *freeList;
     NSMutableArray *paidList;
     NSMutableArray *grossingList;
+    NSMutableIndexSet *expandedSections;
     
     int rightMenuY;
     int rightBevelWidth;
@@ -49,6 +50,13 @@
 @property (nonatomic, assign) BOOL rightMenuVisible;
 @property (nonatomic, strong) NSMutableArray  *Commenthits;
 
+//@property (nonatomic, readwrite, retain) NSMutableDictionary *arrays;
+
+//////////////////////////////////////////////////EMELDO
+@property (nonatomic, strong) NSArray *filterCategories;
+@property (nonatomic, strong) NSArray *filterLabels;
+@property (nonatomic, strong) NSArray *filterOrder;
+
 @end
 
 @implementation ProductViewController
@@ -69,7 +77,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     //Getting Product information from Catalog
     self.title = product.product_name;
     self.productNameLabel.text = product.product_name;
@@ -82,8 +89,15 @@
     self.variation_size = [[NSMutableArray alloc] init];
     self.imageslow = [[NSMutableArray alloc] init];
     
-    NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
-    NSMutableArray *arrayActiveFilters2 = [self.arrays objectForKey:@"Filters"];
+    self.filterCategories = [[NSArray alloc] initWithObjects: @"c_productType", @"c_sport", @"cgid", @"c_division", @"c_searchColor",  @"c_sizeSearchValue", @"c_filters", nil];
+    
+    self.filterLabels = [[NSArray alloc] initWithObjects: @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size", @"Filters", nil];
+    
+    
+    self.filterOrder = [[NSArray alloc] initWithObjects:  @"cgid", @"c_division", @"c_sport", @"c_productType", @"c_searchColor",  @"c_sizeSearchValue", nil];
+
+    //NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
+    //NSMutableArray *arrayActiveFilters2 = [self.arrays objectForKey:@"Filters"];
     
     
     //Setting up Backgrounds for views
@@ -132,26 +146,40 @@
     
     int x = 100;
     
-    for (NSString *key in keys) {
+    for (int k=0; k< self.filterOrder.count; k++) {
+        NSString *filterName = [self.filterOrder objectAtIndex:k];
+        NSLog(@" %@",filterName);
         
-        [arrayActiveFilters addObject:key];
-        [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
+        for (NSString *key in keys) {
+            
+            if([key isEqualToString:filterName]){
+                
+                
+                // for (NSString *key in keys) {
+                
+                //[arrayActiveFilters addObject:key];
+                //[arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
+                
+                UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+                
+                [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+                [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
+                [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+                [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+                [breadcumView addSubview:breadcumLabel];
+                
+                CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+                
+                UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+                [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+                [breadcumView addSubview:breadcumImage];
+                
+                x = x + textSize.width + 40;
+                break;
+            }
+            
+        }
         
-        UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
-        
-        [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-        [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
-        [breadcumLabel setTextColor:[UIColor darkGrayColor]];
-        [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
-        [breadcumView addSubview:breadcumLabel];
-        
-        CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
-        
-        UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
-        [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
-        [breadcumView addSubview:breadcumImage];
-
-        x = x + textSize.width + 40;
     }
     
     [breadcumViewComplete addSubview:breadcumView];
@@ -180,8 +208,23 @@
     UIPanGestureRecognizer *rightRecognizer;
     rightRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragMenu:)];
     [self.rightMenu addGestureRecognizer:rightRecognizer];
-
     
+    
+    
+   
+
+    if (!expandedSections)
+    {
+        expandedSections = [[NSMutableIndexSet alloc] init];
+    }
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle: @"Back"
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+   
 }
 
 
@@ -205,9 +248,7 @@
 
 
 - (void)loadScrollView {
-    //NSLog(@"pageimage %i - images %i ",[self.pageImages count],[self.imagesByArticle count]);
-    
-    if ([self.pageImages count] == [self.imagesByArticle count]) {
+       if ([self.pageImages count] == [self.imagesByArticle count]) {
         
         NSInteger pageCount = self.pageImages.count;
         
@@ -250,6 +291,14 @@
         ImageViewController *imageViewController = [segue destinationViewController];
         imageViewController.productImage.contentMode = UIViewContentModeScaleAspectFit;
         imageViewController.productImage = [self.pageViews objectAtIndex:self.pageControl.currentPage];
+    }
+    
+    if ([[segue identifier] isEqualToString:@"CatalogReturn"]) {
+        
+        CatalogViewController *catalogViewController = [segue destinationViewController];
+        catalogViewController.menuQuery = self.menuQuery;
+        catalogViewController.managedObjectContext = self.managedObjectContext;
+        catalogViewController.selected_refinements = self.selected_refinements;
     }
 }
 
@@ -531,9 +580,17 @@
 
 
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        NSLog(@"Request ERROR 1: %@, %@", error, error.userInfo);
         
-        //  [self performSegueWithIdentifier:@"notFound" sender:nil];
+        UIView *loadingView = (UIView *)[self.view viewWithTag:501];
+        loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        loadingView.hidden = YES;
+
+        
+        UIView *ErrorView = (UIView *)[self.view viewWithTag:404];
+        ErrorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        ErrorView.hidden = NO;
+        
     }];
     
     
@@ -595,11 +652,11 @@
              NSArray *ContextDataValuesOrder = [ResultsValues objectForKey:@"ContextDataValuesOrder"];
             // NSArray *Context = [ContextDataValues allKeys];
             
-             NSLog(@"total  %i", [ContextDataValues count]);
+             //NSLog(@"total  %i", [ContextDataValues count]);
             
             for(int j = 0 ; j < [ContextDataValuesOrder count]; j++){
                NSString *value =  [ContextDataValuesOrder objectAtIndex:j];
-               NSLog(@" %@",value);
+               // NSLog(@" %@",value);
                
                 
                  for(int K = 0 ; K < [ContextDataValues count]; K++){
@@ -619,9 +676,17 @@
 
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        NSLog(@"Request Error 2: %@, %@", error, error.userInfo);
+        
+        UIView *loadingView = (UIView *)[self.view viewWithTag:501];
+        loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        loadingView.hidden = YES;
         
         //[self performSegueWithIdentifier:@"notFound" sender:nil];
+        UIView *ErrorView = (UIView *)[self.view viewWithTag:404];
+        ErrorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        ErrorView.hidden = NO;
+
     }];
     
     
@@ -704,7 +769,16 @@
         [self.webviewName loadHTMLString:htmlBody baseURL:nil];
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        NSLog(@"Request Error 3 %@, %@", error, error.userInfo);
+        UIView *loadingView = (UIView *)[self.view viewWithTag:501];
+        loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        loadingView.hidden = YES;
+        
+        UIView *ErrorView = (UIView *)[self.view viewWithTag:404];
+        ErrorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        
+        ErrorView.hidden = NO;
+
     }];
     
     [operation start];
@@ -802,41 +876,602 @@
 
 }
 
-#pragma mark - Table View DataSources
 
-- (int)numberOfSectionsInTableView:(UITableView *)tableView {
+#pragma mark - Table View DataSource
+
+
+- (BOOL)tableView:(UITableView *)tableView canCollapseSection:(NSInteger)section
+{
+    return YES;
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if (tableView == self.menuTableView ) {
+        return 6;
+    }
+    
     return 1;
 }
 
-- (int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (tableView == self.menuTableView ) {
+        if ([self tableView:tableView canCollapseSection:section])
+        {
+            if ([expandedSections containsIndex:section])
+            {
+                NSString *SubCategoryLabel = [self.filterCategories objectAtIndex:section];
+                NSMutableArray *arrayInfoDisplay = [self.arrays objectForKey:SubCategoryLabel];
+                int valortotal = [arrayInfoDisplay count]+1;
+                if([SubCategoryLabel isEqualToString:@"c_searchColor"]
+                   || [SubCategoryLabel isEqualToString:@"c_sizeSearchValue"]){
+                    float x = [arrayInfoDisplay count]/4;
+                    valortotal = (int)x;
+                    valortotal = valortotal + 1;
+                }else{
+                    valortotal = [arrayInfoDisplay count]+1;
+                }
+                return valortotal;
+            }
+            return 1; // only top row showing
+        }
+    }else if (tableView == self.selectionTableView) {
+       NSMutableArray *arraySelection = [self.arrays objectForKey:@"Filters"];
+        return [arraySelection count];
+    }
+    
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 155.0;
-}
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellIdentifier = @"Cell";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    NSString *cellIdentifier = [[NSString alloc] init];
     
+    if (tableView == self.menuTableView ) {
+        if (!indexPath.row) {
+            cellIdentifier = @"CategoryCell";
+        } else {
+            cellIdentifier = @"SubCategoryCell";
+        }
+        
+        if (indexPath.row){
+            NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
+            
+            //NSLog(@" NTYPE %@",SubCategoryInfoValue);
+            if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
+                cellIdentifier = @"ColourCell";
+                
+            }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
+                cellIdentifier = @"SizeCell";
+            }
+        }
+        
+    } else if(tableView == self.selectionTableView) {
+        cellIdentifier = @"SelectionCell";
+    } else {
+        cellIdentifier = @"Cell";
+    }
+    
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
     
-    NSString *title = @"";
-    POHorizontalList *list;
     
-    if ([indexPath row] == 0) {
-        list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 0.0, 352.0, 155.0) title:title items:freeList];
+    if (tableView == self.menuTableView ) {
+        
+        if ([self tableView:tableView canCollapseSection:indexPath.section])
+        {
+            if (!indexPath.row)
+            {
+                UILabel *categoryName = (UILabel *)[cell viewWithTag:5];
+                UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
+                UIView *accesorySection = (UIView *)[cell viewWithTag:13];
+                
+                cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+                accesorySection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"desplegar_icon.png"]];
+                
+                NSString *CategoryLabel = [self.filterLabels objectAtIndex:indexPath.section];
+                
+                switch (indexPath.section) {
+                    case 2:
+                        if(self.titleQuery != nil){
+                            categoryName.text = self.titleQuery;
+                        }else{
+                            categoryName.text = @"Category";
+                        }
+                        break;
+                    default:
+                        categoryName.text = CategoryLabel;
+                        break;
+                }
+                
+            }
+            else
+            {
+                
+                NSString *SubCategoryLabel = [self.filterLabels objectAtIndex:indexPath.section];
+                NSString *SubCategoryInfoValue = [self.filterCategories objectAtIndex:indexPath.section];
+                
+                if([SubCategoryInfoValue isEqualToString:@"c_searchColor"]){
+                    
+                    UIButton *color1 = (UIButton *)[cell viewWithTag:20];
+                    UIButton *color2 = (UIButton *)[cell viewWithTag:21];
+                    UIButton *color3 = (UIButton *)[cell viewWithTag:22];
+                    UIButton *color4 = (UIButton *)[cell viewWithTag:23];
+                    
+                    NSString  *col1, *col2, *col3,*col4 = nil;
+                    int N1,N2,N3,N4 = 0;
+                    
+                    //NSLog(@"i-> %i",indexPath.row);
+                    if(indexPath.row == 1){
+                        N1 = 0;
+                        N2 = 1;
+                        N3 = 2;
+                        N4 = 3;
+                    }else{
+                        N1 = indexPath.row * 4 - 4;
+                        N2 = indexPath.row * 4 - 3;
+                        N3 = indexPath.row * 4 - 2;
+                        N4 = indexPath.row * 4 - 1;
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col1 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N1];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col1 = nil;
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col2 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N2];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col2 = nil;
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col3 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N3];
+                    }
+                    @catch (NSException * e) {
+                        col3 = nil;
+                        //NSLog(@"catching reason");
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col4 = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:N4];
+                    }
+                    @catch (NSException * e) {
+                        //                         NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                        //NSLog(@"catching reason ");
+                        col4 = nil;
+                    }
+                    @finally {
+                        //  NSLog(@"finally");
+                    }
+                    
+                    
+                    //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+                    //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    
+                    
+                    
+                    [color1 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [color2 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [color3 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [color4 addTarget:self action:@selector(colorPressed:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    color1.tag = N1;
+                    color2.tag = N2;
+                    color3.tag = N3;
+                    color4.tag = N4;
+                    
+                    color1.backgroundColor = [UIColor clearColor];
+                    [color1 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col1]];
+                    UIImage *strechableButtonImageNormal = [buttonImageNormal stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color1 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
+                    
+                    
+                    color2.backgroundColor = [UIColor clearColor];
+                    [color2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal2 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col2]];
+                    strechableButtonImageNormal = [buttonImageNormal2 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color2 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
+                    
+                    
+                    color3.backgroundColor = [UIColor clearColor];
+                    [color3 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal3 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col3]];
+                    strechableButtonImageNormal = [buttonImageNormal3 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color3 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
+                    
+                    
+                    color4.backgroundColor = [UIColor clearColor];
+                    [color4 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal ];
+                    UIImage *buttonImageNormal4 = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png",col4]];
+                    strechableButtonImageNormal = [buttonImageNormal4 stretchableImageWithLeftCapWidth:12 topCapHeight:0];
+                    [color4 setBackgroundImage:strechableButtonImageNormal forState:UIControlStateNormal];
+                    
+                    
+                    
+                    
+                    
+                }else if([SubCategoryInfoValue isEqualToString:@"c_sizeSearchValue"]){
+                    
+                    UIButton *button1 = (UIButton *)[cell viewWithTag:30];
+                    UIButton *button2 = (UIButton *)[cell viewWithTag:31];
+                    UIButton *button3 = (UIButton *)[cell viewWithTag:32];
+                    UIButton *button4 = (UIButton *)[cell viewWithTag:33];
+                    
+                    
+                    [button1 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [button2 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [button3 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    [button4 addTarget:self action:@selector(sizePressed:) forControlEvents:UIControlEventTouchUpInside];
+                    
+                    NSString  *col1, *col2, *col3,*col4 = nil;
+                    int N1,N2,N3,N4 = 0;
+                    
+                    //NSLog(@"i-> %i",indexPath.row);
+                    if(indexPath.row == 1){
+                        N1 = 0;
+                        N2 = 1;
+                        N3 = 2;
+                        N4 = 3;
+                    }else{
+                        N1 = indexPath.row * 4 - 4;
+                        N2 = indexPath.row * 4 - 3;
+                        N3 = indexPath.row * 4 - 2;
+                        N4 = indexPath.row * 4 - 1;
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col1 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N1];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col1 = nil;
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col2 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N2];
+                    }
+                    @catch (NSException * e) {
+                        //NSLog(@"catching reason");
+                        col2 = nil;
+                    }
+                    @finally {
+                        // NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        //NSLog(@"trying...");
+                        col3 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N3];
+                    }
+                    @catch (NSException * e) {
+                        col3 = nil;
+                        //NSLog(@"catching reason");
+                    }
+                    @finally {
+                        //  NSLog(@"finally");
+                    }
+                    
+                    @try {
+                        col4 = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:N4];
+                    }
+                    @catch (NSException * e) {
+                        // NSLog(@"catching reason ");
+                        col4 = nil;
+                    }
+                    @finally {
+                        //NSLog(@"finally");
+                    }
+                    //NSLog(@"colores %i %i %i %i",N1,N2,N3,N4);
+                    
+                    //NSLog(@"colores %@ %@ %@ %@",col1,col2,col3,col4);
+                    button1.tag = N1;
+                    button2.tag = N2;
+                    button3.tag = N3;
+                    button4.tag = N4;
+                    
+                    
+                    [button1 setTitle:col1 forState:UIControlStateNormal];
+                    button1.backgroundColor = [UIColor clearColor];
+                    [button1 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+                    
+                    
+                    [button2 setTitle:col2 forState:UIControlStateNormal];
+                    button2.backgroundColor = [UIColor clearColor];
+                    [button2 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+                    
+                    [button3 setTitle:col3 forState:UIControlStateNormal];
+                    button3.backgroundColor = [UIColor clearColor];
+                    [button3 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+                    
+                    [button4 setTitle:col4 forState:UIControlStateNormal];
+                    button4.backgroundColor = [UIColor clearColor];
+                    [button4 setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+                    
+                    
+                    
+                    
+                }else{
+                    
+                    UILabel *subCategoryName = (UILabel *)[cell viewWithTag:7];
+                    UILabel *subCategoryValue = (UILabel *)[cell viewWithTag:8];
+                    
+                    
+                    if(![SubCategoryLabel isEqualToString: @"Filters"]){
+                        if (indexPath.row == 0) {
+                            
+                            subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row];
+                            if(![SubCategoryLabel isEqualToString: @"Filters"]){
+                                subCategoryValue.text = [[self.arrays objectForKey:SubCategoryInfoValue] objectAtIndex:indexPath.row];
+                                
+                            }
+                            subCategoryValue.hidden = true;
+                        } else {
+                            subCategoryName.text = [[self.arrays objectForKey:SubCategoryLabel] objectAtIndex:indexPath.row-1];
+                            if(![SubCategoryLabel isEqualToString: @"Filters"]){
+                                subCategoryValue.text = [[self.arrays objectForKey:SubCategoryInfoValue] objectAtIndex:indexPath.row-1];
+                            }
+                            subCategoryValue.hidden = true;
+                        }
+                    }// quitando filters
+                    
+                }
+            }
+        }
+        else
+        {
+            cell.accessoryView = nil;
+            cell.textLabel.text = @"Normal Cell";
+        }
+        
+    } else if(tableView == self.selectionTableView){
+        UILabel *filters = (UILabel *)[cell viewWithTag:13];
+        UILabel *filterName = (UILabel *)[cell viewWithTag:14];
+        UIImageView *filterImageView = (UIImageView *)[cell viewWithTag:15];
+        
+        //NSString *filterTempLabel = [[NSString alloc] initWithString:[[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row]];
+        
+        filters.text = [[self.arrays objectForKey:@"Filters"] objectAtIndex:indexPath.row];
+        
+        //filters.text = [filterTempLabel stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        filterName.text = [[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row];
+        
+        //NSLog(@" %@ %@ ",filters.text,filterName.text);
+        
+        if([[[self.arrays objectForKey:@"c_filters"] objectAtIndex:indexPath.row] isEqualToString:@"cgid"]){
+            filterImageView.hidden = YES;
+        }else{
+            filterImageView.hidden = NO;
+        }
+        
+        
+    }else{
+        NSString *title = @"";
+        POHorizontalList *list;
+        
+        if ([indexPath row] == 0) {
+            list = [[POHorizontalList alloc] initWithFrame:CGRectMake(0.0, 0.0, 352.0, 155.0) title:title items:freeList];
+        }
+        
+        [list setDelegate:self];
+        [cell.contentView addSubview:list];
+    
     }
-    
-    [list setDelegate:self];
-    [cell.contentView addSubview:list];
     
     return cell;
 }
+
+
+
+#pragma mark - Table View Delegate
+
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.menuTableView ) {
+        if (!indexPath.row) {
+            
+            UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+            UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
+            cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+            
+        }
+    }
+}
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (tableView == self.menuTableView ) {
+        
+        if ([self tableView:tableView canCollapseSection:indexPath.section])
+        {
+            if (!indexPath.row)
+            {
+                // only first row toggles exapand/collapse
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                
+                NSInteger section = indexPath.section;
+                BOOL currentlyExpanded = [expandedSections containsIndex:section];
+                NSInteger rows;
+                
+                
+                NSMutableArray *tmpArray = [NSMutableArray array];
+                
+                if (currentlyExpanded){
+                    rows = [self tableView:tableView numberOfRowsInSection:section];
+                    [expandedSections removeIndex:section];
+                    
+                }else{
+                    [expandedSections addIndex:section];
+                    rows = [self tableView:tableView numberOfRowsInSection:section];
+                }
+                
+                
+                for (int i=1; i<rows; i++)
+                {
+                    NSIndexPath *tmpIndexPath = [NSIndexPath indexPathForRow:i
+                                                                   inSection:section];
+                    [tmpArray addObject:tmpIndexPath];
+                }
+                
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+                UIView *cellSectionBg = (UIView *)[cell viewWithTag:14];
+                UIView *accesorySection = (UIView *)[cell viewWithTag:13];
+                
+                cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+                
+                
+                
+                if (currentlyExpanded)
+                {
+                    [tableView deleteRowsAtIndexPaths:tmpArray withRowAnimation:UITableViewRowAnimationTop];
+                    cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
+                    accesorySection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"desplegar_icon.png"]];
+                    
+                } else {
+                    [tableView insertRowsAtIndexPaths:tmpArray withRowAnimation:UITableViewRowAnimationTop];
+                    cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"opened_filter.png"]];
+                    accesorySection.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Colapse_icon.png"]];
+                    
+                }
+            } else {
+                
+                
+                UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+                UITableViewCell *cellSelected = [tableView cellForRowAtIndexPath:indexPath];
+                UILabel *subCategoryName = (UILabel *)[cell viewWithTag:2];
+                UILabel *subCategorySelected = (UILabel *)[cellSelected viewWithTag:7];
+                UILabel *subCategoryValueSelected = (UILabel *)[cellSelected viewWithTag:8];
+                
+                subCategoryName.text = subCategorySelected.text;
+                
+                NSString *categoryType = [self.filterCategories objectAtIndex:indexPath.section];
+                
+                [tableView deselectRowAtIndexPath:indexPath animated:YES];
+                
+                NSInteger section = indexPath.section;
+                BOOL currentlyExpanded = [expandedSections containsIndex:section];
+                NSInteger rows;
+                
+                
+                NSMutableArray *tmpArray = [NSMutableArray array];
+                
+                if (currentlyExpanded)
+                {
+                    rows = [self tableView:tableView numberOfRowsInSection:section];
+                    [expandedSections removeIndex:section];
+                    
+                }
+                else
+                {
+                    [expandedSections addIndex:section];
+                    rows = [self tableView:tableView numberOfRowsInSection:section];
+                }
+                
+                
+                for (int i=1; i<rows; i++)
+                {
+                    NSIndexPath *tmpIndexPath = [NSIndexPath indexPathForRow:i
+                                                                   inSection:section];
+                    [tmpArray addObject:tmpIndexPath];
+                }
+                
+                if (currentlyExpanded)
+                {
+                    [tableView deleteRowsAtIndexPaths:tmpArray withRowAnimation:UITableViewRowAnimationTop];
+                    
+                    
+                }
+                else
+                {
+                    [tableView insertRowsAtIndexPaths:tmpArray
+                                     withRowAnimation:UITableViewRowAnimationTop];
+                }
+                
+                
+                self.menuQuery = [NSString stringWithFormat:@"%@=%@",
+                                  categoryType, subCategoryValueSelected.text];
+                
+                //[self.producthits  removeAllObjects];
+                [self closeMenu:self.leftMenu];
+                [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+                //[self loadingFromWeb : self.menuQuery : self.searchQuery];
+                
+            }
+            
+        }
+        
+    }else if(tableView == self.selectionTableView){
+        //UITableViewCell *cell = [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:indexPath.section]];
+        UITableViewCell *cellSelected = [tableView cellForRowAtIndexPath:indexPath];
+        //UILabel *refine1 = (UILabel *)[cellSelected viewWithTag:13];
+        UILabel *refine2 = (UILabel *)[cellSelected viewWithTag:14];
+        
+        NSMutableDictionary *SinFiltro = [[NSMutableDictionary alloc] init];
+        NSArray *keys = [self.selected_refinements allKeys];
+        
+        for (NSString *key in keys) {
+            //NSLog(@"%@ >>>>>>> %@ %@",key, refine2.text, [self.selected_refinements objectForKey:key]);
+            if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
+                //NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+                //[self.selected_refinements removeObjectForKey:key];
+            }else{
+                [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];
+            }
+            
+        }
+        
+        //[self.producthits  removeAllObjects];
+        
+        [self closeMenu:self.leftMenu];
+        
+        self.selected_refinements = SinFiltro;
+        
+        //NSLog(@" %@ ",self.selected_refinements);
+        [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+        //[self loadingFromWeb :nil : self.searchQuery];
+        
+    }
+    
+}
+
+/*
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 155.0;
+}*/
+
+
 
 #pragma mark - POHorizontal List Delegate
 
@@ -855,6 +1490,63 @@
 
 
 
+
+- (void)colorPressed:(id)sender
+{
+    
+    UIButton *colorButton = (UIButton *)sender;
+    int valueSelected = (int)colorButton.tag;
+    
+    NSString *colorValue = [[self.arrays objectForKey:@"c_searchColor"] objectAtIndex:valueSelected];
+    
+    self.menuQuery = [NSString stringWithFormat:@"c_searchColor=%@",
+                      colorValue];
+    
+    [self closeMenu:self.leftMenu];
+    //[self.producthits removeAllObjects];
+    //[self loadingFromWeb : self.menuQuery : self.searchQuery];
+    [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+}
+
+- (void)sizePressed:(id)sender
+{
+    
+    UIButton *SizeButton = (UIButton *)sender;
+    int valueSelected = (int)SizeButton.tag;
+    
+    NSString *sizeValue = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:valueSelected];
+    
+    //    NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
+    
+    self.menuQuery = [NSString stringWithFormat:@"c_sizeSearchValue=%@",
+                      sizeValue];
+    
+    [self closeMenu:self.leftMenu];
+    //[self.producthits removeAllObjects];
+    //[self loadingFromWeb : self.menuQuery : self.searchQuery];
+    [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+}
+
+- (IBAction)CleanAllPressed:(id)sender
+{
+    
+    [self closeMenu:self.leftMenu];
+    //[self.producthits removeAllObjects];
+    
+    NSArray *keys = [self.selected_refinements allKeys];
+    self.menuQuery = nil;
+    for (NSString *key in keys) {
+        if([key isEqualToString: @"cgid"]){
+            self.menuQuery = [NSMutableString stringWithFormat:@"%@=%@",key, [self.selected_refinements objectForKey:key]];
+            //NSLog(@"refine %@ %@",key, [self.selected_refinements objectForKey:key]);
+        }
+        
+    }
+    //NSLog(@"NEW QUERY %@",self.menuQuery);
+    self.selected_refinements = nil;
+    [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+    //[self loadingFromWeb : self.menuQuery : self.searchQuery];
+}
 
 
 @end

@@ -45,7 +45,7 @@
 @property (nonatomic, strong) NSArray *refinementsValues;
 @property (nonatomic, strong) NSArray *hitsValues;
 @property (nonatomic, strong) NSArray *sorting_optionsValues;
-@property (nonatomic, strong) NSMutableDictionary *selected_refinements;
+//@property (nonatomic, strong) NSMutableDictionary *selected_refinements;
 @property (nonatomic, strong) NSMutableArray *pageImages;
 @property (nonatomic, strong) UILabel *breadcrumb;
 
@@ -161,7 +161,17 @@
     
     self.producthits = [[NSMutableArray alloc] init];
     
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle: @"Back"
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    
+    [self.navigationItem setBackBarButtonItem: backButton];
+    
+    
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
+    
     
 }
 
@@ -423,7 +433,7 @@
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&q=%@&start=1&count=30&expand=images,prices", wsquery];
     }
     
-    //NSLog(@"valor wsquery %@ ",wsStringQuery);
+    NSLog(@"valor wsquery %@ ",wsStringQuery);
     
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsStringQuery]];
@@ -450,7 +460,7 @@
         NSArray *keys = [self.selected_refinements allKeys];
         
         UIView *breadcumViewComplete = (UIView *)[self.view viewWithTag:2];
-
+        
         UIView *breadcumView = nil;
         
         breadcumView = (UIView *)[self.view viewWithTag:888];
@@ -462,14 +472,14 @@
         
         for (int k=0; k< self.filterOrder.count; k++) {
             NSString *filterName = [self.filterOrder objectAtIndex:k];
-           
+            
             for (NSString *key in keys) {
                 
                 if([key isEqualToString:filterName]){
-                     NSLog(@" %i %@",k,filterName);
+                    NSLog(@" %i %@",k,filterName);
                     [arrayActiveFilters addObject:key];
                     [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
-
+                    
                     UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
                     
                     [breadcumLabel setBackgroundColor:[UIColor clearColor]];
@@ -489,9 +499,9 @@
                 }
                 
             }
-        
+            
         }
-    
+        
         [breadcumViewComplete addSubview:breadcumView];
         
         
@@ -515,7 +525,7 @@
                 for (int m=0; m < values.count; m++) {
                     NSDictionary *valueInfo = [values objectAtIndex:m];
                     //PRODUCT TYPE MAYOR A 10 PARA FILTRAR
-                
+                    
                     if([variableInfoValues  isEqualToString: @"c_productType"]
                        && ([[valueInfo objectForKey:@"hit_count" ] integerValue] > 10)){
                         
@@ -598,6 +608,15 @@
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        
+        UIView *loadingView = (UIView *)[self.view viewWithTag:10];
+        loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        loadingView.hidden = YES;
+        
+        UIView *errorView = (UIView *)[self.view viewWithTag:404];
+        errorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        errorView.hidden = NO;
+
     }];
     
     
@@ -1227,7 +1246,7 @@
         for (NSString *key in keys) {
             //NSLog(@"%@ >>>>>>> %@ %@",key, refine2.text, [self.selected_refinements objectForKey:key]);
             if([key isEqualToString: refine2.text] && ![key isEqualToString: @"cgid"]){
-             //NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
+                //NSLog(@"%@ a borrar %@",key, [self.selected_refinements objectForKey:key]);
                 //[self.selected_refinements removeObjectForKey:key];
             }else{
                 [SinFiltro setObject:[self.selected_refinements objectForKey:key] forKey:key];
@@ -1336,6 +1355,7 @@
         destViewController.product = [self.producthits objectAtIndex:indexPath.row];
         destViewController.selected_refinements = self.selected_refinements;
         destViewController.arrays = self.arrays;
+        destViewController.managedObjectContext = self.managedObjectContext;
         
     }
 }
@@ -1449,7 +1469,7 @@
     
     NSString *sizeValue = [[self.arrays objectForKey:@"c_sizeSearchValue"] objectAtIndex:valueSelected];
     
-//    NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
+    //    NSString *sizeLabel = [[self.arrays objectForKey:@"Size"] objectAtIndex:valueSelected];
     
     self.menuQuery = [NSString stringWithFormat:@"c_sizeSearchValue=%@",
                       sizeValue];
@@ -1464,7 +1484,7 @@
 
 - (IBAction)CleanAllPressed:(id)sender
 {
-   
+    
     [self closeMenu:self.leftMenu];
     
     [self.producthits removeAllObjects];
@@ -1475,7 +1495,7 @@
         if([key isEqualToString: @"cgid"]){
             self.menuQuery = [NSMutableString stringWithFormat:@"%@=%@",key, [self.selected_refinements objectForKey:key]];
             //NSLog(@"refine %@ %@",key, [self.selected_refinements objectForKey:key]);
-            }
+        }
         
     }
     //NSLog(@"NEW QUERY %@",self.menuQuery);

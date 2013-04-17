@@ -18,6 +18,9 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 @property (strong, nonatomic) IBOutlet UITableView *productTableView;
 @property (strong, nonatomic) IBOutlet UITableView *selectionTableView;
 
+@property (nonatomic, strong) NSMutableDictionary *selected_refinements;
+
+
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSString *searchQuery;

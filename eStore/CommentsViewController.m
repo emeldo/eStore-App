@@ -30,24 +30,7 @@
 {
     [super viewDidLoad];
     
-    UIImageView *imageView = (UIImageView *)[self.view viewWithTag:1];
-    UILabel *ProductName = (UILabel *)[self.view viewWithTag:2];
-    UILabel *ProductCode = (UILabel *)[self.view viewWithTag:3];
-    UIView *Ratespace = (UIView *)[self.view viewWithTag:4];
-    
-    UIView *productBackgroundView = (UIView *)[self.view viewWithTag:5];
-    productBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"r&c_product_holder.png"]];
-
-    ProductName.text =  self.product.product_name;
-    ProductCode.text =  self.product.product_id;
-    imageView.image =  [self.pageImages objectAtIndex:0];
-    
-    
-    DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 0, 150, 20) fullStar:[UIImage imageNamed:@"StarFull.png"] emptyStar:[UIImage imageNamed:@"StarEmpty.png"]];
-    rateView.padding = 5;
-    rateView.rate = 3.3;
-    rateView.alignment = RateViewAlignmentLeft;
-    [Ratespace addSubview:rateView];
+  
     
 	// Do any additional setup after loading the view.
 }
@@ -108,7 +91,7 @@
     NSString *cellIdentifier = [[NSString alloc] init];
     
     if(indexPath.row == 0){
-         cellIdentifier = @"DetailCell";
+         cellIdentifier = @"HeaderCell";
         }else{
             cellIdentifier = @"DetailCell";
     }
@@ -117,6 +100,28 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
+    
+    if(indexPath.row == 0){
+        UIImageView *imageView = (UIImageView *)[self.view viewWithTag:1];
+        UILabel *ProductName = (UILabel *)[self.view viewWithTag:2];
+        UILabel *ProductCode = (UILabel *)[self.view viewWithTag:3];
+        UIView *Ratespace = (UIView *)[self.view viewWithTag:4];
+        
+        UIView *productBackgroundView = (UIView *)[self.view viewWithTag:5];
+        productBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"r&c_product_holder.png"]];
+        
+        ProductName.text =  self.product.product_name;
+        ProductCode.text =  self.product.product_id;
+        imageView.image =  [self.pageImages objectAtIndex:0];
+        
+        
+        DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 0, 150, 20) fullStar:[UIImage imageNamed:@"StarFull.png"] emptyStar:[UIImage imageNamed:@"StarEmpty.png"]];
+        rateView.padding = 5;
+        rateView.rate = 3.3;
+        rateView.alignment = RateViewAlignmentLeft;
+        [Ratespace addSubview:rateView];
+    
+    }else{
    
     Comments *Comment = [self.Commenthits objectAtIndex:indexPath.row];
    
@@ -173,7 +178,7 @@
     rateView.alignment = RateViewAlignmentLeft;
     [Ratespace addSubview:rateView];
 
-     
+    }
     return cell;
 }
 

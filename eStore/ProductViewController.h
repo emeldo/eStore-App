@@ -22,6 +22,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentValue;
 
 @property (strong, nonatomic) IBOutlet UIWebView *webviewName;
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
 @property (strong, nonatomic) IBOutlet UIPageControl *pageControl;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;     //Product Images
@@ -30,6 +31,9 @@
 @property (strong, nonatomic) IBOutlet UIImageView *productImage;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;      //Other Colors
 @property (strong, nonatomic) IBOutlet UIView *rateView;
+
+@property (strong, nonatomic) IBOutlet UITableView *menuTableView;
+@property (strong, nonatomic) IBOutlet UITableView *selectionTableView;
 
 
 @property (nonatomic, strong) Product *product;
@@ -40,8 +44,10 @@
 @property (strong, nonatomic) IBOutlet UIView *rightMenu;
 
 @property (strong, nonatomic) IBOutlet UIButton *mybuttonComments;
+@property (strong, nonatomic) NSString *titleQuery;
+@property (strong, nonatomic) NSString *menuQuery;
 
 
 - (IBAction)hideAndUnhide:(id)sender;
-
+- (IBAction)CleanAllPressed:(id)sender;
 @end
