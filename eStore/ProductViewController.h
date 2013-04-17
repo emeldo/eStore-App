@@ -21,6 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *productColor;
 @property (weak, nonatomic) IBOutlet UILabel *commentValue;
 
+@property (weak, nonatomic) IBOutlet UILabel *qtyValue;
+@property (weak, nonatomic) IBOutlet UILabel *qtyValueInfo;
+
 @property (strong, nonatomic) IBOutlet UIWebView *webviewName;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 
@@ -46,7 +49,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *mybuttonComments;
 @property (strong, nonatomic) NSString *titleQuery;
 @property (strong, nonatomic) NSString *menuQuery;
-
+@property (strong, nonatomic) NSString *searchQuery;
 
 - (IBAction)hideAndUnhide:(id)sender;
 - (IBAction)CleanAllPressed:(id)sender;

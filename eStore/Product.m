@@ -17,5 +17,6 @@
 @synthesize currency; // currency
 @synthesize price; // price
 @synthesize imageValue;
+@synthesize category;
 
 @end

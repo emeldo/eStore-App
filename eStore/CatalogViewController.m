@@ -359,6 +359,7 @@
 
 -(void)loadingFromWeb : (NSString *)wsString : (NSString *)wsquery
 {
+    NSLog(@"REVISANDO DATOS %@ -- %@ ",wsString,wsquery);
     //Show Loading View
     UIView *loadingView = (UIView *)[self.view viewWithTag:10];
     
@@ -390,9 +391,11 @@
     
     if ([self.selected_refinements count] > 0) {
         NSInteger valor = [self.selected_refinements count]+1;
+        wsString = [self urlEncodeValue: wsString];
         wsRefines  = [NSMutableString stringWithFormat:@"refine_%i=%@",valor,wsString];
         isNoFirst = YES;
     }else{
+        wsString = [self urlEncodeValue: wsString];
         wsRefines  = [NSMutableString stringWithFormat:@"refine_1=%@",wsString];
         isNoFirst = NO;
     }
@@ -400,6 +403,7 @@
     
     NSMutableString *filters = [[NSMutableString alloc] init];
     
+
     if (isNoFirst) {
         NSArray *keys = [self.selected_refinements allKeys];
         int i = 1;
@@ -411,12 +415,14 @@
         }
         
         if(wsString != nil){
-            filters = [NSString stringWithFormat:@"%@%@",filters,[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+            
+            filters = [NSString stringWithFormat:@"%@%@",filters,wsRefines];
         }
         
     } else {
         if(wsString != nil){
-            filters = [NSString stringWithFormat:@"%@",[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+           // filters = [NSString stringWithFormat:@"%@",[wsRefines stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+           filters = [NSString stringWithFormat:@"%@", wsRefines];
         }
     }
     
@@ -425,13 +431,15 @@
     NSString *wsStringQuery = [[NSString alloc] init];
     if (!(wsquery == nil) && !(wsString == nil) ){
         
-        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=30&expand=prices,images", filters, wsquery];
+        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=30&expand=prices,images",  filters, wsquery];
         
     } else if(wsquery == nil && filters != nil) {
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&start=1&count=30&expand=prices,images", filters];
     } else {
         wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&q=%@&start=1&count=30&expand=images,prices", wsquery];
     }
+    
+    //wsStringQuery = [self urlEncodeValue: wsStringQuery];
     
     NSLog(@"valor wsquery %@ ",wsStringQuery);
     
@@ -1404,6 +1412,17 @@
     productFound.price = [NSString stringWithFormat:@"%@",product.price];
     productFound.sortDate = [NSDate date];
     
+    
+    //NSLog(@" %@ <-~~~-  -~~~-> %@ ",self.titleQuery , self.searchQuery);
+    
+    if(self.searchQuery != nil){
+        productFound.category = self.searchQuery;
+    }else{
+        productFound.category = self.titleQuery;
+    }
+    
+    
+    
     productFound.currency = product.currency;
     
     UIImageView *thumbnailImageView = [[UIImageView alloc] init];
@@ -1501,6 +1520,12 @@
     //NSLog(@"NEW QUERY %@",self.menuQuery);
     self.selected_refinements = nil;
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
+}
+
+- (NSString *)urlEncodeValue:(NSString *)str
+{
+    NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, NULL, CFSTR("&"), kCFStringEncodingUTF8));
+    return result;
 }
 
 @end

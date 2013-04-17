@@ -2,7 +2,7 @@
 //  Products.m
 //  eStore
 //
-//  Created by HNL on 3/24/13.
+//  Created by VQL Developer on 4/17/13.
 //  Copyright (c) 2013 CLH. All rights reserved.
 //
 
@@ -18,5 +18,6 @@
 @dynamic name;
 @dynamic price;
 @dynamic sortDate;
+@dynamic category;
 
 @end

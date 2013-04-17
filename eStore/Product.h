@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSString *image; // image
 @property (nonatomic, strong) NSString *currency; // currency
 @property (nonatomic, strong) NSString *price; // price
-@property (nonatomic, strong) UIImage *imageValue; // price
+@property (nonatomic, strong) UIImage  *imageValue; // price
+@property (nonatomic, strong) NSString *category; // price
 
 @end

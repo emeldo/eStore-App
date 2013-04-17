@@ -181,8 +181,10 @@
         product.price = productDatacore.price;
         product.currency = productDatacore.currency;
         product.link = productDatacore.link;
+        product.category = productDatacore.category;
         
         destViewController.product = product;
+        destViewController.managedObjectContext = self.managedObjectContext;
         
     } 
 }
