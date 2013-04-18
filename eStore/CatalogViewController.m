@@ -1137,6 +1137,73 @@
             cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
             
         }
+    }else if(tableView == self.productTableView){
+        Product *product = [self.producthits objectAtIndex:indexPath.row];
+        
+        // Saving data in Core Data for historcial use
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Products" inManagedObjectContext:self.managedObjectContext];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(identifier == %@)", product.product_id];
+        
+        if ([CoreDataHelper countForEntity:[entity name] withPredicate:predicate andContext:self.managedObjectContext] >= 1) {
+            
+            // Create fetch request
+            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            [request setEntity:entity];
+            [request setIncludesPropertyValues:NO];
+            [request setPredicate:predicate];
+            
+            // Execute the count request
+            NSError *error = nil;
+            NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
+            
+            // Delete the objects returned if the results weren't nil
+            if (fetchResults != nil) {
+                
+                for (NSManagedObject *manObj in fetchResults) {
+                    [self.managedObjectContext deleteObject:manObj];
+                    
+                    if (![self.managedObjectContext save:&error]) {
+                        NSLog(@"Couldn't delete entries: %@", [error localizedDescription]);
+                    }
+                }
+            } else {
+                NSLog(@"Couldn't delete objects for entity %@", [entity name]);
+            }
+        }
+        
+        Products *productFound = [NSEntityDescription insertNewObjectForEntityForName:@"Products" inManagedObjectContext:self.managedObjectContext];
+        productFound.identifier = product.product_id;
+        productFound.name = product.product_name;
+        productFound.link = product.link;
+        productFound.price = [NSString stringWithFormat:@"%@",product.price];
+        productFound.sortDate = [NSDate date];
+        
+        
+        //NSLog(@" %@ <-~~~-  -~~~-> %@ ",self.titleQuery , self.searchQuery);
+        
+        if(self.searchQuery != nil){
+            productFound.category = self.searchQuery;
+        }else{
+            productFound.category = self.titleQuery;
+        }
+        
+        
+        
+        productFound.currency = product.currency;
+        
+        UIImageView *thumbnailImageView = [[UIImageView alloc] init];
+        
+        thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 130, 114)];
+        thumbnailImageView.contentMode  = UIViewContentModeScaleAspectFit;
+        thumbnailImageView.image = product.imageValue;
+        
+        productFound.image = UIImagePNGRepresentation(thumbnailImageView.image);
+        
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
+        }
+
     }
 }
 

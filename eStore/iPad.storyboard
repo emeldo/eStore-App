@@ -696,11 +696,11 @@
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CatalogCell" rowHeight="160" id="pvn-LD-OSK">
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CatalogCell" rowHeight="160" id="pvn-LD-OSK">
                                                 <rect key="frame" x="0.0" y="22" width="840" height="160"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                                    <rect key="frame" x="0.0" y="0.0" width="840" height="159"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="820" height="159"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <imageView userInteractionEnabled="NO" tag="200" contentMode="scaleAspectFit" image="no_image_adidas_logo.png" id="pDk-0r-iK1">
@@ -794,6 +794,9 @@
                                                     </subviews>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </view>
+                                                <connections>
+                                                    <segue destination="6Za-Ta-kB6" kind="push" identifier="showProductDetail" id="E6D-bl-2aa"/>
+                                                </connections>
                                             </tableViewCell>
                                         </prototypes>
                                         <connections>
@@ -801,11 +804,6 @@
                                             <outlet property="delegate" destination="HWB-Me-K5a" id="jUm-fg-web"/>
                                         </connections>
                                     </tableView>
-                                    <view tag="10" contentMode="scaleToFill" id="xAZ-Ei-5Dz" userLabel="Loading View">
-                                        <rect key="frame" x="71" y="31" width="840" height="494"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <connections>
@@ -825,6 +823,11 @@
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
+                            <view tag="10" contentMode="scaleToFill" id="xAZ-Ei-5Dz" userLabel="Loading View">
+                                <rect key="frame" x="92" y="105" width="840" height="494"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Mtj-YG-eLY" userLabel="Shopping Cart">
                                 <rect key="frame" x="934" y="12" width="70" height="57"/>
@@ -1318,8 +1321,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="170" sectionHeaderHeight="22" sectionFooterHeight="22" id="SZf-kz-tbQ">
-                                <rect key="frame" x="28" y="13" width="728" height="647"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="170" sectionHeaderHeight="22" sectionFooterHeight="22" id="SZf-kz-tbQ">
+                                <rect key="frame" x="28" y="30" width="728" height="651"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" tag="5" contentMode="scaleToFill" id="MUD-Lg-2Mh">
@@ -2379,11 +2382,11 @@
             <objects>
                 <viewController id="3V2-jx-VAL" customClass="ImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apU-NX-geN">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="EqZ-E8-zzv">
-                                <rect key="frame" x="18" y="72" width="733" height="676"/>
+                                <rect key="frame" x="18" y="72" width="989" height="656"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -2576,9 +2579,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="r2d-3R-VZW"/>
-        <segue reference="bGs-5T-LhX"/>
         <segue reference="DvP-Ra-2VX"/>
+        <segue reference="rCe-ec-9aj"/>
+        <segue reference="r2d-3R-VZW"/>
         <segue reference="Wug-HA-W3h"/>
     </inferredMetricsTieBreakers>
 </document>

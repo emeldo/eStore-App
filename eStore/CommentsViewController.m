@@ -80,7 +80,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
         
-    return [self.Commenthits count];
+    return [self.Commenthits count]+1;
     
 }
 
@@ -91,9 +91,9 @@
     NSString *cellIdentifier = [[NSString alloc] init];
     
     if(indexPath.row == 0){
-         cellIdentifier = @"HeaderCell";
-        }else{
-            cellIdentifier = @"DetailCell";
+       cellIdentifier = @"HeaderCell";
+    }else{
+       cellIdentifier = @"DetailCell";
     }
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -102,13 +102,13 @@
     }
     
     if(indexPath.row == 0){
-        UIImageView *imageView = (UIImageView *)[self.view viewWithTag:1];
-        UILabel *ProductName = (UILabel *)[self.view viewWithTag:2];
-        UILabel *ProductCode = (UILabel *)[self.view viewWithTag:3];
-        UIView *Ratespace = (UIView *)[self.view viewWithTag:4];
+        UIImageView *imageView = (UIImageView *)[cell viewWithTag:1];
+        UILabel *ProductName = (UILabel *)[cell viewWithTag:2];
+        UILabel *ProductCode = (UILabel *)[cell viewWithTag:3];
+        UIView *Ratespace = (UIView *)[cell viewWithTag:4];
         
-        UIView *productBackgroundView = (UIView *)[self.view viewWithTag:5];
-        productBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"r&c_product_holder.png"]];
+        //UIView *productBackgroundView = (UIView *)[self.view viewWithTag:5];
+       // productBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"r&c_product_holder.png"]];
         
         ProductName.text =  self.product.product_name;
         ProductCode.text =  self.product.product_id;
@@ -123,7 +123,7 @@
     
     }else{
    
-    Comments *Comment = [self.Commenthits objectAtIndex:indexPath.row];
+    Comments *Comment = [self.Commenthits objectAtIndex:indexPath.row-1];
    
     
     UILabel *NickName = (UILabel *)[cell viewWithTag:11];
@@ -167,9 +167,6 @@
         From.text = @"";
     }
     
-    
-   
-
     
     
     DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 0, 150, 20) fullStar:[UIImage imageNamed:@"StarFull.png"] emptyStar:[UIImage imageNamed:@"StarEmpty.png"]];
