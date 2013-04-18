@@ -409,7 +409,8 @@
         int i = 1;
         
         for (NSString *key in keys) {
-            NSMutableString *intermedium =[NSString stringWithFormat:@"refine_%i=%@=%@",i,key,[self.selected_refinements objectForKey:key]];
+            NSMutableString *intermedium =[NSString stringWithFormat:@"refine_%i=%@=%@",i,key,
+                                           [self urlEncodeValue: [self.selected_refinements objectForKey:key]]];
             i++;
             filters = [NSString stringWithFormat:@"%@%@&",filters,intermedium];
         }
@@ -487,8 +488,11 @@
                     NSLog(@" %i %@",k,filterName);
                     [arrayActiveFilters addObject:key];
                     [arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
-                    
-                    UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+                    int withlong = 100;
+                    if([[self.selected_refinements objectForKey:key] length] > 13){
+                        withlong = 150;
+                    }
+                    UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, withlong, 40)];
                     
                     [breadcumLabel setBackgroundColor:[UIColor clearColor]];
                     [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
@@ -507,6 +511,23 @@
                 }
                 
             }
+            
+        }
+        
+        if(self.searchQuery != nil){
+            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+            
+            [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+            [breadcumLabel setText: self.searchQuery];
+            [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+            [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+            [breadcumView addSubview:breadcumLabel];
+            
+            CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+            
+            UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+            [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+            [breadcumView addSubview:breadcumImage];
             
         }
         

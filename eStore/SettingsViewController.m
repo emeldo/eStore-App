@@ -37,10 +37,10 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 600, 44)];
+    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 465, 44)];
     [self.view addSubview:naviBarObj];
     
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
+    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Ok" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
     UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"Settings"];
     
     navigItem.rightBarButtonItem = cancelItem;
@@ -48,7 +48,15 @@
     naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
     naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
     
-    self.view.superview.bounds = CGRectMake(0, 0, 600, 600);
+
+   // UIImageView *myImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed :@"bg_sett_body.png"]];
+    //UIView *myUIView = [[UIImageView alloc] initWithFrame :CGRectMake(10,10,250,250)];
+    //myUIView = myImageView;
+    self.view.superview.bounds = CGRectMake(0, 0, 465, 586);
+    
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"bg_sett_body.png"]];
+    self.view.backgroundColor = background;
+    
 }
 
 

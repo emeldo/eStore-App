@@ -50,7 +50,7 @@
     [self.view addSubview:naviBarObj];
     
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
-    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:@"Image Zoom"];
+    UINavigationItem *navigItem = [[UINavigationItem alloc] initWithTitle:self.imageStringName];
     
     navigItem.rightBarButtonItem = cancelItem;
     

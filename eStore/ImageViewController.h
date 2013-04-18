@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic) UIImageView *productImage;
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) NSString *imageStringName;
 
 @end

@@ -44,7 +44,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 600, 44)];
+    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 841, 44)];
     [self.view addSubview:naviBarObj];
     
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Close" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
@@ -55,7 +55,11 @@
     naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
     naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
     
-    self.view.superview.bounds = CGRectMake(0, 0, 600, 600);
+    self.view.superview.bounds = CGRectMake(0, 0, 841, 558);
+    
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Stores_main_bg.png"]];
+    self.view.backgroundColor = background;
+    
 }
 
 

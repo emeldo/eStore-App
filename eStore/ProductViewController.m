@@ -167,7 +167,12 @@
                 //[arrayActiveFilters addObject:key];
                 //[arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
                 
-                UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+                int withlong = 100;
+                if([[self.selected_refinements objectForKey:key] length] > 13){
+                    withlong = 150;
+                }
+
+                UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, withlong, 40)];
                 
                 [breadcumLabel setBackgroundColor:[UIColor clearColor]];
                 [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
@@ -187,6 +192,38 @@
             
         }
         
+    }
+    
+    self.searchQuery = nil;
+    if(product.category != nil){
+        NSString *value = product.category;
+        
+        if([value isEqualToString:@"Men"] || [value isEqualToString:@"Women"] || [value isEqualToString:@"Kids"]){
+            
+            value =[NSString stringWithFormat:@"cgid=%@", [product.category lowercaseString]];
+            [self loadingFromWeb : value : nil];
+        }else{
+            [self loadingFromWeb : nil : value];
+            self.searchQuery =  value;
+        }
+        
+    }
+    
+    if(self.searchQuery != nil){
+        UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+        
+        [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+        [breadcumLabel setText: self.searchQuery];
+        [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+        [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [breadcumView addSubview:breadcumLabel];
+        
+        CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+        
+        UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+        [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+        [breadcumView addSubview:breadcumImage];
+
     }
     
     [breadcumViewComplete addSubview:breadcumView];
@@ -233,20 +270,7 @@
     
     [self.navigationItem setBackBarButtonItem: backButton];
     
-    self.searchQuery = nil;
-    if(product.category != nil){
-        NSString *value = product.category;
-        
-        if([value isEqualToString:@"Men"] || [value isEqualToString:@"Women"] || [value isEqualToString:@"Kids"]){
-            
-            value =[NSString stringWithFormat:@"cgid=%@", [product.category lowercaseString]];
-            [self loadingFromWeb : value : nil];
-        }else{
-            [self loadingFromWeb : nil : value];
-            self.searchQuery =  value;
-        }
-        
-    }
+    
     
    
 }
@@ -314,6 +338,7 @@
     if ([[segue identifier] isEqualToString:@"imageZoom"]) {
         ImageViewController *imageViewController = [segue destinationViewController];
         imageViewController.productImage.contentMode = UIViewContentModeScaleAspectFit;
+        imageViewController.imageStringName = product.product_name;
         imageViewController.productImage = [self.pageViews objectAtIndex:self.pageControl.currentPage];
     }
     
@@ -1818,6 +1843,23 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
                 }
                 
             }
+            
+        }
+        
+        if(self.searchQuery != nil){
+            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+            
+            [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+            [breadcumLabel setText: self.searchQuery];
+            [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+            [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+            [breadcumView addSubview:breadcumLabel];
+            
+            CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+            
+            UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+            [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+            [breadcumView addSubview:breadcumImage];
             
         }
         

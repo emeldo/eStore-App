@@ -9,16 +9,49 @@
             <objects>
                 <viewController id="R0o-do-3uK" customClass="StoresViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4uo-Gy-oBU">
-                        <rect key="frame" x="0.0" y="44" width="768" height="724"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="PILLLA" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pv7-je-P6y">
-                                <rect key="frame" x="143" y="67" width="193" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Stores_inter_holder_bg.png" id="4z3-kQ-qAg">
+                                <rect key="frame" x="17" y="23" width="816" height="488"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="68" sectionHeaderHeight="22" sectionFooterHeight="22" id="Wlb-yx-rpC">
+                                <rect key="frame" x="20" y="28" width="320" height="460"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="68" id="wBy-Kp-cRH">
+                                        <rect key="frame" x="0.0" y="22" width="320" height="68"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="Stores icon_01.png" id="Bty-kI-W7u">
+                                                    <rect key="frame" x="17" y="5" width="45" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ec3-Ka-PWe">
+                                                    <rect key="frame" x="77" y="11" width="201" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5SS-xH-Nbd">
+                                                    <rect key="frame" x="78" y="31" width="222" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -1242,7 +1275,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="R0o-do-3uK" kind="modal" identifier="Stores" modalPresentationStyle="pageSheet" modalTransitionStyle="crossDissolve" id="Wug-HA-W3h"/>
+                                            <segue destination="R0o-do-3uK" kind="modal" identifier="Stores" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="Wug-HA-W3h"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2201,13 +2234,135 @@
                         <rect key="frame" x="0.0" y="44" width="768" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="TU ERES SETTINGS" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8vi-4Y-IIC">
-                                <rect key="frame" x="213" y="109" width="225" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <view contentMode="scaleToFill" id="EZm-Fx-whU">
+                                <rect key="frame" x="0.0" y="121" width="467" height="562"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="top_contnr.png" id="OQF-z3-H0t">
+                                        <rect key="frame" x="24" y="5" width="421" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="middle_contnr.png" id="vHT-6H-Z5K">
+                                        <rect key="frame" x="24" y="67" width="421" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="middle_contnr.png" id="ZzQ-Es-Mcf">
+                                        <rect key="frame" x="24" y="129" width="421" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="middle_contnr.png" id="MXJ-rS-jNP">
+                                        <rect key="frame" x="24" y="191" width="421" height="64"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" id="BBl-tS-ffB">
+                                        <rect key="frame" x="122" y="141" width="289" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="bottom_contnr_02.png" id="51h-7E-oST">
+                                        <rect key="frame" x="24" y="253" width="421" height="62"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" id="xiJ-qa-EVK">
+                                        <rect key="frame" x="116" y="263" width="289" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store" lineBreakMode="tailTruncation" minimumScaleFactor="0.0010000000474974513" id="ez5-If-eg8">
+                                        <rect key="frame" x="37" y="269" width="93" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" id="UDX-K1-SoL">
+                                        <rect key="frame" x="122" y="20" width="289" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Username" lineBreakMode="tailTruncation" minimumScaleFactor="0.001" id="VHw-M0-aqD">
+                                        <rect key="frame" x="37" y="30" width="93" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Email" lineBreakMode="tailTruncation" minimumScaleFactor="0.0010000000474974513" id="H3f-6G-Rsd">
+                                        <rect key="frame" x="40" y="88" width="93" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Company" lineBreakMode="tailTruncation" minimumScaleFactor="0.0010000000474974513" id="Xh4-ga-UFy">
+                                        <rect key="frame" x="40" y="147" width="93" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" id="QW3-2W-jqp">
+                                        <rect key="frame" x="123" y="80" width="289" height="37"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" minimumFontSize="17" id="1jo-vO-jqO">
+                                        <rect key="frame" x="119" y="202" width="289" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="City" lineBreakMode="tailTruncation" minimumScaleFactor="0.0010000000474974513" id="EwU-SX-eq8">
+                                        <rect key="frame" x="37" y="208" width="93" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </view>
+                            <view contentMode="scaleToFill" id="wS3-Ww-ckG">
+                                <rect key="frame" x="0.0" y="49" width="467" height="72"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="sett_info_holder.png" id="HtE-Bb-JKq">
+                                        <rect key="frame" x="28" y="8" width="347" height="57"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fzr-Ia-nOe">
+                                        <rect key="frame" x="375" y="7" width="70" height="57"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="sync_holder.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="uTD-w5-UM8">
+                                        <rect key="frame" x="33" y="9" width="67" height="53"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" image="icon_sett.png">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="icon_sync.png" id="bQz-Fi-Bgr">
+                                        <rect key="frame" x="390" y="20" width="40" height="32"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
+                                </subviews>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
@@ -2285,20 +2440,26 @@
         <image name="Shopping_holder.png" width="70" height="57"/>
         <image name="Sort_by_list.png" width="41" height="24"/>
         <image name="Sort_by_thumbnail.png" width="40" height="24"/>
+        <image name="Stores icon_01.png" width="45" height="54"/>
+        <image name="Stores_inter_holder_bg.png" width="816" height="488"/>
         <image name="White.png" width="36" height="25"/>
         <image name="Women_button.png" width="93" height="30"/>
         <image name="Your selection_bg.png" width="210" height="117"/>
         <image name="acordion_icon.png" width="15" height="14"/>
+        <image name="bottom_contnr_02.png" width="421" height="62"/>
         <image name="history button.png" width="87" height="62"/>
         <image name="home_img_holder.png" width="1024" height="312"/>
         <image name="home_men_category.png" width="136" height="47"/>
         <image name="icon_green_shop_cart.png" width="24" height="21"/>
         <image name="icon_notification.png" width="28" height="28"/>
+        <image name="icon_sett.png" width="40" height="32"/>
         <image name="icon_shopping_car.png" width="36" height="31"/>
+        <image name="icon_sync.png" width="40" height="32"/>
         <image name="left_drag_handle_new.png" width="287" height="701"/>
         <image name="list_shop_cart_holder.png" width="55" height="53"/>
         <image name="men_button.png" width="93" height="30"/>
         <image name="men_button_press.png" width="93" height="30"/>
+        <image name="middle_contnr.png" width="421" height="64"/>
         <image name="new_comment_icon.png" width="37" height="33"/>
         <image name="new_stock_addto_holder.png" width="62" height="72"/>
         <image name="no_image_adidas_logo.png" width="141" height="95"/>
@@ -2311,9 +2472,12 @@
         <image name="right_drag_separador.png" width="126" height="2"/>
         <image name="search_bar.png" width="441" height="38"/>
         <image name="separador_hendler.png" width="206" height="2"/>
+        <image name="sett_info_holder.png" width="347" height="57"/>
         <image name="size02_def.png" width="32" height="25"/>
         <image name="stores_button.png" width="87" height="62"/>
         <image name="stores_button_press.png" width="87" height="62"/>
+        <image name="sync_holder.png" width="70" height="57"/>
+        <image name="top_contnr.png" width="421" height="62"/>
         <image name="women_button_press.png" width="93" height="30"/>
     </resources>
     <classes>
@@ -2412,9 +2576,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="f6Q-ta-hsj"/>
+        <segue reference="r2d-3R-VZW"/>
         <segue reference="bGs-5T-LhX"/>
-        <segue reference="kN1-YZ-yRB"/>
-        <segue reference="ILm-Tq-7UF"/>
+        <segue reference="DvP-Ra-2VX"/>
+        <segue reference="Wug-HA-W3h"/>
     </inferredMetricsTieBreakers>
 </document>
