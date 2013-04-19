@@ -912,7 +912,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0460;
-				ORGANIZATIONNAME = CLH;
+				ORGANIZATIONNAME = VQL;
 			};
 			buildConfigurationList = 84132FC616F6325800C295C0 /* Build configuration list for PBXProject "eStore" */;
 			compatibilityVersion = "Xcode 3.2";

@@ -8,6 +8,7 @@
 
 #import "HistoryViewController.h"
 #import "Products.h"
+#import "ProductViewController.H"
 
 @interface HistoryViewController ()
 
@@ -325,6 +326,20 @@
 
 - (void)rateView:(DYRateView *)rateView changedToNewRate:(NSNumber *)rate {
     // self.rateLabel.text = [NSString stringWithFormat:@"Rate: %d", rate.intValue];
+}
+
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showProductDetail"]) {
+        
+       /* NSIndexPath *indexPath = [[self.tableView indexPathsForSelectedItems] lastObject];
+        ProductViewController *destViewController = segue.destinationViewController;
+        destViewController.product = [self.producthits objectAtIndex:indexPath.row];
+        destViewController.selected_refinements = self.selected_refinements;
+        destViewController.arrays = self.arrays;
+        destViewController.managedObjectContext = self.managedObjectContext;
+     */   
+    }
 }
 
 @end

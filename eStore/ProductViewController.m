@@ -210,10 +210,24 @@
     }
     
     if(self.searchQuery != nil){
-        UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+        NSString *labelQuery = self.searchQuery;
+        int widthlong = 100;
+        if([labelQuery length] > 12){
+            widthlong = 250;
+        }else if([labelQuery length] > 15)  {
+            widthlong = 390;
+        }else if([labelQuery length] > 20)  {
+            widthlong = 490;
+        }
+        
+        UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, widthlong, 40)];
         
         [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-        [breadcumLabel setText: self.searchQuery];
+        
+        
+        NSString *filename = [[labelQuery lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [breadcumLabel setText: filename];
         [breadcumLabel setTextColor:[UIColor darkGrayColor]];
         [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
         [breadcumView addSubview:breadcumLabel];
@@ -1608,11 +1622,13 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
     
 }
 
-/*
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    if(tableView == self.tableView ){
     return 155.0;
-}*/
+    }
+   return 35.0;
+}
 
 
 
@@ -1847,10 +1863,23 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         }
         
         if(self.searchQuery != nil){
-            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
+            NSString *labelQuery = self.searchQuery;
+            int widthlong = 100;
+            if([labelQuery length] > 12){
+                widthlong = 250;
+            }else if([labelQuery length] > 15)  {
+                widthlong = 390;
+            }else if([labelQuery length] > 20)  {
+                widthlong = 490;
+            }
+            
+            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, widthlong, 40)];
             
             [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-            [breadcumLabel setText: self.searchQuery];
+            
+            
+            NSString *filename = [[labelQuery lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            [breadcumLabel setText: filename];
             [breadcumLabel setTextColor:[UIColor darkGrayColor]];
             [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [breadcumView addSubview:breadcumLabel];
@@ -1860,6 +1889,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
             UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
             [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
             [breadcumView addSubview:breadcumImage];
+
             
         }
         

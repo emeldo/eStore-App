@@ -449,6 +449,15 @@
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         
+        
+        //Dismiss Loading View
+        CATransition *animation = [CATransition animation];
+        animation.type = kCATransitionFade;
+        animation.duration = 0.4;
+        [loadingView.layer addAnimation:animation forKey:nil];
+        loadingView.hidden = YES;
+
+        
         NSDictionary *mainDict = JSON;
         
         self.hitsValues = [mainDict objectForKey:@"hits"];
@@ -515,10 +524,25 @@
         }
         
         if(self.searchQuery != nil){
-            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
             
+            NSString *labelQuery = self.searchQuery;
+            int widthlong = 100;
+            if([labelQuery length] > 12){
+                widthlong = 250;
+            }else if([labelQuery length] > 15)  {
+                widthlong = 390;
+            }else if([labelQuery length] > 20)  {
+                widthlong = 490;
+            }
+            
+            UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, widthlong, 40)];
+           
             [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-            [breadcumLabel setText: self.searchQuery];
+           
+            
+            NSString *filename = [[labelQuery lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+            NSLog(@"PILLA %@ ",filename);
+            [breadcumLabel setText: filename];
             [breadcumLabel setTextColor:[UIColor darkGrayColor]];
             [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
             [breadcumView addSubview:breadcumLabel];
@@ -620,19 +644,13 @@
             [self.producthits addObject:product];
             
         }
+               
+    
         
-        [self.menuTableView reloadData];
-        [self.selectionTableView reloadData];
         [self.collectionView reloadData];
         [self.productTableView reloadData];
-        
-        
-        //Dismiss Loading View
-        CATransition *animation = [CATransition animation];
-        animation.type = kCATransitionFade;
-        animation.duration = 0.4;
-        [loadingView.layer addAnimation:animation forKey:nil];
-        loadingView.hidden = YES;
+        [self.menuTableView reloadData];
+        [self.selectionTableView reloadData];
         
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -1105,9 +1123,10 @@
              if (image)
              {
                  imageProduct.image = image;
-             } else {
-                 imageProduct.image = nil;
              }
+             //else {
+             //    imageProduct.image = nil;
+             //}
          }];
         
         
@@ -1137,75 +1156,7 @@
             cellSectionBg.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"filter_bg.png"]];
             
         }
-    }else if(tableView == self.productTableView){
-        Product *product = [self.producthits objectAtIndex:indexPath.row];
-        
-        // Saving data in Core Data for historcial use
-        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Products" inManagedObjectContext:self.managedObjectContext];
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(identifier == %@)", product.product_id];
-        
-        if ([CoreDataHelper countForEntity:[entity name] withPredicate:predicate andContext:self.managedObjectContext] >= 1) {
-            
-            // Create fetch request
-            NSFetchRequest *request = [[NSFetchRequest alloc] init];
-            [request setEntity:entity];
-            [request setIncludesPropertyValues:NO];
-            [request setPredicate:predicate];
-            
-            // Execute the count request
-            NSError *error = nil;
-            NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
-            
-            // Delete the objects returned if the results weren't nil
-            if (fetchResults != nil) {
-                
-                for (NSManagedObject *manObj in fetchResults) {
-                    [self.managedObjectContext deleteObject:manObj];
-                    
-                    if (![self.managedObjectContext save:&error]) {
-                        NSLog(@"Couldn't delete entries: %@", [error localizedDescription]);
-                    }
-                }
-            } else {
-                NSLog(@"Couldn't delete objects for entity %@", [entity name]);
-            }
-        }
-        
-        Products *productFound = [NSEntityDescription insertNewObjectForEntityForName:@"Products" inManagedObjectContext:self.managedObjectContext];
-        productFound.identifier = product.product_id;
-        productFound.name = product.product_name;
-        productFound.link = product.link;
-        productFound.price = [NSString stringWithFormat:@"%@",product.price];
-        productFound.sortDate = [NSDate date];
-        
-        
-        //NSLog(@" %@ <-~~~-  -~~~-> %@ ",self.titleQuery , self.searchQuery);
-        
-        if(self.searchQuery != nil){
-            productFound.category = self.searchQuery;
-        }else{
-            productFound.category = self.titleQuery;
-        }
-        
-        
-        
-        productFound.currency = product.currency;
-        
-        UIImageView *thumbnailImageView = [[UIImageView alloc] init];
-        
-        thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 130, 114)];
-        thumbnailImageView.contentMode  = UIViewContentModeScaleAspectFit;
-        thumbnailImageView.image = product.imageValue;
-        
-        productFound.image = UIImagePNGRepresentation(thumbnailImageView.image);
-        
-        NSError *error = nil;
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
-        }
-
-    }
-}
+    } }
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1360,7 +1311,75 @@
         
         [self loadingFromWeb :nil : self.searchQuery];
         
+    }else if(tableView == self.productTableView){
+        Product *product = [self.producthits objectAtIndex:indexPath.row];
+        
+        // Saving data in Core Data for historcial use
+        NSEntityDescription *entity = [NSEntityDescription entityForName:@"Products" inManagedObjectContext:self.managedObjectContext];
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(identifier == %@)", product.product_id];
+        
+        if ([CoreDataHelper countForEntity:[entity name] withPredicate:predicate andContext:self.managedObjectContext] >= 1) {
+            
+            // Create fetch request
+            NSFetchRequest *request = [[NSFetchRequest alloc] init];
+            [request setEntity:entity];
+            [request setIncludesPropertyValues:NO];
+            [request setPredicate:predicate];
+            
+            // Execute the count request
+            NSError *error = nil;
+            NSArray *fetchResults = [self.managedObjectContext executeFetchRequest:request error:&error];
+            
+            // Delete the objects returned if the results weren't nil
+            if (fetchResults != nil) {
+                
+                for (NSManagedObject *manObj in fetchResults) {
+                    [self.managedObjectContext deleteObject:manObj];
+                    
+                    if (![self.managedObjectContext save:&error]) {
+                        NSLog(@"Couldn't delete entries: %@", [error localizedDescription]);
+                    }
+                }
+            } else {
+                NSLog(@"Couldn't delete objects for entity %@", [entity name]);
+            }
+        }
+        
+        Products *productFound = [NSEntityDescription insertNewObjectForEntityForName:@"Products" inManagedObjectContext:self.managedObjectContext];
+        productFound.identifier = product.product_id;
+        productFound.name = product.product_name;
+        productFound.link = product.link;
+        productFound.price = [NSString stringWithFormat:@"%@",product.price];
+        productFound.sortDate = [NSDate date];
+        
+        
+        //NSLog(@" %@ <-~~~-  -~~~-> %@ ",self.titleQuery , self.searchQuery);
+        
+        if(self.searchQuery != nil){
+            productFound.category = self.searchQuery;
+        }else{
+            productFound.category = self.titleQuery;
+        }
+        
+        
+        
+        productFound.currency = product.currency;
+        
+        UIImageView *thumbnailImageView = [[UIImageView alloc] init];
+        
+        thumbnailImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 130, 114)];
+        thumbnailImageView.contentMode  = UIViewContentModeScaleAspectFit;
+        thumbnailImageView.image = product.imageValue;
+        
+        productFound.image = UIImagePNGRepresentation(thumbnailImageView.image);
+        
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
+        }
+        
     }
+
     
 }
 
@@ -1411,10 +1430,10 @@
     
     NSString* urlString = product.image;
     
-    //NSLog(@"URL STRING: %@", urlString);
+    NSLog(@"URL STRING: %@", urlString);
     
     
-    recipeImageView.hidden = YES;
+    //recipeImageView.hidden = YES;
     
     if(urlString != nil) {
         
