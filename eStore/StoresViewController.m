@@ -27,7 +27,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+	
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_main_bg.png"]];
+    
+    UIView *storesView = (UIView *)[self.view viewWithTag:1];
+    storesView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_details_bg.png"]];
+    
 }
 
 - (void)didReceiveMemoryWarning
