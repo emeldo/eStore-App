@@ -86,6 +86,7 @@
     categoryName = nil;
     self.searchBar.text = nil;
     
+    
 }
 
 - (void)didReceiveMemoryWarning

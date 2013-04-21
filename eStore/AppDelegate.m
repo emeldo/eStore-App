@@ -31,13 +31,46 @@
     [[UIBarButtonItem appearance] setTitleTextAttributes:attributes forState:UIControlStateNormal];
     
     
+    
+    // Apperance of Segmented Control
+    
+    /* Unselected background */
+    UIImage *unselectedBackgroundImage = [[UIImage imageNamed:@"segmented_unselected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+    [[UISegmentedControl appearance] setBackgroundImage:unselectedBackgroundImage
+                                               forState:UIControlStateNormal
+                                             barMetrics:UIBarMetricsDefault];
+    
+    /* Selected background */
+    UIImage *selectedBackgroundImage = [[UIImage imageNamed:@"segmented_selected"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+    [[UISegmentedControl appearance] setBackgroundImage:selectedBackgroundImage
+                                               forState:UIControlStateSelected
+                                             barMetrics:UIBarMetricsDefault];
+    
+    
+    /* Image between segment selected on the left and unselected on the right */
+    UIImage *leftSelectedImage = [[UIImage imageNamed:@"segmented_middle_left_selected"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 0, 15, 0)];
+    [[UISegmentedControl appearance] setDividerImage:leftSelectedImage
+                                 forLeftSegmentState:UIControlStateSelected
+                                   rightSegmentState:UIControlStateNormal
+                                          barMetrics:UIBarMetricsDefault];
+    
+    /* Image between segment selected on the right and unselected on the right */
+    UIImage *rightSelectedImage = [[UIImage imageNamed:@"segmented_middle_right_selected"] resizableImageWithCapInsets:UIEdgeInsetsMake(15, 0, 15, 0)];
+    [[UISegmentedControl appearance] setDividerImage:rightSelectedImage
+                                 forLeftSegmentState:UIControlStateNormal
+                                   rightSegmentState:UIControlStateSelected
+                                          barMetrics:UIBarMetricsDefault];
+    
+    
     //Core Data Managed Object Context
     UINavigationController *nav = (UINavigationController *)self.window.rootViewController;
     HomeViewController *rootController = [[nav viewControllers] objectAtIndex:0];
     rootController.managedObjectContext = self.managedObjectContext;
+
     
     
     return YES;
+
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

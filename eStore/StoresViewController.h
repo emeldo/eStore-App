@@ -10,8 +10,9 @@
 
 @interface StoresViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
-
-
 @property (strong, nonatomic) IBOutlet UITableView *storesTableView;
+@property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+
+- (IBAction)menuChanged:(id)sender;
 
 @end

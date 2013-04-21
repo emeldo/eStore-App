@@ -28,10 +28,25 @@
 {
     [super viewDidLoad];
 	
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_main_bg.png"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_main_bg.png"]];
     
-    UIView *storesView = (UIView *)[self.view viewWithTag:1];
-    storesView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_details_bg.png"]];
+    UIView *storesDetailsView = (UIView *)[self.view viewWithTag:1];
+    storesDetailsView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_details_bg.png"]];
+    storesDetailsView.hidden = NO;
+    
+    UIView *storesLocationView = (UIView *)[self.view viewWithTag:2];
+    storesLocationView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Stores_details_bg.png"]];
+    storesLocationView.hidden = YES;
+    
+    
+    UIFont *font = [UIFont boldSystemFontOfSize:18.0f];
+    NSDictionary *attributes = [NSDictionary dictionaryWithObjectsAndKeys:
+                                font, UITextAttributeFont,
+                                [UIColor whiteColor], UITextAttributeTextColor,
+                                nil];
+    [self.segmentedControl setTitleTextAttributes:attributes forState:UIControlStateNormal];
+    NSDictionary *highlightedAttributes = [NSDictionary dictionaryWithObject:[UIColor blackColor] forKey:UITextAttributeTextColor];
+    [self.segmentedControl setTitleTextAttributes:highlightedAttributes forState:UIControlStateHighlighted];
     
 }
 
@@ -45,6 +60,7 @@
 - (void)viewDidUnload {
     //[self setProductImage:nil];
     //[self setImageView:nil];
+    [self setSegmentedControl:nil];
     [super viewDidUnload];
 }
 
@@ -72,6 +88,24 @@
 - (void) cancelButtonPressed{
     [self dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (IBAction)menuChanged:(id)sender {
+    
+    UIView *storesDetailsView = (UIView *)[self.view viewWithTag:1];
+    UIView *storesLocationView = (UIView *)[self.view viewWithTag:2];
+    
+    if ([sender selectedSegmentIndex] == 0)
+    {
+        storesDetailsView.hidden = NO;
+        storesLocationView.hidden = YES;
+    }
+    else
+    {
+        storesLocationView.hidden = NO;
+        storesDetailsView.hidden = YES;
+    }
+}
+
 
 #pragma mark - Table View DataSource
 
