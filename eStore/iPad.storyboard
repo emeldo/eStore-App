@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Stores View Controller-->
@@ -26,6 +26,7 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="241" height="88"/>
+
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ec3-Ka-PWe">
@@ -653,7 +654,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="142" sectionHeaderHeight="22" sectionFooterHeight="22" id="xd7-bT-wNi">
-                                <rect key="frame" x="0.0" y="47" width="768" height="677"/>
+                                <rect key="frame" x="0.0" y="47" width="768" height="676"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -775,7 +776,7 @@
             <objects>
                 <viewController id="HWB-Me-K5a" customClass="CatalogViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jyb-XR-wdb" userLabel="Catalog" customClass="UIButton">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="44" width="768" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view tag="2" contentMode="scaleToFill" id="z52-oz-up5" userLabel="Breadcum">
@@ -1013,7 +1014,7 @@
                                 </connections>
                             </view>
                             <view hidden="YES" tag="404" contentMode="scaleToFill" id="tFq-co-1Q2" userLabel="Error View">
-                                <rect key="frame" x="20" y="90" width="982" height="556"/>
+                                <rect key="frame" x="20" y="90" width="728" height="580"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Error" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZkK-X7-L7P">
@@ -1048,11 +1049,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <view tag="1" contentMode="scaleToFill" id="Zga-GI-zI7" userLabel="LeftMenu">
-                                <rect key="frame" x="-1000" y="0.0" width="287" height="704"/>
+                                <rect key="frame" x="-1000" y="0.0" width="32" height="724"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="left_drag_handle_new.png" id="0P8-XG-Xj0" userLabel="Background Image">
-                                        <rect key="frame" x="0.0" y="0.0" width="287" height="704"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="724"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
@@ -1691,7 +1692,7 @@
             <objects>
                 <viewController id="6Za-Ta-kB6" customClass="ProductViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="32a-Qm-lkW">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="44" width="768" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Copyrights@2013 - adidas groups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p2H-Mi-CUj" userLabel="Copyrights Label">
@@ -2102,11 +2103,11 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view tag="1" contentMode="scaleToFill" id="BGi-hy-aw9" userLabel="LeftMenu">
-                                <rect key="frame" x="0.0" y="0.0" width="287" height="704"/>
+                                <rect key="frame" x="0.0" y="0.0" width="32" height="724"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="left_drag_handle_new.png" id="Mqj-Fs-8zg" userLabel="Background Image">
-                                        <rect key="frame" x="0.0" y="0.0" width="287" height="704"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="32" height="724"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </imageView>
@@ -2789,9 +2790,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z3Z-Bm-K2e"/>
-        <segue reference="bGs-5T-LhX"/>
-        <segue reference="f6Q-ta-hsj"/>
-        <segue reference="kN1-YZ-yRB"/>
+        <segue reference="38p-O2-Y2l"/>
+        <segue reference="rCe-ec-9aj"/>
+        <segue reference="ZiK-eR-VcJ"/>
+        <segue reference="ILm-Tq-7UF"/>
     </inferredMetricsTieBreakers>
 </document>

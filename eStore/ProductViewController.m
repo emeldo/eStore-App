@@ -56,7 +56,7 @@
 @property (nonatomic, strong) NSArray *filterCategories;
 @property (nonatomic, strong) NSArray *filterLabels;
 @property (nonatomic, strong) NSArray *filterOrder;
-
+@property (strong, nonatomic) UIActivityIndicatorView *progressView;
 
 @property (strong, nonatomic) NSMutableArray *sizesInfo;
 
@@ -248,7 +248,9 @@
     [self loadingProductFromWeb:product.product_id];
     [self loadingCommentProductFromWeb:product.product_id];
     [self loadingOtherStoresInformation:product.product_id];
-
+  
+     
+      
       [self.mybuttonComments addTarget:self action:@selector(myButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
     
     
@@ -602,16 +604,27 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 -(void)loadingProductFromWeb : (NSString *)wsProduct_SKU
 {
     //Show Loading View
-    UIView *loadingView = (UIView *)[self.view viewWithTag:501];
-    loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+    //UIView *loadingView = (UIView *)[self.view viewWithTag:501];
+    //loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
 
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
-    indicator.frame = CGRectMake(499, 225, 10, 10);
-    indicator.color = [UIColor darkGrayColor];
-    [indicator startAnimating];
-    [loadingView addSubview:indicator];
-    loadingView.hidden = NO;
+    //UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
+    //indicator.frame = CGRectMake(499, 225, 10, 10);
+    //indicator.color = [UIColor darkGrayColor];
+    //[indicator startAnimating];
+    //[loadingView addSubview:indicator];
+    //loadingView.hidden = NO;
+    self.progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
+    
+    self.progressView.frame = CGRectMake(107, 28, 294, 222);
+    self.progressView.color = [UIColor darkGrayColor];
+    
+    self.progressView.alpha = 0.5;
+    self.progressView.center = CGPointMake(294, 222);
+   
+    
+    [self.view addSubview:self.progressView];
+    [self.progressView startAnimating];
     
     
     self.masterlink = [[NSString alloc] init];
@@ -628,6 +641,8 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         NSString *c_color = [mainDict objectForKey:@"c_color"];
         
         [self loadingImagesFromWeb:c_color:self.imageslow];
+        
+        
         
         self.masterlink = [self.master objectForKey:@"link"];
         self.variation_attributes = [mainDict objectForKey:@"variation_attributes"];
@@ -688,11 +703,11 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         [self.rateView addSubview:rateView];
         
         //Dismiss Loading View
-        CATransition *animation = [CATransition animation];
-        animation.type = kCATransitionFade;
-        animation.duration = 0.4;
-        [loadingView.layer addAnimation:animation forKey:nil];
-        loadingView.hidden = YES;
+        //CATransition *animation = [CATransition animation];
+        //animation.type = kCATransitionFade;
+        //animation.duration = 0.4;
+        //[loadingView.layer addAnimation:animation forKey:nil];
+        //loadingView.hidden = YES;
 
 
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -828,6 +843,9 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
     }
     
     self.pageImages = [[NSMutableArray alloc] init];
+    
+    
+    
     for (NSDictionary *imagesDictonary in self.imagesByArticle) {
         
         NSURL *urlImage = [NSURL URLWithString:[[imagesDictonary objectForKey:@"link"] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
@@ -850,6 +868,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
              
          }];
     }
+    [self.progressView stopAnimating];
     
     
 }

@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UINavigationBar *naviBarObj;
 @property (nonatomic, strong) UINavigationItem *navigItem;
+@property (strong, nonatomic) NSArray *products;
 
 @end
 
@@ -51,6 +52,8 @@
     self.naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
     
     self.view.superview.bounds = CGRectMake(0, 0, 600, 612);
+    
+    
 }
 
 
@@ -332,14 +335,22 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"showProductDetail"]) {
         
-       /* NSIndexPath *indexPath = [[self.tableView indexPathsForSelectedItems] lastObject];
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        
         ProductViewController *destViewController = segue.destinationViewController;
-        destViewController.product = [self.producthits objectAtIndex:indexPath.row];
-        destViewController.selected_refinements = self.selected_refinements;
-        destViewController.arrays = self.arrays;
+        Products *productDatacore = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        
+        Product *product = [Product new];
+        product.product_id = productDatacore.identifier;
+        product.product_name = productDatacore.name;
+        product.price = productDatacore.price;
+        product.currency = productDatacore.currency;
+        product.link = productDatacore.link;
+        product.category = productDatacore.category;
+        
+        destViewController.product = product;
         destViewController.managedObjectContext = self.managedObjectContext;
-     */   
-    }
-}
+        
+    } }
 
 @end

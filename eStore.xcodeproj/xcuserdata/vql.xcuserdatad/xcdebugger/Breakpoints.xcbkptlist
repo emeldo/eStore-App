@@ -125,11 +125,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eStore/ProductViewController.m"
-         timestampString = "388080732.606316"
+         timestampString = "388196733.942936"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1418"
-         endingLineNumber = "1418"
+         startingLineNumber = "1437"
+         endingLineNumber = "1437"
          landmarkName = "-tableView:cellForRowAtIndexPath:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -138,11 +138,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eStore/ProductViewController.m"
-         timestampString = "388080732.606316"
+         timestampString = "388195349.063607"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "566"
-         endingLineNumber = "566"
+         startingLineNumber = "568"
+         endingLineNumber = "568"
          landmarkName = "-loadingOtherStoresInformation:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -190,12 +190,38 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "eStore/ProductViewController.m"
-         timestampString = "388081253.227481"
+         timestampString = "388196733.942936"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1882"
-         endingLineNumber = "1882"
+         startingLineNumber = "1901"
+         endingLineNumber = "1901"
          landmarkName = "-loadingFromWeb::"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eStore/ProductViewController.m"
+         timestampString = "388196733.942936"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "871"
+         endingLineNumber = "871"
+         landmarkName = "-loadingImagesFromWeb::"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "eStore/HistoryViewController.m"
+         timestampString = "388249722.997863"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "337"
+         endingLineNumber = "337"
+         landmarkName = "-prepareForSegue:sender:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
