@@ -216,6 +216,24 @@
             categoryName = @"Kids";
             [self performSegueWithIdentifier:@"Catalog" sender:nil];
             break;
+            
+        case 4:
+            category = @"cgid=men";
+            categoryName = @"Men";
+            [self performSegueWithIdentifier:@"Catalog" sender:nil];
+            break;
+            
+        case 5:
+            category = @"cgid=women";
+            categoryName = @"Women";
+            [self performSegueWithIdentifier:@"Catalog" sender:nil];
+            break;
+            
+        case 6:
+            category = @"cgid=kids";
+            categoryName = @"Kids";
+            [self performSegueWithIdentifier:@"Catalog" sender:nil];
+            break;
     }
 
 }

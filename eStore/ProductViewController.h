@@ -32,6 +32,7 @@
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollViewSize; //Sizes
 
 @property (strong, nonatomic) IBOutlet UIImageView *productImage;
+@property (strong, nonatomic) IBOutlet UIImageView *productDivision;
 @property (strong, nonatomic) IBOutlet UITableView *tableView;      //Other Colors
 @property (strong, nonatomic) IBOutlet UIView *rateView;
 

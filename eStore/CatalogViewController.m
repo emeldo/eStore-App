@@ -22,6 +22,9 @@
     int leftBevelWidth;
     
     
+    NSString *categoryValue;
+    NSString *categoryValueName;
+    
     NSMutableIndexSet *expandedSections;
     NSArray *category;
     NSArray *productCategory;
@@ -432,12 +435,12 @@
     NSString *wsStringQuery = [[NSString alloc] init];
     if (!(wsquery == nil) && !(wsString == nil) ){
         
-        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=12&expand=prices,images",  filters, wsquery];
+        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&q=%@&start=1&count=40&expand=prices,images",  filters, wsquery];
         
     } else if(wsquery == nil && filters != nil) {
-        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&start=1&count=12&expand=prices,images", filters];
+        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&%@&start=1&count=40&expand=prices,images", filters];
     } else {
-        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&q=%@&start=1&count=12&expand=images,prices", wsquery];
+        wsStringQuery = [NSString stringWithFormat:@"http://development.store.adidasgroup.demandware.net/s/adidas-GB/dw/shop/v12_6/product_search?&client_id=6cb8ee1e-8951-421e-a3e6-b738b816dfc3&q=%@&start=1&count=40&expand=images,prices", wsquery];
     }
     
     //wsStringQuery = [self urlEncodeValue: wsStringQuery];
@@ -1473,6 +1476,18 @@
         destViewController.managedObjectContext = self.managedObjectContext;
         
     }
+    
+    
+    if ([segue.identifier isEqualToString:@"Catalog"]) {
+        
+        CatalogViewController *catalogViewController = [segue destinationViewController];
+        catalogViewController.menuQuery = categoryValue;
+        catalogViewController.titleQuery = categoryValueName;
+        catalogViewController.searchQuery = [self.searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        catalogViewController.managedObjectContext = self.managedObjectContext;
+        self.searchBar.text = nil;
+        category = nil;
+    }
 }
 
 
@@ -1564,6 +1579,40 @@
 }
 
 #pragma BORRAR DESPUES
+
+- (IBAction)categorySelected:(id)sender
+{
+    
+    
+    UIButton *button = (UIButton *)sender;
+    int buttonTag = button.tag;
+    self.selected_refinements = nil;
+    self.searchBar.text = nil;
+    [self.producthits removeAllObjects];
+    
+    switch (buttonTag) {
+        case 4:
+            self.menuQuery  = @"cgid=men";
+            self.titleQuery = @"Men";
+            break;
+            
+        case 5:
+            self.menuQuery  = @"cgid=women";
+            self.titleQuery = @"Women";
+            break;
+            
+        case 6:
+            self.menuQuery  = @"cgid=kids";
+            self.titleQuery = @"Kids";
+            break;
+            
+           }
+    
+    [self loadingFromWeb : self.menuQuery : self.searchQuery];
+    
+    
+}
+
 -(int) getRandomNumberBetweenMin:(int)min andMax:(int)max
 {
 	return ( (arc4random() % (max-min+1)) + min );

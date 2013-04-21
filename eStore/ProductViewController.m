@@ -57,7 +57,7 @@
 @property (nonatomic, strong) NSArray *filterLabels;
 @property (nonatomic, strong) NSArray *filterOrder;
 @property (strong, nonatomic) UIActivityIndicatorView *progressView;
-
+@property (strong, nonatomic) UIActivityIndicatorView *progressViewOverview;
 @property (strong, nonatomic) NSMutableArray *sizesInfo;
 
 @property (nonatomic, strong) NSArray *refinementsValues;
@@ -559,7 +559,7 @@ wsProduct = [foo objectAtIndex: 0];
 NSString *wsOtherStoresInformation = [[NSString alloc] init];
 wsOtherStoresInformation = [NSString stringWithFormat:@"http://%@/WS/index.php/api/rbo/invallstoresnosize/company/%@/article/%@", @"190.123.194.40", @"7", wsProduct];
 
-    NSLog(@"STRING WEBSERVICES %@",wsOtherStoresInformation);
+  //  NSLog(@"STRING WEBSERVICES %@",wsOtherStoresInformation);
 
 
 NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsOtherStoresInformation]];    
@@ -712,6 +712,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request ERROR 1: %@, %@", error, error.userInfo);
+        [self.progressView stopAnimating];
         
         UIView *loadingView = (UIView *)[self.view viewWithTag:501];
         loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
@@ -877,6 +878,20 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 -(void)loadingOverviewtFromWeb : (NSString *)wsStringQuery
 {
 
+    self.progressViewOverview = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    
+    
+    self.progressViewOverview.frame = CGRectMake(490, 303, 700, 480);
+    self.progressViewOverview.color = [UIColor darkGrayColor];
+    
+    self.progressViewOverview.alpha = 0.5;
+    self.progressViewOverview.center = CGPointMake(700, 480);
+    
+    
+    [self.view addSubview:self.progressViewOverview];
+    [self.progressViewOverview startAnimating];
+    
+    //NSLog(@"overview %@ ", wsStringQuery);
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:wsStringQuery]];
      
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
@@ -892,6 +907,19 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
             bullets_description = [NSMutableString stringWithFormat:@" %@  <br> &#149; %@",bullets_description,bullet];
         }
         
+        
+        NSString *c_division = [mainDict objectForKey:@"c_division"];
+        
+        if([c_division isEqualToString:@"Originals"]){
+         self.productDivision.image =  [UIImage imageNamed:@"original_small_logo.png"];
+            
+        }else if([c_division isEqualToString:@"Performance"]){
+           self.productDivision.image =  [UIImage imageNamed:@"performance_small_logo.png"];
+        }else{
+           self.productDivision =  nil;
+        }
+        
+        
         NSString *htmlBody = [[NSString alloc] initWithFormat:@"<html> \n"
                               "<head> \n"
                               "<style type=\"text/css\"> \n"
@@ -902,6 +930,8 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
                               "</html>", short_description,bullets_description];
         
         [self.webviewName loadHTMLString:htmlBody baseURL:nil];
+        [self.progressViewOverview stopAnimating];
+
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Error 3 %@, %@", error, error.userInfo);
@@ -913,7 +943,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         ErrorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
         
         ErrorView.hidden = NO;
-
+        [self.progressViewOverview stopAnimating];
     }];
     
     [operation start];
@@ -2016,6 +2046,37 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
     NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, NULL, CFSTR("&"), kCFStringEncodingUTF8));
     return result;
 }
+
+
+- (IBAction)categorySelected:(id)sender
+{
+    UIButton *button = (UIButton *)sender;
+    int buttonTag = button.tag;
+    self.selected_refinements = nil;
+    self.searchQuery = nil;
+    switch (buttonTag) {
+        case 4:
+            self.menuQuery  = @"cgid=men";
+            self.titleQuery = @"Men";
+            [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+            break;
+            
+        case 5:
+            self.menuQuery  = @"cgid=women";
+            self.titleQuery = @"Women";
+            [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+            break;
+            
+        case 6:
+            self.menuQuery  = @"cgid=kids";
+            self.titleQuery = @"Kids";
+            [self performSegueWithIdentifier:@"CatalogReturn" sender:nil];
+            break;
+            
+    }
+    
+}
+
 
 
 @end
