@@ -601,6 +601,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 
 }
 
+
 -(void)loadingProductFromWeb : (NSString *)wsProduct_SKU
 {
     //Show Loading View
