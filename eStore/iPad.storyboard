@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Stores View Controller-->
@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="R0o-do-3uK" customClass="StoresViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4uo-Gy-oBU">
-                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="44" width="768" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Stores_inter_holder_bg.png" id="HEl-v1-JcX" userLabel="Background">
@@ -17,25 +17,25 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="89" sectionHeaderHeight="22" sectionFooterHeight="22" id="Wlb-yx-rpC" userLabel="Stores List">
-                                <rect key="frame" x="13" y="86" width="497" height="585"/>
+                                <rect key="frame" x="12" y="86" width="241" height="605"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="StoresCell" rowHeight="89" id="wBy-Kp-cRH">
-                                        <rect key="frame" x="0.0" y="22" width="497" height="89"/>
+                                        <rect key="frame" x="0.0" y="22" width="241" height="89"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="497" height="88"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="241" height="88"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ec3-Ka-PWe">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="10" contentMode="left" text="Store Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ec3-Ka-PWe">
                                                     <rect key="frame" x="72" y="20" width="155" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5SS-xH-Nbd">
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="11" contentMode="left" text="Store Location" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5SS-xH-Nbd">
                                                     <rect key="frame" x="72" y="41" width="155" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="10"/>
@@ -47,6 +47,13 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="12" contentMode="left" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pKn-6m-BRh">
+                                                    <rect key="frame" x="72" y="55" width="183" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
@@ -62,21 +69,21 @@
                                 <rect key="frame" x="337" y="115" width="477" height="390"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store Name store long name city" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EuR-Il-UcP">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="200" contentMode="left" text="Store Name store long name city" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="EuR-Il-UcP">
                                         <rect key="frame" x="25" y="63" width="432" height="22"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Address information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qnp-AL-nGt">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="201" contentMode="left" text="Address information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qnp-AL-nGt">
                                         <rect key="frame" x="25" y="103" width="283" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qo4-SB-GLS">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" tag="202" contentMode="left" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qo4-SB-GLS">
                                         <rect key="frame" x="25" y="125" width="283" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -255,7 +262,7 @@
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
                         <outlet property="segmentedControl" destination="wZ7-Vl-Evd" id="vVW-xg-fhU"/>
-                        <outlet property="storesTableView" destination="Wlb-yx-rpC" id="b2l-ss-EhH"/>
+                        <outlet property="tableView" destination="Wlb-yx-rpC" id="Xk1-14-W38"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fcj-mj-hy1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -851,6 +858,20 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <view hidden="YES" tag="404" contentMode="scaleToFill" id="tFq-co-1Q2" userLabel="Error View">
+                                <rect key="frame" x="20" y="90" width="984" height="560"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Error" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZkK-X7-L7P">
+                                        <rect key="frame" x="267" y="187" width="116" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </view>
                             <view tag="9" contentMode="scaleToFill" id="Weo-Pj-Nnm" userLabel="Products" customClass="UIButton">
                                 <rect key="frame" x="20" y="90" width="982" height="556"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -986,7 +1007,7 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="130" height="240"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view contentMode="scaleToFill" id="fEp-4D-Eti" userLabel="ImageContainer">
+                                                        <view tag="122" contentMode="scaleToFill" id="fEp-4D-Eti" userLabel="ImageContainer">
                                                             <rect key="frame" x="0.0" y="0.0" width="130" height="110"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
@@ -1052,20 +1073,6 @@
                                 <connections>
                                     <action selector="hideAndUnhide:" destination="HWB-Me-K5a" eventType="touchUpInside" id="Ymc-L6-G2z"/>
                                 </connections>
-                            </view>
-                            <view hidden="YES" tag="404" contentMode="scaleToFill" id="tFq-co-1Q2" userLabel="Error View">
-                                <rect key="frame" x="20" y="90" width="984" height="560"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Error" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZkK-X7-L7P">
-                                        <rect key="frame" x="267" y="187" width="116" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Mtj-YG-eLY" userLabel="Shopping Cart">
                                 <rect key="frame" x="934" y="12" width="70" height="57"/>
@@ -1525,7 +1532,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <segue destination="R0o-do-3uK" kind="modal" identifier="Stores" modalPresentationStyle="currentContext" modalTransitionStyle="crossDissolve" id="Wug-HA-W3h"/>
+                                            <segue destination="R0o-do-3uK" kind="modal" identifier="Stores" modalPresentationStyle="pageSheet" modalTransitionStyle="crossDissolve" id="bvy-4k-NsY"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2635,11 +2642,11 @@
             <objects>
                 <viewController id="3V2-jx-VAL" customClass="ImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apU-NX-geN">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="EqZ-E8-zzv">
-                                <rect key="frame" x="18" y="72" width="732" height="676"/>
+                                <rect key="frame" x="18" y="72" width="988" height="656"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -2733,6 +2740,113 @@
         <image name="stores_button_press.png" width="87" height="62"/>
         <image name="women_button_press.png" width="93" height="30"/>
     </resources>
+    <classes>
+        <class className="CatalogViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CatalogViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="CleanAllPressed:"/>
+                <relationship kind="action" name="changeViews:"/>
+                <relationship kind="action" name="hideAndUnhide:"/>
+                <relationship kind="outlet" name="bread" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
+                <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
+                <relationship kind="outlet" name="menuTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="productTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
+                <relationship kind="outlet" name="selectionTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="CommentsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="CommentsTableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="HistoryViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="HomeViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="categorySelected:"/>
+                <relationship kind="action" name="hideAndUnhide:"/>
+                <relationship kind="action" name="hideKeyboard"/>
+                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
+                <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
+                <relationship kind="outlet" name="searchBar" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="ImageViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="ProductViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProductViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="CleanAllPressed:"/>
+                <relationship kind="action" name="hideAndUnhide:"/>
+                <relationship kind="outlet" name="commentValue" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="currencyLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
+                <relationship kind="outlet" name="menuTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="mybuttonComments" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
+                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="productColor" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="productDivision" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="productIDLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="productImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="productNameLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="qtyValue" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="qtyValueInfo" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="rateView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
+                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="scrollViewSize" candidateClass="UIScrollView"/>
+                <relationship kind="outlet" name="selectionTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="webviewName" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="SettingsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="dimissKeyword:"/>
+                <relationship kind="outlet" name="cityField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="cityPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="countryField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="countryPicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="storeField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="storePicker" candidateClass="UIPickerView"/>
+            </relationships>
+        </class>
+        <class className="StoresViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StoresViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="menuChanged:"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="storesTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+            </relationships>
+        </class>
+        <class className="UICollectionReusableView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
+        </class>
+        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
+        </class>
+        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
@@ -2740,8 +2854,8 @@
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
         <segue reference="DvP-Ra-2VX"/>
-        <segue reference="bGs-5T-LhX"/>
+        <segue reference="rCe-ec-9aj"/>
         <segue reference="r2d-3R-VZW"/>
-        <segue reference="Wug-HA-W3h"/>
+        <segue reference="bvy-4k-NsY"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -390,7 +390,7 @@
 		8493A5A016F67A9000F23DF6 /* rate_grey_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rate_grey_star.png; sourceTree = "<group>"; };
 		8493A5A116F67A9000F23DF6 /* rate_red_star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rate_red_star.png; sourceTree = "<group>"; };
 		8493A5A416F67EC400F23DF6 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		8493A5A516F67EC400F23DF6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		8493A5A516F67EC400F23DF6 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; tabWidth = 5; };
 		8493A5AB16F6833900F23DF6 /* main_header_bar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = main_header_bar.png; sourceTree = "<group>"; };
 		8493A5AD16F6842400F23DF6 /* logo_adidas_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo_adidas_02.png; sourceTree = "<group>"; };
 		8493A5AF16F686A400F23DF6 /* Search_bg_select_category.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Search_bg_select_category.png; sourceTree = "<group>"; };

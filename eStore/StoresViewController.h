@@ -10,8 +10,13 @@
 
 @interface StoresViewController : UIViewController<UITableViewDataSource, UITableViewDelegate>
 
+@property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
+
 @property (strong, nonatomic) IBOutlet UITableView *storesTableView;
 @property (strong, nonatomic) IBOutlet UISegmentedControl *segmentedControl;
+
+@property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)menuChanged:(id)sender;
 

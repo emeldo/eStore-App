@@ -7,9 +7,14 @@
 //
 
 #import "StoresViewController.h"
+#import "CoreDataHelper.h"
+#import "Stores.h"
+#import "Settings.h"
 
 @interface StoresViewController ()
-
+@property (strong, nonatomic) NSString *storeIdentifier;
+@property (nonatomic, strong) NSArray *settings;
+@property (nonatomic, strong) Settings *userInfo;
 @end
 
 @implementation StoresViewController 
@@ -107,41 +112,198 @@
 }
 
 
-#pragma mark - Table View DataSource
 
+#pragma mark - Table view data source
 
-- (BOOL)tableView:(UITableView *)tableView canCollapseSection:(NSInteger)section
-{
-    return YES;
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    return [sectionInfo numberOfObjects];
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    NSString *cellIdentifier = [[NSString alloc] init];
-    
-    cellIdentifier = @"StoresCell";
-      
-    
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
-    }
-    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoresCell"];
+    [self configureCell:cell atIndexPath:indexPath];
     
     return cell;
+    
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath
+{
+    Stores *store = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    UILabel *lblName = (UILabel *)[cell viewWithTag:10];
+    lblName.text = store.name;
+    lblName.highlightedTextColor = [UIColor blackColor];
+    
+    UILabel *lblAddress = (UILabel *)[cell viewWithTag:11];
+    lblAddress.text = store.address;
+    lblAddress.highlightedTextColor = [UIColor blackColor];
+    
+    UILabel *lblCity = (UILabel *)[cell viewWithTag:12];
+    lblCity.text = store.city;
+    lblCity.highlightedTextColor = [UIColor blackColor];
+    
+   
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+{
+    return @"Stores";
+}
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Stores *store = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    self.storeIdentifier = store.identifier;
+    
+    
+    UILabel *storename = (UILabel *)[self.view viewWithTag:200];
+    storename.text = [NSString stringWithFormat:@"%@", store.name];
+    
+    UILabel *company = (UILabel *)[self.view viewWithTag:201];
+    company.text = [NSString stringWithFormat:@"%@", store.address];
+    
+    UILabel *address = (UILabel *)[self.view viewWithTag:202];
+    address.text = [NSString stringWithFormat:@"%@", store.city];
+    
+   //NSLog(@" %@ ", store.address);
+  //  NSLog(@" %@ ", store.city);
+ // NSLog(@" %@ ",store.company);
+   NSLog(@" %@ ",store.identifier);
+  //  NSLog(@" %@ ",store.latitude);
+  //  NSLog(@" %@ ",store.longitude);
+  //  NSLog(@" %@ ",store.name);
+  //  NSLog(@" %@ ",store.setDefault);
+    
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    return nil;
+    
+}
+
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.0;
+}
+
+- (void) tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    cell.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"List_Container.png"]];
+    cell.selectedBackgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"List_Container_Selected.png"]];
+}
+
+#pragma mark - Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    self.settings = [CoreDataHelper getObjectsForEntity:@"Settings" withSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+    self.userInfo = [self.settings objectAtIndex:0];
+    
+    if (_fetchedResultsController != nil) {
+        return _fetchedResultsController;
+    }
+    
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Stores" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:20];
+    
+    // Set predicate
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(city == %@) && (company == %@)", self.userInfo.city, self.userInfo.countryIdentifier];
+    [fetchRequest setPredicate:predicate];
+    
+    // Edit the sort key as appropriate.
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"name" ascending:NO];
+    NSArray *sortDescriptors = @[sortDescriptor];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    
+    
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Root"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+	NSError *error = nil;
+	if (![self.fetchedResultsController performFetch:&error]) {
+	    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+	    abort();
+	}
+    
+    return _fetchedResultsController;
+}
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView beginUpdates];
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [self.tableView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject
+       atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
+      newIndexPath:(NSIndexPath *)newIndexPath
+{
+    UITableView *tableView = self.tableView;
+    
+    switch(type) {
+        case NSFetchedResultsChangeInsert:
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeDelete:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+            
+        case NSFetchedResultsChangeUpdate:
+            [self configureCell:(UITableViewCell *)[tableView cellForRowAtIndexPath:indexPath] atIndexPath:indexPath];
+            break;
+            
+            
+        case NSFetchedResultsChangeMove:
+            [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [tableView insertRowsAtIndexPaths:@[newIndexPath] withRowAnimation:UITableViewRowAnimationFade];
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    [self.tableView endUpdates];
 }
 
 

@@ -11,6 +11,7 @@
 #import "Product.h"
 #import "Products.h"
 #import "ProductViewController.h"
+#import "StoresViewController.h"
 #import "UIImageView+WebCache.h"
 #import "CoreDataHelper.h"
 #import "Settings.h"
@@ -1098,7 +1099,7 @@
         
         UIView *ratingView = (UIView *)[cell viewWithTag:208];
         UIImageView *imageProduct = (UIImageView *)[cell viewWithTag:200];
-        
+        imageProduct.hidden = YES;
         
         
         DYRateView *rateView = [[DYRateView alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
@@ -1113,6 +1114,13 @@
         
         NSURL *urlImage = [NSURL URLWithString:[product.image stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
+        
+        UIActivityIndicatorView *animation = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        animation.tag = indexPath.row;
+        animation.center = CGPointMake(60, 52);
+        [animation startAnimating];
+        [cell addSubview:animation];
+        
         SDWebImageManager *manager = [SDWebImageManager sharedManager];
         
         [manager downloadWithURL:urlImage
@@ -1123,13 +1131,19 @@
          }
                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL dummy)
          {
+             
+             
+             [animation stopAnimating];
+             
              if (image)
              {
                  imageProduct.image = image;
+                 imageProduct.hidden = NO;
              }
-             //else {
-             //    imageProduct.image = nil;
-             //}
+              else {
+                 imageProduct.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 imageProduct.hidden = NO;
+             }
          }];
         
         
@@ -1429,6 +1443,7 @@
     rateView.alignment = RateViewAlignmentLeft;
     [ratingView addSubview:rateView];
     
+  
     
     
     NSString* urlString = product.image;
@@ -1436,9 +1451,16 @@
     NSLog(@"URL STRING: %@", urlString);
     
     
-    //recipeImageView.hidden = YES;
+    recipeImageView.hidden = YES;
     
     if(urlString != nil) {
+        UIActivityIndicatorView *animation = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        animation.tag = indexPath.row;
+        animation.center = CGPointMake(60, 52);
+        [animation startAnimating];
+        [cell addSubview:animation];
+       
+       
         
         NSURL *urlImage = [NSURL URLWithString:[urlString stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
         
@@ -1449,13 +1471,19 @@
                         progress:^(NSUInteger receivedSize, long long expectedSize)
          {
              
+            // [animation startAnimating];
          }
                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL dummy)
          {
+             [animation stopAnimating];
              if (image)
              {
                  recipeImageView.image = image;
                  product.imageValue = image;
+                 recipeImageView.hidden = NO;
+             }else{
+                 product.imageValue = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 recipeImageView.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
                  recipeImageView.hidden = NO;
              }
          }];
@@ -1487,6 +1515,13 @@
         catalogViewController.managedObjectContext = self.managedObjectContext;
         self.searchBar.text = nil;
         category = nil;
+    }
+    
+    
+    if ([segue.identifier isEqualToString:@"Stores"]) {
+        StoresViewController *storesViewController = [segue destinationViewController];
+        storesViewController.managedObjectContext = self.managedObjectContext;
+        
     }
 }
 

@@ -13,6 +13,7 @@
 #import "Product.h"
 #import "ProductViewController.h"
 #import "HistoryViewController.h"
+#import "StoresViewController.h"
 #import "AFJSONRequestOperation.h"
 #import "Country.h"
 #import "City.h"
@@ -293,7 +294,20 @@
         historyViewController.managedObjectContext = self.managedObjectContext;
         
     }
+
+    if ([segue.identifier isEqualToString:@"History"]) {
+        HistoryViewController *historyViewController = [segue destinationViewController];
+        historyViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
     
+    
+    if ([segue.identifier isEqualToString:@"Stores"]) {
+        StoresViewController *storesViewController = [segue destinationViewController];
+        storesViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+
     
     if ([segue.identifier isEqualToString:@"Settings"]) {
         SettingsViewController *settingsViewController = [segue destinationViewController];

@@ -15,6 +15,7 @@
 #import "Comments.h"
 #import "CatalogViewController.h"
 #import "CommentsViewController.h"
+#import "StoresViewController.h"
 #import "ImageViewController.h"
 
 @interface ProductViewController () {
@@ -366,7 +367,12 @@
         catalogViewController.managedObjectContext = self.managedObjectContext;
         catalogViewController.selected_refinements = self.selected_refinements;
     }
-}
+    
+    if ([segue.identifier isEqualToString:@"Stores"]) {
+        StoresViewController *storesViewController = [segue destinationViewController];
+        storesViewController.managedObjectContext = self.managedObjectContext;
+        
+    }}
 
 
 #pragma mark - Lateral Menu Methods

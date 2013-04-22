@@ -8,6 +8,8 @@
 
 #import "AppDelegate.h"
 #import "HomeViewController.h"
+#import "CoreDataHelper.h"
+
 
 @implementation AppDelegate
 
@@ -244,5 +246,9 @@
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
+
+
+
+
 
 @end
