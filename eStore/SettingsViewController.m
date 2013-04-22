@@ -93,6 +93,10 @@
         self.countrySelected = settings.countryIdentifier;
         self.citySelected = settings.city;
         
+        UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelButtonPressed)];
+        
+        navigItem.leftBarButtonItem = cancelItem;
+        
     } else {
         
         self.navigationItem.leftBarButtonItem = nil;
@@ -123,4 +127,280 @@
         infoLabel.backgroundColor = [UIColor clearColor];
         infoLabel.shadowColor = [UIColor blackColor];
         infoLabel.shadowOffset = CGSizeMake(0, 1);
-        [contentView addSubview:infoLabel];`
+        [contentView addSubview:infoLabel];
+        [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
+        
+    }
+    
+    naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
+    naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
+    
+    self.countryField.inputView = self.countryPicker;
+    self.cityField.inputView = self.cityPicker;
+    self.storeField.inputView = self.storePicker;
+    
+    [self createInputAccessoryView];
+    
+    
+}
+
+
+
+- (void)saveSettings {
+    
+    if (self.nameField.text.length == 0 || self.countryField.text.length == 0 || self.cityField.text.length == 0 || self.storeField.text.length == 0 ) {
+        WCAlertView *alert = [[WCAlertView alloc] initWithTitle:@"Missing Information" message:@"Before to save your information you need to fill all the fields correctly" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        alert.style = WCAlertViewStyleBlack;
+        [alert show];
+    } else {
+        self.HUD = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.navigationController.view addSubview:self.HUD];
+        self.HUD.labelText = @"Saving information";
+        [self.HUD showWhileExecuting:@selector(savingInformation) onTarget:self withObject:nil animated:YES];
+    }
+}
+
+- (void)savingInformation {
+    
+    [CoreDataHelper deleteAllObjectsForEntity:@"Settings" andContext:self.managedObjectContext];
+    sleep(2);
+    Settings *setting = [NSEntityDescription insertNewObjectForEntityForName:@"Settings" inManagedObjectContext:self.managedObjectContext];
+    
+    setting.name = self.nameField.text;
+    setting.country = self.countryField.text;
+    setting.countryIdentifier = self.countrySelected;
+    setting.city = self.cityField.text;
+    setting.store = self.storeField.text;
+    setting.storeIdentifier = self.storeSelected;
+    
+    NSError *error = nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
+    }
+    
+    self.HUD.customView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]];
+    self.HUD.mode = MBProgressHUDModeCustomView;
+    self.HUD.labelText = @"Information Saved";
+    sleep(1);
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+
+- (IBAction)dimissKeyword:(id)sender {
+    [self.nameField resignFirstResponder];
+    [self.countryField resignFirstResponder];
+    [self.cityField resignFirstResponder];
+    [self.storeField resignFirstResponder];
+    
+    if (self.nameField.text.length == 0) self.nameField.placeholder = @"Put your name";
+    if (self.countryField.text.length == 0) self.countryField.placeholder = @"Select your country";
+    if (self.cityField.text.length == 0) self.cityField.placeholder = @"Select your city";
+    if (self.storeField.text.length == 0) self.storeField.placeholder = @"Select your favorite store";
+}
+
+
+- (void)createInputAccessoryView
+{
+    self.pickerToolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    self.pickerToolbar.barStyle = UIBarStyleBlackTranslucent;
+    self.pickerToolbar.tintColor = [UIColor darkGrayColor];
+    
+    UIBarButtonItem* flexSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    self.btnDone = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePicker:)];
+    
+    [self.pickerToolbar setItems:[NSArray arrayWithObjects: flexSpace, self.btnDone, nil] animated:NO];
+    
+    [self.countryField setInputAccessoryView:self.pickerToolbar];
+    [self.cityField setInputAccessoryView:self.pickerToolbar];
+    [self.storeField setInputAccessoryView:self.pickerToolbar];
+}
+
+
+-(void)donePicker:(id)sender
+{
+    if (self.countryField.isFirstResponder) {
+        [self.countryField resignFirstResponder];
+        if ([self.countryField.text isEqualToString:@""] || ![self.countryPicker selectedRowInComponent:0] != 0) {
+            Country *country = [self.countries objectAtIndex:0];
+            
+            
+            
+            if (![country.identifier isEqualToString:self.countrySelected]) {
+                self.cityField.text = @"";
+                self.storeField.text = @"";
+            }
+            self.countryField.text = country.name;
+            self.countrySelected = country.identifier;
+        }
+    }
+    
+    if (self.cityField.isFirstResponder) {
+        [self.cityField resignFirstResponder];
+        
+        if ([self.cityField.text isEqualToString:@""] || ![self.cityPicker selectedRowInComponent:0] != 0) {
+            City *city = [self.cities objectAtIndex:0];
+            
+            if (![city.name isEqualToString:self.citySelected]) {
+                self.storeField.text = @"";
+            }
+            self.cityField.text = city.name;
+            self.citySelected = city.name;
+        }
+    }
+    
+    if (self.storeField.isFirstResponder) {
+        [self.storeField resignFirstResponder];
+        
+        if ([self.storeField.text isEqualToString:@""] || ![self.storePicker selectedRowInComponent:0] != 0) {
+            Stores *store = [self.stores objectAtIndex:0];
+            self.storeField.text = store.name;
+            self.storeSelected = store.identifier;
+        }
+    }
+    
+    if (self.countryField.text.length == 0) self.countryField.placeholder = @"Select your country";
+    if (self.cityField.text.length == 0) self.cityField.placeholder = @"Select your city";
+    if (self.storeField.text.length == 0) self.storeField.placeholder = @"Select your favorite store";
+    
+    
+}
+
+- (void) cancelButtonPressed{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+#pragma mark - TextField Delegate
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    
+    if (self.nameField == textField) {
+        if (self.nameField.text.length == 0) {
+            [self.nameField resignFirstResponder];
+            self.nameField.placeholder = @"Put your name";
+        } 
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (self.nameField == textField) {
+        self.nameField.placeholder = @"";
+    }
+    
+    if (self.countryField == textField) {
+        self.countryField.placeholder = @"";
+        self.countries = [CoreDataHelper getObjectsForEntity:@"Country" withSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+        [self.countryPicker reloadAllComponents];
+        self.countryPicker.hidden = NO;
+    }
+    
+    if (self.cityField == textField) {
+        if (self.countryField.text.length == 0) {
+            WCAlertView *alert = [[WCAlertView alloc] initWithTitle:@"Missing Information" message:@"To select a city you need to select a country before" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert.style = WCAlertViewStyleBlack;
+            [alert show];
+            return NO;
+        } else {
+            self.cityField.placeholder = @"";
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(country == %@)", self.countrySelected];
+            self.cities = [CoreDataHelper searchObjectsForEntity:@"City" withPredicate:predicate andSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+            [self.cityPicker reloadAllComponents];
+            self.cityPicker.hidden = NO;
+        }
+    }
+    
+    if (self.storeField == textField) {
+        if (self.cityField.text.length == 0) {
+            WCAlertView *alert = [[WCAlertView alloc] initWithTitle:@"Missing Information" message:@"To select a store you need to select a city before" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            alert.style = WCAlertViewStyleBlack;
+            [alert show];
+            return NO;
+        } else {
+            self.storeField.placeholder = @"";
+            NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(city == %@) && (company == %@)", self.citySelected, self.countrySelected];
+            self.stores = [CoreDataHelper searchObjectsForEntity:@"Stores" withPredicate:predicate andSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+            [self.storePicker reloadAllComponents];
+            self.storePicker.hidden = NO;
+        }
+    }
+    
+    return YES;
+}
+
+
+#pragma mark - Picker Data Source Methods
+        
+        - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView {
+            return 1;
+        }
+        
+        - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
+            if (pickerView == self.countryPicker) {
+                return [self.countries count];
+            }
+            
+            if (pickerView == self.storePicker) {
+                return [self.stores count];
+            }
+            
+            if (pickerView == self.cityPicker) {
+                return [self.cities count];
+            }
+            
+            return 1;
+        }
+        
+#pragma mark Picker Delegate Methods
+        - (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component {
+            if (pickerView == self.countryPicker) {
+                Country *country = [self.countries objectAtIndex:row];
+                return country.name;
+            }
+            
+            if (pickerView == self.storePicker) {
+                Stores *store = [self.stores objectAtIndex:row];
+                return store.name;
+            }
+            
+            if (pickerView == self.cityPicker) {
+                City *city = [self.cities objectAtIndex:row];
+                return city.name;
+            }
+            
+            return @"";
+        }
+        
+        - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component {
+            if (pickerView == self.countryPicker) {
+                Country *country = [self.countries objectAtIndex:row];
+                
+                if (![country.identifier isEqualToString:self.countrySelected]) {
+                    self.cityField.text = @"";
+                    self.storeField.text = @"";
+                }
+                self.countryField.text = country.name;
+                self.countrySelected = country.identifier;
+            }
+            
+            if (pickerView == self.storePicker) {
+                Stores *store = [self.stores objectAtIndex:row];
+                self.storeField.text = store.name;
+                self.storeSelected = store.identifier;
+            }
+            
+            if (pickerView == self.cityPicker) {
+                City *city = [self.cities objectAtIndex:row];
+                
+                if (![city.name isEqualToString:self.citySelected]) {
+                    self.storeField.text = @"";
+                }
+                self.cityField.text = city.name;
+                self.citySelected = city.name;
+            }
+            
+        }
+
+@end
