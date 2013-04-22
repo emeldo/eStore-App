@@ -13,7 +13,11 @@
 #import "Product.h"
 #import "ProductViewController.h"
 #import "HistoryViewController.h"
-
+#import "AFJSONRequestOperation.h"
+#import "Country.h"
+#import "City.h"
+#import "Stores.h"
+#import "SettingsViewController.h"
 
 @interface HomeViewController () {
     NSString *category;
@@ -27,6 +31,12 @@
 @property (strong, nonatomic) NSArray *products;
 @property (nonatomic, assign) BOOL leftMenuVisible;
 @property (nonatomic, assign) BOOL rightMenuVisible;
+
+@property (strong, nonatomic) NSString *rboServer;
+@property (strong, nonatomic) NSArray *store;
+@property (strong, nonatomic) NSArray *country;
+@property (strong, nonatomic) NSArray *city;
+@property (strong, nonatomic) NSArray *countries;
 
 @end
 
@@ -86,6 +96,9 @@
     categoryName = nil;
     self.searchBar.text = nil;
     
+    
+    //Loading Country, City and Stores
+    [self getCompanies];
     
 }
 
@@ -149,6 +162,129 @@
 }
 
 
+- (void)getCompanies {
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    self.rboServer = [[NSString alloc] initWithFormat:@"%@",[defaults objectForKey:@"rbo_server"]];
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/WS/index.php/api/rbo/company",self.rboServer];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        self.country = JSON;
+        
+        [CoreDataHelper deleteAllObjectsForEntity:@"Country" andContext:self.managedObjectContext];
+        
+        for (NSDictionary *country in self.country) {
+            
+            Country *countryEntity = [NSEntityDescription insertNewObjectForEntityForName:@"Country" inManagedObjectContext:self.managedObjectContext];
+            
+            countryEntity.name = [country valueForKey:@"company_name"];
+            countryEntity.identifier = [NSString stringWithFormat:@"%@", [country valueForKey:@"company_id"]];
+        }
+        
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
+        }
+        
+        [self getCity];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    [operation start];
+    
+}
+
+
+- (void)getCity {
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    self.countries = [CoreDataHelper getObjectsForEntity:@"Country" withSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+    [CoreDataHelper deleteAllObjectsForEntity:@"City" andContext:self.managedObjectContext];
+    [CoreDataHelper deleteAllObjectsForEntity:@"Stores" andContext:self.managedObjectContext];
+    
+    for (NSDictionary *country in self.country) {
+        NSString *companyId = [NSString stringWithFormat:@"%@", [country valueForKey:@"company_id"]];
+        NSString *url = [NSString stringWithFormat:@"http://%@/WS/index.php/api/rbo/city/company/%@", self.rboServer,companyId];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+        
+        AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+            self.city = JSON;
+            
+            for (NSDictionary *city in self.city) {
+                
+                City *cityEntity = [NSEntityDescription insertNewObjectForEntityForName:@"City" inManagedObjectContext:self.managedObjectContext];
+                
+                cityEntity.name = [city valueForKey:@"city"];
+                cityEntity.country = [NSString stringWithFormat:@"%@", [city valueForKey:@"company_id"]];
+                if (![cityEntity.country isEqual: @"All"]) {
+                    [self getStores:companyId inCity:[city valueForKey:@"city"]];
+                }
+            }
+            
+            NSError *error = nil;
+            if (![self.managedObjectContext save:&error]) {
+                NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
+            }
+            
+        } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+            //NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+            [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        }];
+        [operation start];
+    }
+    
+    
+}
+
+- (void)getStores:(NSString *)company inCity:(NSString *)city {
+    
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    
+    NSString *url = [NSString stringWithFormat:@"http://%@/WS/index.php/api/rbo/customer/company/%@/city/%@",self.rboServer,company, city];
+    
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        self.store = JSON;
+        
+        
+        for (NSDictionary *store in self.store) {
+            if ([store valueForKey:@"store_name"] != ( NSString *) [ NSNull null ]) {
+                Stores *stores = [NSEntityDescription insertNewObjectForEntityForName:@"Stores" inManagedObjectContext:self.managedObjectContext];
+                stores.name = [store valueForKey:@"store_name"];
+                stores.company = [NSString stringWithFormat:@"%@", [store valueForKey:@"company_id"]];
+                stores.latitude = [store valueForKey:@"latitude"];
+                stores.longitude = [store valueForKey:@"longitude"];
+                stores.address = [store valueForKey:@"address"];
+                stores.city = city;
+                stores.identifier = [NSString stringWithFormat:@"%@", [store valueForKey:@"store_id"]];
+            }
+        }
+        
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Whoops, couldn't save changes: %@", [error localizedDescription]);
+        }
+        
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        //NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
+        [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    }];
+    [operation start];
+    
+}
+
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     
@@ -157,6 +293,14 @@
         historyViewController.managedObjectContext = self.managedObjectContext;
         
     }
+    
+    
+    if ([segue.identifier isEqualToString:@"Settings"]) {
+        SettingsViewController *settingsViewController = [segue destinationViewController];
+        settingsViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+    
     
     if ([segue.identifier isEqualToString:@"Catalog"]) {
         
