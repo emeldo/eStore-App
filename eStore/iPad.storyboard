@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
     <scenes>
         <!--Stores View Controller-->
@@ -453,7 +453,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="HPV-yy-bej" userLabel="Home Button">
-                                <rect key="frame" x="305" y="233" width="136" height="47"/>
+                                <rect key="frame" x="305" y="233" width="137" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Button" image="home_men_category.png">
@@ -475,10 +475,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="tx3-Ya-nY8" userLabel="Women Button">
-                                <rect key="frame" x="444" y="233" width="136" height="47"/>
+                                <rect key="frame" x="442" y="233" width="138" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="home_men_category.png">
+                                <state key="normal" title="Button" image="home_women_category.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -490,17 +490,17 @@
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Women" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dhq-yQ-ykF" userLabel="Women Label">
-                                <rect key="frame" x="444" y="248" width="136" height="22"/>
+                                <rect key="frame" x="444" y="246" width="136" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eeu-WE-dC7" userLabel="Kids Button">
-                                <rect key="frame" x="583" y="233" width="136" height="47"/>
+                                <rect key="frame" x="583" y="233" width="136" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Button" image="home_men_category.png">
+                                <state key="normal" title="Button" image="home_kids_category.png">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -2502,18 +2502,11 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view tag="1" contentMode="scaleToFill" id="Is7-J4-X53" userLabel="Text Fields Background" customClass="UIButton">
-                                <rect key="frame" x="13" y="129" width="421" height="350"/>
+                                <rect key="frame" x="14" y="128" width="472" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JfI-Rr-9pO">
-                                        <rect key="frame" x="35" y="37" width="46" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="HAc-4m-M0G">
-                                        <rect key="frame" x="134" y="37" width="267" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Full Name" minimumFontSize="17" background="text_field.png" id="HAc-4m-M0G">
+                                        <rect key="frame" x="20" y="61" width="200" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2521,15 +2514,8 @@
                                             <outlet property="delegate" destination="WLe-KY-7hr" id="ldP-dm-i0y"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zfL-V1-MkE">
-                                        <rect key="frame" x="35" y="99" width="60" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="9vi-bP-ZwX">
-                                        <rect key="frame" x="134" y="99" width="267" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Country" minimumFontSize="17" background="text_field.png" id="9vi-bP-ZwX">
+                                        <rect key="frame" x="20" y="114" width="201" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2537,15 +2523,8 @@
                                             <outlet property="delegate" destination="WLe-KY-7hr" id="uCe-PM-6RE"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="City" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Ca-Ne-90b">
-                                        <rect key="frame" x="35" y="161" width="60" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="uho-QC-oHp">
-                                        <rect key="frame" x="134" y="161" width="267" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="City" minimumFontSize="17" background="text_field.png" id="uho-QC-oHp">
+                                        <rect key="frame" x="20" y="167" width="201" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2553,15 +2532,8 @@
                                             <outlet property="delegate" destination="WLe-KY-7hr" id="uqC-aR-gEA"/>
                                         </connections>
                                     </textField>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Store" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XSo-Lg-1Ws">
-                                        <rect key="frame" x="35" y="223" width="60" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" id="bPi-Cu-Ufz">
-                                        <rect key="frame" x="134" y="223" width="267" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Store" minimumFontSize="17" background="text_field.png" id="bPi-Cu-Ufz">
+                                        <rect key="frame" x="20" y="220" width="201" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -2569,6 +2541,69 @@
                                             <outlet property="delegate" destination="WLe-KY-7hr" id="cvZ-lf-2Kb"/>
                                         </connections>
                                     </textField>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="bar_separator.png" id="lGP-9h-4HU" userLabel="Separator">
+                                        <rect key="frame" x="234" y="0.0" width="5" height="275"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Information" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oay-Lh-tVh">
+                                        <rect key="frame" x="20" y="13" width="120" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Selection: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xb7-9C-bNa">
+                                        <rect key="frame" x="254" y="13" width="84" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Country" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xCk-Yv-Qv0">
+                                        <rect key="frame" x="341" y="13" width="84" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="italicSystem" pointSize="16"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="right_drag_separador.png" id="9KD-Uv-cSZ">
+                                        <rect key="frame" x="1" y="44" width="235" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="right_drag_separador.png" id="CUJ-ux-JfE">
+                                        <rect key="frame" x="239" y="44" width="232" height="2"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="55" sectionHeaderHeight="22" sectionFooterHeight="22" id="XfH-sx-001">
+                                        <rect key="frame" x="241" y="48" width="226" height="219"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" indentationWidth="10" reuseIdentifier="Cell" textLabel="94I-Te-46T" style="IBUITableViewCellStyleDefault" id="E4R-bq-Bcc">
+                                                <rect key="frame" x="0.0" y="22" width="226" height="55"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                                    <rect key="frame" x="0.0" y="0.0" width="226" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" tag="100" contentMode="left" text="Multiplaza Pacific Panama" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="94I-Te-46T">
+                                                            <rect key="frame" x="10" y="0.0" width="206" height="54"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                </view>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </tableViewCell>
+                                        </prototypes>
+                                        <connections>
+                                            <outlet property="dataSource" destination="WLe-KY-7hr" id="Xbs-dZ-FQp"/>
+                                            <outlet property="delegate" destination="WLe-KY-7hr" id="h8n-sD-OaK"/>
+                                        </connections>
+                                    </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -2576,15 +2611,15 @@
                                 </connections>
                             </view>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="information_bg.png" id="HtE-Bb-JKq">
-                                <rect key="frame" x="13" y="52" width="421" height="69"/>
+                                <rect key="frame" x="14" y="54" width="472" height="69"/>
                                 <autoresizingMask key="autoresizingMask"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="icon_sett.png" id="l6Q-Eg-DcO">
-                                <rect key="frame" x="25" y="71" width="40" height="32"/>
+                                <rect key="frame" x="40" y="73" width="40" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Select the country, city and store where you are working now" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BpM-2i-2MS">
-                                <rect key="frame" x="83" y="67" width="315" height="40"/>
+                                <rect key="frame" x="101" y="69" width="351" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -2631,6 +2666,7 @@
                         <outlet property="nameField" destination="HAc-4m-M0G" id="VCG-ux-YmB"/>
                         <outlet property="storeField" destination="bPi-Cu-Ufz" id="wPH-1u-DLs"/>
                         <outlet property="storePicker" destination="Tff-5e-7va" id="Nbt-YU-8Ec"/>
+                        <outlet property="tableView" destination="XfH-sx-001" id="4XR-jn-nbg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GwP-UF-BZA" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2642,11 +2678,11 @@
             <objects>
                 <viewController id="3V2-jx-VAL" customClass="ImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apU-NX-geN">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="EqZ-E8-zzv">
-                                <rect key="frame" x="18" y="72" width="988" height="656"/>
+                                <rect key="frame" x="18" y="72" width="732" height="676"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -2712,12 +2748,14 @@
         <image name="bar_separator.png" width="2" height="361"/>
         <image name="history button.png" width="87" height="62"/>
         <image name="home_img_holder.png" width="1024" height="312"/>
-        <image name="home_men_category.png" width="136" height="47"/>
+        <image name="home_kids_category.png" width="136" height="48"/>
+        <image name="home_men_category.png" width="137" height="48"/>
+        <image name="home_women_category.png" width="138" height="48"/>
         <image name="icon_green_shop_cart.png" width="24" height="21"/>
         <image name="icon_notification.png" width="28" height="28"/>
         <image name="icon_sett.png" width="40" height="32"/>
         <image name="icon_shopping_car.png" width="36" height="31"/>
-        <image name="information_bg.png" width="421" height="69"/>
+        <image name="information_bg.png" width="350" height="69"/>
         <image name="left_drag_handle_new.png" width="287" height="701"/>
         <image name="list_shop_cart_holder.png" width="55" height="53"/>
         <image name="men_button.png" width="93" height="30"/>
@@ -2738,6 +2776,7 @@
         <image name="store_big_adi_icon.png" width="78" height="95"/>
         <image name="stores_button.png" width="87" height="62"/>
         <image name="stores_button_press.png" width="87" height="62"/>
+        <image name="text_field.png" width="200" height="35"/>
         <image name="women_button_press.png" width="93" height="30"/>
     </resources>
     <classes>
@@ -2826,6 +2865,7 @@
                 <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="storeField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="storePicker" candidateClass="UIPickerView"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>
         </class>
         <class className="StoresViewController" superclassName="UIViewController">
@@ -2853,9 +2893,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="DvP-Ra-2VX"/>
-        <segue reference="rCe-ec-9aj"/>
-        <segue reference="r2d-3R-VZW"/>
-        <segue reference="bvy-4k-NsY"/>
+        <segue reference="z3Z-Bm-K2e"/>
+        <segue reference="bGs-5T-LhX"/>
+        <segue reference="kN1-YZ-yRB"/>
+        <segue reference="f6Q-ta-hsj"/>
     </inferredMetricsTieBreakers>
 </document>

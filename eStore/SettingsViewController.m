@@ -62,7 +62,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 448, 44)];
+    UINavigationBar *naviBarObj = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 500, 44)];
     [self.view addSubview:naviBarObj];
     
 
@@ -72,9 +72,9 @@
 
     navigItem.rightBarButtonItem = saveItem;
     
-    self.view.superview.bounds = CGRectMake(0, 0, 448, 500);
+    self.view.superview.bounds = CGRectMake(0, 0, 500, 420);
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_sett_body.png"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_sett_body"]];
     
     UIView *textBackgroundView = (UIView *)[self.view viewWithTag:1];
     textBackgroundView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"text_fields_bg"]];
@@ -131,6 +131,36 @@
         [[KGModal sharedInstance] showWithContentView:contentView andAnimated:YES];
         
     }
+    
+    
+    UIImageView *userSpace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Space.png"]];
+    UIImageView *userIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"User_Icon.png"]];
+    [self.nameField  setRightView:userIcon];
+    [self.nameField  setRightViewMode:UITextFieldViewModeAlways];
+    [self.nameField  setLeftView:userSpace];
+    [self.nameField  setLeftViewMode:UITextFieldViewModeAlways];
+    
+    UIImageView *countrySpace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Space.png"]];
+    UIImageView * countryIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Country_Icon.png"]];
+    [self.countryField  setRightView:countryIcon];
+    [self.countryField  setRightViewMode:UITextFieldViewModeAlways];
+    [self.countryField  setLeftView:countrySpace];
+    [self.countryField  setLeftViewMode:UITextFieldViewModeAlways];
+    
+    UIImageView *citySpace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Space.png"]];
+    UIImageView *cityIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Country_Icon.png"]];
+    [self.cityField  setRightView:cityIcon];
+    [self.cityField  setRightViewMode:UITextFieldViewModeAlways];
+    [self.cityField  setLeftView:citySpace];
+    [self.cityField  setLeftViewMode:UITextFieldViewModeAlways];
+    
+    UIImageView *storeSpace = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Space.png"]];
+    UIImageView *storeIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Store_Icon.png"]];
+    [self.storeField  setRightView:storeIcon];
+    [self.storeField  setRightViewMode:UITextFieldViewModeAlways];
+    [self.storeField  setLeftView:storeSpace];
+    [self.storeField  setLeftViewMode:UITextFieldViewModeAlways];
+
     
     naviBarObj.items = [NSArray arrayWithObjects: navigItem,nil];
     naviBarObj.titleTextAttributes = [NSDictionary dictionaryWithObject:[UIColor whiteColor] forKey:UITextAttributeTextColor];
@@ -193,10 +223,10 @@
     [self.cityField resignFirstResponder];
     [self.storeField resignFirstResponder];
     
-    if (self.nameField.text.length == 0) self.nameField.placeholder = @"Put your name";
-    if (self.countryField.text.length == 0) self.countryField.placeholder = @"Select your country";
-    if (self.cityField.text.length == 0) self.cityField.placeholder = @"Select your city";
-    if (self.storeField.text.length == 0) self.storeField.placeholder = @"Select your favorite store";
+    if (self.nameField.text.length == 0) self.nameField.placeholder = @"Full Name";
+    if (self.countryField.text.length == 0) self.countryField.placeholder = @"Country";
+    if (self.cityField.text.length == 0) self.cityField.placeholder = @"City";
+    if (self.storeField.text.length == 0) self.storeField.placeholder = @"Store";
 }
 
 
@@ -259,15 +289,20 @@
         }
     }
     
-    if (self.countryField.text.length == 0) self.countryField.placeholder = @"Select your country";
-    if (self.cityField.text.length == 0) self.cityField.placeholder = @"Select your city";
-    if (self.storeField.text.length == 0) self.storeField.placeholder = @"Select your favorite store";
+    if (self.countryField.text.length == 0) self.countryField.placeholder = @"Country";
+    if (self.cityField.text.length == 0) self.cityField.placeholder = @"City";
+    if (self.storeField.text.length == 0) self.storeField.placeholder = @"Store";
     
     
 }
 
 - (void) cancelButtonPressed{
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)viewDidUnload {
+    [self setTableView:nil];
+    [super viewDidUnload];
 }
 
 
@@ -278,7 +313,7 @@
     if (self.nameField == textField) {
         if (self.nameField.text.length == 0) {
             [self.nameField resignFirstResponder];
-            self.nameField.placeholder = @"Put your name";
+            self.nameField.placeholder = @"Full Name";
         } 
     }
     
@@ -294,6 +329,7 @@
         self.countryField.placeholder = @"";
         self.countries = [CoreDataHelper getObjectsForEntity:@"Country" withSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
         [self.countryPicker reloadAllComponents];
+        [self.tableView reloadData];
         self.countryPicker.hidden = NO;
     }
     
@@ -402,5 +438,41 @@
             }
             
         }
+
+
+#pragma mark - Table View DataSource
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.countries count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    NSString *cellIdentifier = [[NSString alloc] init];
+    cellIdentifier = @"Cell";
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+    }
+    
+    Country *country = [self.countries objectAtIndex:indexPath.row];
+    
+    UILabel *storeLabel = (UILabel *)[cell viewWithTag:100];
+    storeLabel.text = country.name;
+
+    
+    return cell;
+}
+
 
 @end
