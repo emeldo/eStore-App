@@ -1134,13 +1134,17 @@
              
              
              [animation stopAnimating];
-             
+             if(error == nil){
              if (image)
              {
                  imageProduct.image = image;
                  imageProduct.hidden = NO;
              }
               else {
+                 imageProduct.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 imageProduct.hidden = NO;
+             }
+             }else{
                  imageProduct.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
                  imageProduct.hidden = NO;
              }
@@ -1448,7 +1452,6 @@
     
     NSString* urlString = product.image;
     
-    NSLog(@"URL STRING: %@", urlString);
     
     
     recipeImageView.hidden = YES;
@@ -1470,19 +1473,27 @@
                          options:0
                         progress:^(NSUInteger receivedSize, long long expectedSize)
          {
-             
-            // [animation startAnimating];
+            // NSLog(@"URL STRING: %@ %@", urlString,product.product_name);
          }
                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL dummy)
          {
+             
+            // NSLog(@"Error %@",error);
+             
              [animation stopAnimating];
-             if (image)
-             {
-                 recipeImageView.image = image;
-                 product.imageValue = image;
-                 recipeImageView.hidden = NO;
+             if(error == nil){
+                 if (image)
+                 {
+                     recipeImageView.image = image;
+                     product.imageValue = image;
+                     recipeImageView.hidden = NO;
+                 }else{
+                     product.imageValue = nil;
+                     recipeImageView.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                     recipeImageView.hidden = NO;
+                 }
              }else{
-                 product.imageValue = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 product.imageValue = nil;
                  recipeImageView.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
                  recipeImageView.hidden = NO;
              }
@@ -1569,9 +1580,6 @@
     productFound.price = [NSString stringWithFormat:@"%@",product.price];
     productFound.sortDate = [NSDate date];
     
-    
-    //NSLog(@" %@ <-~~~-  -~~~-> %@ ",self.titleQuery , self.searchQuery);
-    
     if(self.searchQuery != nil){
         productFound.category = self.searchQuery;
     }else{
@@ -1643,6 +1651,7 @@
             
            }
     
+    [self closeMenu:self.rightMenu];
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
     
     

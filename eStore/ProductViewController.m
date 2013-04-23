@@ -342,6 +342,36 @@
 }
 
 
+- (void)loadScrollViewOnce {
+    //if ([self.pageImages count] == [self.imagesByArticle count]) {
+        
+        NSInteger pageCount = self.pageImages.count;
+        
+        // Set up the page control
+        self.pageControl.currentPage = 0;
+        if (pageCount == 1) {
+            self.pageControl.numberOfPages = 0;
+        } else {
+            self.pageControl.numberOfPages = pageCount;
+        }
+        
+        // Set up the array to hold the views for each page
+        self.pageViews = [[NSMutableArray alloc] init];
+        for (NSInteger i = 0; i < pageCount; ++i) {
+            [self.pageViews addObject:[NSNull null]];
+        }
+        
+        // Set up the content size of the scroll view
+        self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * self.pageImages.count, self.scrollView.frame.size.height);
+        
+        // Load the initial set of pages that are on screen
+        [self loadVisiblePages];
+        
+    //}
+    
+}
+
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     
     if ([segue.identifier isEqualToString:@"Comments"]) {
@@ -836,7 +866,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 
 
 -(void)loadingImagesFromWeb:(NSString *)c_color :(NSArray *)imageGroupsImages  {
-    
+    [self.pageImages removeAllObjects];
     self.articleColor = c_color;
     self.productColor.text = self.articleColor;
     
@@ -851,8 +881,6 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
     }
     
     self.pageImages = [[NSMutableArray alloc] init];
-    
-    
     
     for (NSDictionary *imagesDictonary in self.imagesByArticle) {
         
@@ -870,12 +898,23 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
                        completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, BOOL dummy)
          {
              
+             if(error == nil){
              [self.pageImages addObject:image];
-             
              [self loadScrollView];
+                
+             }
              
+             if([self.pageImages count] == 0){
+                 UIImage *jam = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 [self.pageImages addObject:jam];
+                 
+                 [self loadScrollViewOnce];
+             }
          }];
     }
+    
+    
+    
     [self.progressView stopAnimating];
     
     

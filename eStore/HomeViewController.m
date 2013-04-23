@@ -535,9 +535,20 @@
         
         UIImageView *productImage = (UIImageView *)[cell viewWithTag:100];
         productImage.contentMode = UIViewContentModeScaleAspectFit;
-        UIImage *image = [UIImage imageWithData:product.image];
-        const float colorMasking[6] = {255, 255, 255, 255, 255, 255};
-        productImage.image = [UIImage imageWithCGImage: CGImageCreateWithMaskingColors(image.CGImage, colorMasking)];
+        
+        UIImage *image = nil;
+        //NSLog(@" %@",product.image);
+        
+        if(product.image == nil){
+            image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+            productImage.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+
+        }else{
+            image = [UIImage imageWithData:product.image];
+            const float colorMasking[6] = {255, 255, 255, 255, 255, 255};
+            productImage.image = [UIImage imageWithCGImage: CGImageCreateWithMaskingColors(image.CGImage, colorMasking)];
+        }
+        
         
         
         UILabel *currencyLabel = (UILabel *)[cell viewWithTag:104];
