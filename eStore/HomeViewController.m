@@ -540,8 +540,8 @@
         //NSLog(@" %@",product.image);
         
         if(product.image == nil){
-            image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
-            productImage.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+            image = [UIImage imageNamed:@"img_not_available_03.png"];
+            productImage.image = [UIImage imageNamed:@"img_not_available_03.png"];
 
         }else{
             image = [UIImage imageWithData:product.image];

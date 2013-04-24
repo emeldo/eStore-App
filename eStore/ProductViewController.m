@@ -175,8 +175,13 @@
 
                 UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, withlong, 40)];
                 
+                
+                NSString *text = [self.selected_refinements objectForKey:key];
+                NSString *capitalized = [[[text substringToIndex:1] uppercaseString] stringByAppendingString:[text substringFromIndex:1]];
+                
+                [breadcumLabel setText:capitalized];
+
                 [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-                [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
                 [breadcumLabel setTextColor:[UIColor darkGrayColor]];
                 [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
                 [breadcumView addSubview:breadcumLabel];
@@ -905,7 +910,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
              }
              
              if([self.pageImages count] == 0){
-                 UIImage *jam = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 UIImage *jam = [UIImage imageNamed:@"img_not_available_03.png"];
                  [self.pageImages addObject:jam];
                  
                  [self loadScrollViewOnce];
@@ -957,10 +962,10 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         NSString *c_division = [mainDict objectForKey:@"c_division"];
         
         if([c_division isEqualToString:@"Originals"]){
-         self.productDivision.image =  [UIImage imageNamed:@"original_small_logo.png"];
+         self.productDivision.image =  [UIImage imageNamed:@"originals-logo.png"];
             
         }else if([c_division isEqualToString:@"Performance"]){
-           self.productDivision.image =  [UIImage imageNamed:@"performance_small_logo.png"];
+           self.productDivision.image =  [UIImage imageNamed:@"performance-logo.jpg"];
         }else{
            self.productDivision =  nil;
         }
@@ -1938,7 +1943,10 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
                     UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, 100, 40)];
                     
                     [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-                    [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
+                    NSString *text = [self.selected_refinements objectForKey:key];
+                    NSString *capitalized = [[[text substringToIndex:1] uppercaseString] stringByAppendingString:[text substringFromIndex:1]];
+                    
+                    [breadcumLabel setText:capitalized];
                     [breadcumLabel setTextColor:[UIColor darkGrayColor]];
                     [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
                     [breadcumView addSubview:breadcumLabel];

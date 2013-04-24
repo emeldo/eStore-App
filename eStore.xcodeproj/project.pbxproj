@@ -79,6 +79,18 @@
 		3B9F08EB1703AAC700CD6C76 /* Yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08DC1703AAC700CD6C76 /* Yellow.png */; };
 		3BA14F1D1708769C00236467 /* Silver.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BA14F1C1708769C00236467 /* Silver.png */; };
 		3BA987F5171ED57D009FDBA4 /* Products.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA987F4171ED57D009FDBA4 /* Products.m */; };
+		3BB44C2E1726CA2000174342 /* StoreLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB44C2D1726CA2000174342 /* StoreLocation.m */; };
+		3BB44C311726CBC500174342 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BB44C301726CBC500174342 /* AddressBook.framework */; };
+		3BB44C381726D65B00174342 /* adidas_pin_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BB44C361726D65B00174342 /* adidas_pin_icon.png */; };
+		3BB44C391726D65B00174342 /* adidas_pin_icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BB44C371726D65B00174342 /* adidas_pin_icon@2x.png */; };
+		3BB44C3B1726D73200174342 /* store_big_adi_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BB44C3A1726D73200174342 /* store_big_adi_icon.png */; };
+		3BB44C471726E97700174342 /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB44C461726E97700174342 /* DACircularProgressView.m */; };
+		3BCF58E21728083300665E17 /* img_not_available.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BCF58E01728083300665E17 /* img_not_available.png */; };
+		3BCF58E31728083300665E17 /* img_not_available_03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BCF58E11728083300665E17 /* img_not_available_03.png */; };
+		3BCF58E71728086C00665E17 /* not_result.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BCF58E51728086C00665E17 /* not_result.png */; };
+		3BCF58E81728086C00665E17 /* notresult.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BCF58E61728086C00665E17 /* notresult.png */; };
+		3BCF58EB17280FA800665E17 /* performance-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3BCF58E917280FA800665E17 /* performance-logo.jpg */; };
+		3BCF58EC17280FA800665E17 /* originals-logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BCF58EA17280FA800665E17 /* originals-logo.png */; };
 		3BD498DF17050F8700169D09 /* Your selection_bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BD498DE17050F8700169D09 /* Your selection_bg.png */; };
 		3BDCA540170208020056D0DE /* XXL.png in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCA53F170208020056D0DE /* XXL.png */; };
 		3BDE8E531701E46200579921 /* Variant.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDE8E521701E46200579921 /* Variant.m */; };
@@ -314,6 +326,20 @@
 		3BA14F1C1708769C00236467 /* Silver.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Silver.png; sourceTree = "<group>"; };
 		3BA987F3171ED57D009FDBA4 /* Products.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Products.h; sourceTree = "<group>"; };
 		3BA987F4171ED57D009FDBA4 /* Products.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Products.m; sourceTree = "<group>"; };
+		3BB44C2C1726CA2000174342 /* StoreLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreLocation.h; sourceTree = "<group>"; };
+		3BB44C2D1726CA2000174342 /* StoreLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreLocation.m; sourceTree = "<group>"; };
+		3BB44C301726CBC500174342 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		3BB44C361726D65B00174342 /* adidas_pin_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = adidas_pin_icon.png; path = "../../Store Stock/Store Stock/adidas_pin_icon.png"; sourceTree = "<group>"; };
+		3BB44C371726D65B00174342 /* adidas_pin_icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "adidas_pin_icon@2x.png"; path = "../../Store Stock/Store Stock/adidas_pin_icon@2x.png"; sourceTree = "<group>"; };
+		3BB44C3A1726D73200174342 /* store_big_adi_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = store_big_adi_icon.png; path = "../../../../Dropbox/[QR] Vox - Marcas y Promociones/adidas iPad/Chop Chop/Store Details and Locations/store_big_adi_icon.png"; sourceTree = "<group>"; };
+		3BB44C451726E97700174342 /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
+		3BB44C461726E97700174342 /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
+		3BCF58E01728083300665E17 /* img_not_available.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_not_available.png; sourceTree = "<group>"; };
+		3BCF58E11728083300665E17 /* img_not_available_03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = img_not_available_03.png; sourceTree = "<group>"; };
+		3BCF58E51728086C00665E17 /* not_result.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = not_result.png; sourceTree = "<group>"; };
+		3BCF58E61728086C00665E17 /* notresult.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = notresult.png; sourceTree = "<group>"; };
+		3BCF58E917280FA800665E17 /* performance-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "performance-logo.jpg"; sourceTree = "<group>"; };
+		3BCF58EA17280FA800665E17 /* originals-logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "originals-logo.png"; sourceTree = "<group>"; };
 		3BD498DE17050F8700169D09 /* Your selection_bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Your selection_bg.png"; sourceTree = "<group>"; };
 		3BDCA53F170208020056D0DE /* XXL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = XXL.png; sourceTree = "<group>"; };
 		3BDE8E511701E46200579921 /* Variant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Variant.h; sourceTree = "<group>"; };
@@ -527,6 +553,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BB44C311726CBC500174342 /* AddressBook.framework in Frameworks */,
 				845BFA6E1726437100ABB34D /* libiconv.dylib in Frameworks */,
 				845BFA6C1726435D00ABB34D /* CoreVideo.framework in Frameworks */,
 				845BFA6A1726435100ABB34D /* CoreMedia.framework in Frameworks */,
@@ -602,6 +629,15 @@
 		3B716F4B16F8B96200D84F85 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				3BCF58E917280FA800665E17 /* performance-logo.jpg */,
+				3BCF58EA17280FA800665E17 /* originals-logo.png */,
+				3BCF58E51728086C00665E17 /* not_result.png */,
+				3BCF58E61728086C00665E17 /* notresult.png */,
+				3BCF58E01728083300665E17 /* img_not_available.png */,
+				3BCF58E11728083300665E17 /* img_not_available_03.png */,
+				3BB44C3A1726D73200174342 /* store_big_adi_icon.png */,
+				3BB44C361726D65B00174342 /* adidas_pin_icon.png */,
+				3BB44C371726D65B00174342 /* adidas_pin_icon@2x.png */,
 				3B716F4816F8B95700D84F85 /* no_image_adidas_logo@2x.png */,
 				3B716F4716F8B95700D84F85 /* no_image_adidas_logo.png */,
 			);
@@ -633,6 +669,15 @@
 			name = Colors;
 			sourceTree = "<group>";
 		};
+		3BB44C441726E97700174342 /* DACircularProgress */ = {
+			isa = PBXGroup;
+			children = (
+				3BB44C451726E97700174342 /* DACircularProgressView.h */,
+				3BB44C461726E97700174342 /* DACircularProgressView.m */,
+			);
+			path = DACircularProgress;
+			sourceTree = "<group>";
+		};
 		3BFB7FAC16F74E3A00964FF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -652,6 +697,8 @@
 				3BFB7FAF16F74E6700964FF2 /* Product.m */,
 				3B305DE7170DD46800DF7334 /* Comments.h */,
 				3B305DE8170DD46800DF7334 /* Comments.m */,
+				3BB44C2C1726CA2000174342 /* StoreLocation.h */,
+				3BB44C2D1726CA2000174342 /* StoreLocation.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -659,6 +706,7 @@
 		3BFB7FB116F74F7300964FF2 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				3BB44C441726E97700174342 /* DACircularProgress */,
 				845BFA44172642C800ABB34D /* ZBarSDK */,
 				84ADC2081724FA5000A9CF42 /* KGModal */,
 				84ADC1FE1724ED5800A9CF42 /* WCAlertView */,
@@ -767,6 +815,7 @@
 		84132FCD16F6325800C295C0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BB44C301726CBC500174342 /* AddressBook.framework */,
 				845BFA6D1726437000ABB34D /* libiconv.dylib */,
 				845BFA6B1726435D00ABB34D /* CoreVideo.framework */,
 				845BFA691726435100ABB34D /* CoreMedia.framework */,
@@ -1287,6 +1336,15 @@
 				845BFA64172642C800ABB34D /* zbar-help.html in Resources */,
 				845BFA65172642C800ABB34D /* zbar-helpicons.png in Resources */,
 				845BFA66172642C800ABB34D /* zbar-samples.png in Resources */,
+				3BB44C381726D65B00174342 /* adidas_pin_icon.png in Resources */,
+				3BB44C391726D65B00174342 /* adidas_pin_icon@2x.png in Resources */,
+				3BB44C3B1726D73200174342 /* store_big_adi_icon.png in Resources */,
+				3BCF58E21728083300665E17 /* img_not_available.png in Resources */,
+				3BCF58E31728083300665E17 /* img_not_available_03.png in Resources */,
+				3BCF58E71728086C00665E17 /* not_result.png in Resources */,
+				3BCF58E81728086C00665E17 /* notresult.png in Resources */,
+				3BCF58EB17280FA800665E17 /* performance-logo.jpg in Resources */,
+				3BCF58EC17280FA800665E17 /* originals-logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1342,6 +1400,8 @@
 				84ADC2011724ED5800A9CF42 /* WCAlertView.m in Sources */,
 				84ADC2041724F39C00A9CF42 /* Settings.m in Sources */,
 				84ADC2071724FA4D00A9CF42 /* KGModal.m in Sources */,
+				3BB44C2E1726CA2000174342 /* StoreLocation.m in Sources */,
+				3BB44C471726E97700174342 /* DACircularProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

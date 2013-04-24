@@ -40,6 +40,7 @@
 @property (nonatomic, strong) UISearchBar *searchBar;
 @property (strong, nonatomic) NSArray *settings;
 @property (strong, nonatomic) Settings *userInfo;
+@property (strong, nonatomic) DACircularProgressView *largeProgressView;
 
 //////////////////////////////////////////////////EMELDO
 @property (nonatomic, strong) NSArray *filterCategories;
@@ -459,8 +460,6 @@
         animation.type = kCATransitionFade;
         animation.duration = 0.4;
         [loadingView.layer addAnimation:animation forKey:nil];
-        loadingView.hidden = YES;
-
         
         NSDictionary *mainDict = JSON;
         
@@ -508,7 +507,10 @@
                     UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, withlong, 40)];
                     
                     [breadcumLabel setBackgroundColor:[UIColor clearColor]];
-                    [breadcumLabel setText:[self.selected_refinements objectForKey:key]];
+                    NSString *text = [self.selected_refinements objectForKey:key];
+                    NSString *capitalized = [[[text substringToIndex:1] uppercaseString] stringByAppendingString:[text substringFromIndex:1]];
+
+                    [breadcumLabel setText:capitalized];
                     [breadcumLabel setTextColor:[UIColor darkGrayColor]];
                     [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
                     [breadcumView addSubview:breadcumLabel];
@@ -649,7 +651,11 @@
             
         }
                
-    
+        if(self.hitsValues.count == 0){
+            UIView *errorView = (UIView *)[self.view viewWithTag:404];
+            errorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+            errorView.hidden = NO;
+        }
         
         [self.collectionView reloadData];
         [self.productTableView reloadData];
@@ -657,20 +663,26 @@
         [self.selectionTableView reloadData];
         
         
+        loadingView.hidden = YES;
+       // [self stopAnimation];
+       
+        
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
         
         UIView *loadingView = (UIView *)[self.view viewWithTag:10];
         loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
         loadingView.hidden = YES;
+       // [self stopAnimation];
         
         UIView *errorView = (UIView *)[self.view viewWithTag:404];
         errorView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
         errorView.hidden = NO;
 
     }];
+
     
-    
+   
     [operation start];
     
 }
@@ -1141,11 +1153,11 @@
                  imageProduct.hidden = NO;
              }
               else {
-                 imageProduct.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 imageProduct.image = [UIImage imageNamed:@"img_not_available_03.png"];
                  imageProduct.hidden = NO;
              }
              }else{
-                 imageProduct.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 imageProduct.image = [UIImage imageNamed:@"img_not_available_03.png"];
                  imageProduct.hidden = NO;
              }
          }];
@@ -1489,12 +1501,12 @@
                      recipeImageView.hidden = NO;
                  }else{
                      product.imageValue = nil;
-                     recipeImageView.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                     recipeImageView.image = [UIImage imageNamed:@"img_not_available_03.png"];
                      recipeImageView.hidden = NO;
                  }
              }else{
                  product.imageValue = nil;
-                 recipeImageView.image = [UIImage imageNamed:@"no_image_adidas_logo.png"];
+                 recipeImageView.image = [UIImage imageNamed:@"img_not_available_03.png"];
                  recipeImageView.hidden = NO;
              }
          }];
@@ -1727,5 +1739,63 @@
     NSString *result = (NSString *)CFBridgingRelease(CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)str, NULL, CFSTR("&"), kCFStringEncodingUTF8));
     return result;
 }
+
+#pragma CIRCULAR REFERENCE
+/*
+- (void)progressChange
+{
+    for (DACircularProgressView *progressView in [NSArray arrayWithObjects: self.largeProgressView, nil])
+    {
+        CGFloat progress = ![self.timer isValid] ? self.stepper.value / 10.f : progressView.progress + 0.01f;
+        [progressView setProgress:progress animated:YES];
+        
+        if (progressView.progress >= 1.0f && [self.timer isValid])
+        {
+            [progressView setProgress:0.f animated:YES];
+        }
+        
+        self.progressLabel.text = [NSString stringWithFormat:@"%.2f", progressView.progress];
+    }
+}
+
+- (void)startAnimation
+{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:0.03 target:self selector:@selector(progressChange) userInfo:nil repeats:YES];
+    self.continuousSwitch.on = YES;
+}
+
+- (void)stopAnimation
+{
+    [self.timer invalidate];
+    self.timer = nil;
+    self.continuousSwitch.on = NO;
+}
+
+- (IBAction)toggleAnimation:(id)sender
+{
+    if (self.continuousSwitch.on)
+    {
+        [self startAnimation];
+    }
+    else
+    {
+        [self stopAnimation];
+    }
+}
+
+- (IBAction)toggleIndeterminate:(id)sender
+{
+    for (DACircularProgressView *progressView in [NSArray arrayWithObjects: self.largeProgressView, nil])
+    {
+        progressView.indeterminate = self.indeterminateSwitch.on;
+    }
+}
+
+- (IBAction)step:(id)sender
+{
+    [self stopAnimation];
+    [self progressChange];
+}
+*/
 
 @end

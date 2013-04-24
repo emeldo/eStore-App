@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11G63" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="rgf-GW-K0y">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
         <!--Stores View Controller-->
@@ -9,7 +9,7 @@
             <objects>
                 <viewController id="R0o-do-3uK" customClass="StoresViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4uo-Gy-oBU">
-                        <rect key="frame" x="0.0" y="64" width="768" height="724"/>
+                        <rect key="frame" x="0.0" y="44" width="768" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="Stores_inter_holder_bg.png" id="HEl-v1-JcX" userLabel="Background">
@@ -235,6 +235,9 @@
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="xy4-Vg-DZA">
                                         <rect key="frame" x="10" y="32" width="457" height="348"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="R0o-do-3uK" id="fQ0-Ql-oGv"/>
+                                        </connections>
                                     </mapView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -261,6 +264,7 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     <connections>
+                        <outlet property="mapView" destination="xy4-Vg-DZA" id="atq-ct-jTg"/>
                         <outlet property="segmentedControl" destination="wZ7-Vl-Evd" id="vVW-xg-fhU"/>
                         <outlet property="tableView" destination="Wlb-yx-rpC" id="Xk1-14-W38"/>
                     </connections>
@@ -811,14 +815,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoY-nr-ZDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2338" y="-1594"/>
+            <point key="canvasLocation" x="3458" y="-906"/>
         </scene>
         <!--Catalog View Controller-->
         <scene sceneID="vid-Q1-hNB">
             <objects>
                 <viewController id="HWB-Me-K5a" customClass="CatalogViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Jyb-XR-wdb" userLabel="Catalog" customClass="UIButton">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view tag="2" contentMode="scaleToFill" id="z52-oz-up5" userLabel="Breadcum">
@@ -1056,16 +1060,13 @@
                                 </connections>
                             </view>
                             <view hidden="YES" tag="404" contentMode="scaleToFill" id="tFq-co-1Q2" userLabel="Error View">
-                                <rect key="frame" x="20" y="90" width="984" height="560"/>
+                                <rect key="frame" x="20" y="90" width="982" height="560"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Error" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZkK-X7-L7P">
-                                        <rect key="frame" x="267" y="187" width="116" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="not_result.png" id="2hD-ug-Du9">
+                                        <rect key="frame" x="410" y="200" width="148" height="71"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             </view>
@@ -1572,7 +1573,7 @@
             <objects>
                 <viewController id="q88-sU-N61" customClass="CommentsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="z5j-n5-Gb3">
-                        <rect key="frame" x="0.0" y="20" width="768" height="768"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" allowsSelection="NO" rowHeight="170" sectionHeaderHeight="22" sectionFooterHeight="22" id="SZf-kz-tbQ">
@@ -1743,7 +1744,7 @@
             <objects>
                 <viewController id="6Za-Ta-kB6" customClass="ProductViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="32a-Qm-lkW">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="704"/>
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Copyrights@2013 - adidas groups" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="p2H-Mi-CUj" userLabel="Copyrights Label">
@@ -1839,8 +1840,8 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" image="performance_small_logo.png" id="V9b-Gl-HL7" userLabel="Product Division">
-                                        <rect key="frame" x="827" y="31" width="35" height="25"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="performance-logo.jpg" id="V9b-Gl-HL7" userLabel="Product Division">
+                                        <rect key="frame" x="827" y="31" width="46" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view contentMode="scaleToFill" id="3iZ-PN-XnE" userLabel="Product Rating">
@@ -2498,7 +2499,7 @@
             <objects>
                 <viewController id="WLe-KY-7hr" customClass="SettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dm0-tW-0Ie" customClass="UIButton">
-                        <rect key="frame" x="0.0" y="64" width="768" height="724"/>
+                        <rect key="frame" x="0.0" y="44" width="768" height="724"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view tag="1" contentMode="scaleToFill" id="Is7-J4-X53" userLabel="Text Fields Background" customClass="UIButton">
@@ -2678,11 +2679,11 @@
             <objects>
                 <viewController id="3V2-jx-VAL" customClass="ImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apU-NX-geN">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
+                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="EqZ-E8-zzv">
-                                <rect key="frame" x="18" y="72" width="732" height="676"/>
+                                <rect key="frame" x="18" y="72" width="988" height="656"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -2763,6 +2764,8 @@
         <image name="new_comment_icon.png" width="37" height="33"/>
         <image name="new_stock_addto_holder.png" width="62" height="72"/>
         <image name="no_image_adidas_logo.png" width="141" height="95"/>
+        <image name="not_result.png" width="148" height="71"/>
+        <image name="performance-logo.jpg" width="273" height="184"/>
         <image name="performance_small_logo.png" width="29" height="20"/>
         <image name="product_01.png" width="105" height="94"/>
         <image name="recent_showall_bar.png" width="852" height="35"/>
@@ -2788,11 +2791,15 @@
                 <relationship kind="action" name="hideAndUnhide:"/>
                 <relationship kind="outlet" name="bread" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
+                <relationship kind="outlet" name="continuousSwitch" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="indeterminateSwitch" candidateClass="UISwitch"/>
                 <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
                 <relationship kind="outlet" name="menuTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="productTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="progressLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
                 <relationship kind="outlet" name="selectionTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="stepper" candidateClass="UIStepper"/>
             </relationships>
         </class>
         <class className="CommentsViewController" superclassName="UIViewController">
@@ -2872,6 +2879,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/StoresViewController.h"/>
             <relationships>
                 <relationship kind="action" name="menuChanged:"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="storesTableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -2893,9 +2901,9 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="z3Z-Bm-K2e"/>
-        <segue reference="bGs-5T-LhX"/>
-        <segue reference="kN1-YZ-yRB"/>
-        <segue reference="f6Q-ta-hsj"/>
+        <segue reference="r2d-3R-VZW"/>
+        <segue reference="rCe-ec-9aj"/>
+        <segue reference="ILm-Tq-7UF"/>
+        <segue reference="ZiK-eR-VcJ"/>
     </inferredMetricsTieBreakers>
 </document>

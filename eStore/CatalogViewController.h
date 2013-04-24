@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DYRateView.h"
+#import "DACircularProgressView.h"
 
 @interface CatalogViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,
 UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelegate, UISearchBarDelegate>
@@ -29,6 +30,12 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 
 @property (strong, nonatomic) IBOutlet UILabel *bread;
 @property (strong, nonatomic) UILabel *rateLabel;
+@property (strong, nonatomic) NSTimer *timer;
+
+@property (strong, nonatomic) IBOutlet UIStepper *stepper;
+@property (strong, nonatomic) IBOutlet UILabel *progressLabel;
+@property (strong, nonatomic) IBOutlet UISwitch *continuousSwitch;
+@property (strong, nonatomic) IBOutlet UISwitch *indeterminateSwitch;
 
 
 - (IBAction)hideAndUnhide:(id)sender;

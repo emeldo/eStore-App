@@ -8,16 +8,23 @@
 
 #import "StoresViewController.h"
 #import "CoreDataHelper.h"
+#import "StoreLocation.h"
 #import "Stores.h"
 #import "Settings.h"
+
+
+#define METERS_PER_MILE 1609.344
 
 @interface StoresViewController ()
 @property (strong, nonatomic) NSString *storeIdentifier;
 @property (nonatomic, strong) NSArray *settings;
 @property (nonatomic, strong) Settings *userInfo;
+@property (nonatomic, strong) NSString *storeId;
+
+
 @end
 
-@implementation StoresViewController 
+@implementation StoresViewController
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -118,17 +125,21 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    NSLog(@"seccuibes %i",[[self.fetchedResultsController sections] count]);
     return [[self.fetchedResultsController sections] count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    NSLog(@"numberOfObjects %i",[sectionInfo numberOfObjects]);
+    
     return [sectionInfo numberOfObjects];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StoresCell"];
     [self configureCell:cell atIndexPath:indexPath];
     
@@ -152,7 +163,7 @@
     lblCity.text = store.city;
     lblCity.highlightedTextColor = [UIColor blackColor];
     
-   
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -177,14 +188,20 @@
     UILabel *address = (UILabel *)[self.view viewWithTag:202];
     address.text = [NSString stringWithFormat:@"%@", store.city];
     
-   //NSLog(@" %@ ", store.address);
-  //  NSLog(@" %@ ", store.city);
- // NSLog(@" %@ ",store.company);
-   NSLog(@" %@ ",store.identifier);
-  //  NSLog(@" %@ ",store.latitude);
-  //  NSLog(@" %@ ",store.longitude);
-  //  NSLog(@" %@ ",store.name);
-  //  NSLog(@" %@ ",store.setDefault);
+  
+    NSLog(@"store %@ ",store.identifier);
+  
+    self.storeId = store.identifier;
+    
+    CLLocationCoordinate2D zoomLocation;
+    zoomLocation.latitude = [store.latitude floatValue];
+    zoomLocation.longitude= [store.longitude floatValue];
+    
+   MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+   [_mapView setRegion:viewRegion animated:YES];
+    
+   [self plotStorePositions];
+    
     
 }
 
@@ -305,6 +322,50 @@
 {
     [self.tableView endUpdates];
 }
+
+#pragma mark - Map View Delegate
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
+    static NSString *identifier = @"StoreLocation";
+    if ([annotation isKindOfClass:[StoreLocation class]]) {
+        
+        MKAnnotationView *annotationView = (MKAnnotationView *) [_mapView dequeueReusableAnnotationViewWithIdentifier:identifier];
+        if (annotationView == nil) {
+            annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
+            annotationView.enabled = YES;
+            annotationView.canShowCallout = YES;
+            annotationView.image = [UIImage imageNamed:@"adidas_pin_icon.png"];
+        } else {
+            annotationView.annotation = annotation;
+        }
+        
+        return annotationView;
+    }
+    
+    return nil;
+}
+
+- (void)plotStorePositions {
+    for (id<MKAnnotation> annotation in _mapView.annotations) {
+        [_mapView removeAnnotation:annotation];
+    }
+    
+    // Getting Store information from Core Data.
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"(identifier == %@)", self.storeId];
+    NSMutableArray *storeInfo = [CoreDataHelper searchObjectsForEntity:@"Stores" withPredicate:predicate andSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+    
+    Stores *store = [storeInfo objectAtIndex:0];
+    
+    NSString *storeName =store.name;
+    NSString *city = store.city;
+    
+    CLLocationCoordinate2D coordinate;
+    coordinate.latitude = [store.latitude floatValue];
+    coordinate.longitude = [store.longitude floatValue];
+    StoreLocation *annotation = [[StoreLocation alloc] initWithName:storeName address:city coordinate:coordinate] ;
+    [_mapView addAnnotation:annotation];
+}
+
+
 
 
 
