@@ -21,5 +21,6 @@
 - (IBAction)categorySelected:(id)sender;
 - (IBAction)hideKeyboard;
 - (IBAction)hideAndUnhide:(id)sender;
+- (void)setFoo:(NSString *)bar;
 
 @end

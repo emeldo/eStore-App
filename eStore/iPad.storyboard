@@ -308,7 +308,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="hV1-at-zlf" kind="modal" identifier="History" modalPresentationStyle="pageSheet" modalTransitionStyle="crossDissolve" id="wO8-p9-Sj8"/>
+                                    <segue destination="hV1-at-zlf" kind="modal" identifier="History" modalTransitionStyle="crossDissolve" id="wO8-p9-Sj8"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Show all" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lJ7-s8-yvY" userLabel="Show all Label">
@@ -654,6 +654,9 @@
                                         <state key="highlighted" image="History_button_press.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="hV1-at-zlf" kind="modal" identifier="History" modalPresentationStyle="pageSheet" modalTransitionStyle="crossDissolve" id="U0m-cm-Zva"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xbn-z7-WtS">
                                         <rect key="frame" x="77" y="275" width="87" height="62"/>
@@ -688,6 +691,7 @@
                         <outlet property="rightMenu" destination="x4B-sh-dm4" id="r5f-jF-q2m"/>
                         <outlet property="searchBar" destination="Ky1-SB-J9R" id="QMM-qH-h0K"/>
                         <segue destination="HWB-Me-K5a" kind="push" identifier="Catalog" id="bGs-5T-LhX"/>
+                        <segue destination="6Za-Ta-kB6" kind="push" identifier="sendshowProductDetail" id="K0a-cN-Lqn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rum-zR-vtP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -708,10 +712,10 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="HistoryCell" rowHeight="142" id="YDW-gk-zWv">
-                                        <rect key="frame" x="0.0" y="22" width="768" height="142"/>
+                                        <rect key="frame" x="0.0" y="22" width="1024" height="142"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="748" height="141"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="1004" height="141"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleAspectFit" image="no_image_adidas_logo.png" id="fIG-ne-McZ">
@@ -808,6 +812,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
+                    <navigationItem key="navigationItem" id="PTh-rB-Lcv"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="tableView" destination="xd7-bT-wNi" id="Tif-Zz-dTz"/>
@@ -815,7 +820,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RoY-nr-ZDg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3458" y="-906"/>
+            <point key="canvasLocation" x="2162" y="-1474"/>
         </scene>
         <!--Catalog View Controller-->
         <scene sceneID="vid-Q1-hNB">
@@ -1520,6 +1525,9 @@
                                         <state key="highlighted" image="History_button_press.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="hV1-at-zlf" kind="modal" identifier="History" modalPresentationStyle="pageSheet" modalTransitionStyle="crossDissolve" id="Sts-AU-jMB"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aIm-PL-THa">
                                         <rect key="frame" x="77" y="275" width="87" height="62"/>
@@ -1562,11 +1570,12 @@
                         <outlet property="productTableView" destination="KLq-Tp-b7L" id="0lJ-AA-qhM"/>
                         <outlet property="rightMenu" destination="WWq-Ah-rKs" id="K08-lO-dok"/>
                         <outlet property="selectionTableView" destination="JzD-ue-vLL" id="Ayi-yX-gbr"/>
+                        <segue destination="6Za-Ta-kB6" kind="push" identifier="sendshowProductDetail" id="zBm-oc-Uvl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1ae-xi-v7G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2903" y="230"/>
+            <point key="canvasLocation" x="3023" y="74"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="YIx-j4-Vqt">
@@ -2144,6 +2153,9 @@
                                         <state key="highlighted" image="History_button_press.png">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <segue destination="hV1-at-zlf" kind="modal" identifier="History" modalPresentationStyle="pageSheet" modalTransitionStyle="crossDissolve" id="EZh-Ud-qKL"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iav-dj-pSN">
                                         <rect key="frame" x="77" y="275" width="87" height="62"/>
@@ -2679,11 +2691,11 @@
             <objects>
                 <viewController id="3V2-jx-VAL" customClass="ImageViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="apU-NX-geN">
-                        <rect key="frame" x="0.0" y="20" width="1024" height="748"/>
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="768"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="EqZ-E8-zzv">
-                                <rect key="frame" x="18" y="72" width="988" height="656"/>
+                                <rect key="frame" x="18" y="72" width="732" height="676"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
@@ -2782,128 +2794,16 @@
         <image name="text_field.png" width="200" height="35"/>
         <image name="women_button_press.png" width="93" height="30"/>
     </resources>
-    <classes>
-        <class className="CatalogViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CatalogViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="CleanAllPressed:"/>
-                <relationship kind="action" name="changeViews:"/>
-                <relationship kind="action" name="hideAndUnhide:"/>
-                <relationship kind="outlet" name="bread" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
-                <relationship kind="outlet" name="continuousSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="indeterminateSwitch" candidateClass="UISwitch"/>
-                <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
-                <relationship kind="outlet" name="menuTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="productTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="progressLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
-                <relationship kind="outlet" name="selectionTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="stepper" candidateClass="UIStepper"/>
-            </relationships>
-        </class>
-        <class className="CommentsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CommentsViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="CommentsTableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="HistoryViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="HomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/HomeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="categorySelected:"/>
-                <relationship kind="action" name="hideAndUnhide:"/>
-                <relationship kind="action" name="hideKeyboard"/>
-                <relationship kind="outlet" name="collectionView" candidateClass="UICollectionView"/>
-                <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
-                <relationship kind="outlet" name="searchBar" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="ImageViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ImageViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="ProductViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ProductViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="CleanAllPressed:"/>
-                <relationship kind="action" name="hideAndUnhide:"/>
-                <relationship kind="outlet" name="commentValue" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="currencyLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="leftMenu" candidateClass="UIView"/>
-                <relationship kind="outlet" name="menuTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="mybuttonComments" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="pageControl" candidateClass="UIPageControl"/>
-                <relationship kind="outlet" name="priceLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="productColor" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="productDivision" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="productIDLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="productImage" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="productNameLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="qtyValue" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="qtyValueInfo" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="rateView" candidateClass="UIView"/>
-                <relationship kind="outlet" name="rightMenu" candidateClass="UIView"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="scrollViewSize" candidateClass="UIScrollView"/>
-                <relationship kind="outlet" name="selectionTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="webviewName" candidateClass="UIWebView"/>
-            </relationships>
-        </class>
-        <class className="SettingsViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SettingsViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="dimissKeyword:"/>
-                <relationship kind="outlet" name="cityField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="cityPicker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="countryField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="countryPicker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="nameField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="storeField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="storePicker" candidateClass="UIPickerView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="StoresViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/StoresViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="menuChanged:"/>
-                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
-                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
-                <relationship kind="outlet" name="storesTableView" candidateClass="UITableView"/>
-                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
-            </relationships>
-        </class>
-        <class className="UICollectionReusableView" superclassName="UIView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionReusableView.h"/>
-        </class>
-        <class className="UICollectionViewCell" superclassName="UICollectionReusableView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewCell.h"/>
-        </class>
-        <class className="UICollectionViewFlowLayout" superclassName="UICollectionViewLayout">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UICollectionViewFlowLayout.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="r2d-3R-VZW"/>
-        <segue reference="rCe-ec-9aj"/>
+        <segue reference="EZh-Ud-qKL"/>
+        <segue reference="f6Q-ta-hsj"/>
         <segue reference="ILm-Tq-7UF"/>
+        <segue reference="rCe-ec-9aj"/>
         <segue reference="ZiK-eR-VcJ"/>
     </inferredMetricsTieBreakers>
 </document>

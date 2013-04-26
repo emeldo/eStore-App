@@ -164,6 +164,33 @@
     lblCity.highlightedTextColor = [UIColor blackColor];
     
     
+    NSLog(@" %@",store.setDefault);
+   // if(store.setDefault){
+        UILabel *storename = (UILabel *)[self.view viewWithTag:200];
+        storename.text = [NSString stringWithFormat:@"%@", store.name];
+        
+        UILabel *company = (UILabel *)[self.view viewWithTag:201];
+        company.text = [NSString stringWithFormat:@"%@", store.address];
+        
+        UILabel *address = (UILabel *)[self.view viewWithTag:202];
+        address.text = [NSString stringWithFormat:@"%@", store.city];
+        
+        
+        NSLog(@"store %@ ",store.identifier);
+        
+        self.storeId = store.identifier;
+        
+        CLLocationCoordinate2D zoomLocation;
+        zoomLocation.latitude = [store.latitude floatValue];
+        zoomLocation.longitude= [store.longitude floatValue];
+        
+        MKCoordinateRegion viewRegion = MKCoordinateRegionMakeWithDistance(zoomLocation, 0.5*METERS_PER_MILE, 0.5*METERS_PER_MILE);
+        [_mapView setRegion:viewRegion animated:YES];
+        
+        [self plotStorePositions];
+
+    //}
+    
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -333,7 +360,7 @@
             annotationView = [[MKAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:identifier];
             annotationView.enabled = YES;
             annotationView.canShowCallout = YES;
-            annotationView.image = [UIImage imageNamed:@"adidas_pin_icon.png"];
+            annotationView.image = [UIImage imageNamed:@"adidas_Brand_Center_icon.png"];
         } else {
             annotationView.annotation = annotation;
         }

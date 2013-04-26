@@ -27,6 +27,7 @@
     int rightBevelWidth;
     int leftMenuY;
     int leftBevelWidth;
+    
 }
 
 @property (strong, nonatomic) NSArray *products;
@@ -38,6 +39,8 @@
 @property (strong, nonatomic) NSArray *country;
 @property (strong, nonatomic) NSArray *city;
 @property (strong, nonatomic) NSArray *countries;
+
+@property (strong, nonatomic) Product *productSelected;
 
 @end
 
@@ -101,6 +104,24 @@
     //Loading Country, City and Stores
     [self getCompanies];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(yourNotificationHandler:)
+                                                 name:@"MODELVIEW" object:nil];
+    
+}
+
+
+
+//Now create yourNotificationHandler: like this in parent class
+-(void)yourNotificationHandler:(NSNotification *) notification{
+
+    self.productSelected = nil;
+    NSDictionary *userInfo = notification.userInfo;
+    self.productSelected = [userInfo objectForKey:@"someKey"];
+  
+    NSLog(@"%@", self.productSelected.product_name);
+    [self performSegueWithIdentifier:@"sendshowProductDetail" sender:nil];
+  
 }
 
 - (void)didReceiveMemoryWarning
@@ -293,11 +314,6 @@
         HistoryViewController *historyViewController = [segue destinationViewController];
         historyViewController.managedObjectContext = self.managedObjectContext;
         
-    }
-
-    if ([segue.identifier isEqualToString:@"History"]) {
-        HistoryViewController *historyViewController = [segue destinationViewController];
-        historyViewController.managedObjectContext = self.managedObjectContext;
         
     }
     
@@ -325,6 +341,7 @@
         catalogViewController.managedObjectContext = self.managedObjectContext;
         self.searchBar.text = nil;
         category = nil;
+        
     }
     
     if ([segue.identifier isEqualToString:@"showProductDetail"]) {
@@ -345,7 +362,17 @@
         destViewController.product = product;
         destViewController.managedObjectContext = self.managedObjectContext;
         
-    } 
+    }
+    
+    
+    if ([segue.identifier isEqualToString:@"sendshowProductDetail"]) {
+        
+       ProductViewController *destViewController = segue.destinationViewController;
+       Product *product = self.productSelected;
+       destViewController.product = product;
+       destViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
 }
 
 - (IBAction)categorySelected:(id)sender
@@ -612,6 +639,11 @@
 	return ( (arc4random() % (max-min+1)) + min );
 }
 
+-(void)setFoo:(NSString *)fooValue{
+     NSLog(@"updated foo:%@", fooValue);
+}
+
+// get register to fetch notification
 
 
 @end

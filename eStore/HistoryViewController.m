@@ -9,12 +9,14 @@
 #import "HistoryViewController.h"
 #import "Products.h"
 #import "ProductViewController.H"
+#import "HomeViewController.h"
 
 @interface HistoryViewController ()
 
 @property (nonatomic, strong) UINavigationBar *naviBarObj;
 @property (nonatomic, strong) UINavigationItem *navigItem;
 @property (strong, nonatomic) NSArray *products;
+@property (assign, nonatomic) HomeViewController *homeViewControler;
 
 @end
 
@@ -214,9 +216,34 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
+  
+    //[self.homeViewControler setFoo:@"bar"];
     
-    //[self performSegueWithIdentifier:@"showProductDetail" sender:nil];
+    //[self.navigationController pushViewController:self.homeViewControler animated:YES];
+    
+    //[self dismissViewControllerAnimated:YES completion:nil];
+    //[self.delegate setIdentifier:[NSString stringWithFormat:@"%i", indexPath.row]];
+    //[self dismissModalViewControllerAnimated:YES];
+    //[self performSegueWithIdentifier:@"REGRESA" sender:nil];
+    
+    
+    Products *productDatacore = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    
+    Product *product = [Product new];
+    product.product_id = productDatacore.identifier;
+    product.product_name = productDatacore.name;
+    product.price = productDatacore.price;
+    product.currency = productDatacore.currency;
+    product.link = productDatacore.link;
+    product.category = productDatacore.category;
+
+    
+    [self dismissModalViewControllerAnimated:YES];
+    NSLog(@"DismissModalviewController");
+    
+  
+    NSDictionary *userInfo = [NSDictionary dictionaryWithObject:product forKey:@"someKey"];
+    [[NSNotificationCenter defaultCenter] postNotificationName: @"MODELVIEW" object:nil userInfo:userInfo];
 
 }
 
@@ -336,24 +363,36 @@
 
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"showProductDetail"]) {
+   // if ([segue.identifier isEqualToString:@"REGRESA"]) {
         
-        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+    //    NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         
-        ProductViewController *destViewController = segue.destinationViewController;
-        Products *productDatacore = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //    ProductViewController *destViewController = segue.destinationViewController;
+    //    Products *productDatacore = [self.fetchedResultsController objectAtIndexPath:indexPath];
         
-        Product *product = [Product new];
-        product.product_id = productDatacore.identifier;
-        product.product_name = productDatacore.name;
-        product.price = productDatacore.price;
-        product.currency = productDatacore.currency;
-        product.link = productDatacore.link;
-        product.category = productDatacore.category;
+     //   Product *product = [Product new];
+     //   product.product_id = productDatacore.identifier;
+     //   product.product_name = productDatacore.name;
+     //   product.price = productDatacore.price;
+     //   product.currency = productDatacore.currency;
+     //   product.link = productDatacore.link;
+     //   product.category = productDatacore.category;
         
-        destViewController.product = product;
-        destViewController.managedObjectContext = self.managedObjectContext;
+     //   destViewController.product = product;
+     //   destViewController.managedObjectContext = self.managedObjectContext;
         
-    } }
+    //}
+    
+    
+   // if ([segue.identifier isEqualToString:@"History"]) {
+//HistoryViewController *vc = (HistoryViewController *)[[[segue destinationViewController] viewControllers] objectAtIndex:0];
+        
+     //   [vc setDelegate:self];
+        
+   // }
+
+
+    
+}
 
 @end

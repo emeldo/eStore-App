@@ -12,6 +12,8 @@
 #import "Products.h"
 #import "ProductViewController.h"
 #import "StoresViewController.h"
+#import "HistoryViewController.h"
+#import "SettingsViewController.h"
 #import "UIImageView+WebCache.h"
 #import "CoreDataHelper.h"
 #import "Settings.h"
@@ -41,7 +43,7 @@
 @property (strong, nonatomic) NSArray *settings;
 @property (strong, nonatomic) Settings *userInfo;
 @property (strong, nonatomic) DACircularProgressView *largeProgressView;
-
+@property (strong, nonatomic) Product *productSelected;
 //////////////////////////////////////////////////EMELDO
 @property (nonatomic, strong) NSArray *filterCategories;
 @property (nonatomic, strong) NSArray *filterLabels;
@@ -206,7 +208,26 @@
         self.collectionView.hidden = NO;
     }
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(yourNotificationHandler:)
+                                                 name:@"MODELVIEW" object:nil];
+    
 }
+
+
+
+//Now create yourNotificationHandler: like this in parent class
+-(void)yourNotificationHandler:(NSNotification *) notification{
+    
+    self.productSelected = nil;
+    NSDictionary *userInfo = notification.userInfo;
+    self.productSelected = [userInfo objectForKey:@"someKey"];
+    
+    NSLog(@"%@", self.productSelected.product_name);
+    [self performSegueWithIdentifier:@"sendshowProductDetail" sender:nil];
+    
+}
+
 
 - (void)didReceiveMemoryWarning
 {
@@ -366,6 +387,9 @@
 {
     NSLog(@"REVISANDO DATOS %@ -- %@ ",wsString,wsquery);
     //Show Loading View
+    
+    self.leftMenu.userInteractionEnabled = NO;
+    self.rightMenu.userInteractionEnabled = NO;
     UIView *loadingView = (UIView *)[self.view viewWithTag:10];
     
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
@@ -663,8 +687,10 @@
         [self.selectionTableView reloadData];
         
         
+        self.leftMenu.userInteractionEnabled = YES;
+        self.rightMenu.userInteractionEnabled = YES;
+        
         loadingView.hidden = YES;
-       // [self stopAnimation];
        
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -1546,6 +1572,28 @@
         storesViewController.managedObjectContext = self.managedObjectContext;
         
     }
+    
+    if ([segue.identifier isEqualToString:@"History"]) {
+        HistoryViewController *historyViewController = [segue destinationViewController];
+        historyViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+    
+    if ([segue.identifier isEqualToString:@"sendshowProductDetail"]) {
+        
+        ProductViewController *destViewController = segue.destinationViewController;
+        Product *product = self.productSelected;
+        destViewController.product = product;
+        destViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+    
+    if ([segue.identifier isEqualToString:@"Settings"]) {
+        SettingsViewController *settingsViewController = [segue destinationViewController];
+        settingsViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+
 }
 
 

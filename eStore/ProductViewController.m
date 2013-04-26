@@ -15,6 +15,8 @@
 #import "Comments.h"
 #import "CatalogViewController.h"
 #import "CommentsViewController.h"
+#import "SettingsViewController.h"
+#import "HistoryViewController.h"
 #import "StoresViewController.h"
 #import "ImageViewController.h"
 
@@ -50,7 +52,7 @@
 @property (nonatomic, assign) BOOL leftMenuVisible;
 @property (nonatomic, assign) BOOL rightMenuVisible;
 @property (nonatomic, strong) NSMutableArray  *Commenthits;
-
+@property (strong, nonatomic) Product *productSelected;
 //@property (nonatomic, readwrite, retain) NSMutableDictionary *arrays;
 
 //////////////////////////////////////////////////EMELDO
@@ -292,18 +294,237 @@
     
     [self.navigationItem setBackBarButtonItem: backButton];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(yourNotificationHandler:)
+                                                 name:@"MODELVIEW" object:nil];
     
-    
-   
 }
+
+
+
+//Now create yourNotificationHandler: like this in parent class
+-(void)yourNotificationHandler:(NSNotification *) notification{
+    
+    self.productSelected = nil;
+    NSDictionary *userInfo = notification.userInfo;
+    self.productSelected = [userInfo objectForKey:@"someKey"];
+    
+    //NSLog(@"%@", self.productSelected.product_name);
+    //[self performSegueWithIdentifier:@"sendshowProductDetail" sender:nil];
+    
+    self.title = product.product_name;
+    self.productNameLabel.text = product.product_name;
+    self.priceLabel.text = [NSString stringWithFormat:@"%@", product.price];
+    self.currencyLabel.text = product.currency;
+    self.productIDLabel.text = product.product_id;
+    
+    
+    self.variation_attributes = [[NSMutableArray alloc] init];
+    self.variation_color = [[NSMutableArray alloc] init];
+    self.variation_size = [[NSMutableArray alloc] init];
+    self.imageslow = [[NSMutableArray alloc] init];
+    
+    self.filterCategories = [[NSArray alloc] initWithObjects: @"c_productType", @"c_sport", @"cgid", @"c_division", @"c_searchColor",  @"c_sizeSearchValue", @"c_filters", nil];
+    
+    self.filterLabels = [[NSArray alloc] initWithObjects: @"Product Type", @"Sport", @"Category", @"Brand", @"Colour", @"Size", @"Filters", nil];
+    
+    
+    self.filterOrder = [[NSArray alloc] initWithObjects:  @"cgid", @"c_division", @"c_sport", @"c_productType", @"c_searchColor",  @"c_sizeSearchValue", nil];
+    
+    //NSMutableArray *arrayActiveFilters = [self.arrays objectForKey:@"c_filters"];
+    //NSMutableArray *arrayActiveFilters2 = [self.arrays objectForKey:@"Filters"];
+    
+    
+    //Setting up Backgrounds for views
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg_catalog.png"]];
+    
+    UIView *productView = (UIView *)[self.view viewWithTag:1];
+    productView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+    
+    UIImageView* img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo_adidas_02.png"]];
+    self.navigationItem.titleView = img;
+    
+    
+    //Setting Breadcrum
+    UIView *breadcumView = (UIView *)[self.view viewWithTag:2];
+    breadcumView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"Bread_Crumbs_holder.png"]];
+    
+    UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 6, 100, 40)];
+    [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+    [breadcumLabel setText:@"Home"];
+    [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+    [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+    [breadcumView addSubview:breadcumLabel];
+    
+    CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+    
+    UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+    [breadcumImage setFrame:CGRectMake(20 + textSize.width + 10, 10, 13, 36)];
+    [breadcumView addSubview:breadcumImage];
+    
+    NSArray *keys = [self.selected_refinements allKeys];
+    UIView *breadcumViewComplete = (UIView *)[self.view viewWithTag:2];
+    
+    int iteration = [self.selected_refinements count];
+    
+    breadcumView = nil;
+    
+    if(iteration == 1) {
+        breadcumView = [[UIView alloc] init];
+        [breadcumView setTag:888];
+    } else {
+        breadcumView = (UIView *)[self.view viewWithTag:888];
+        [breadcumView removeFromSuperview];
+        breadcumView = [[UIView alloc] init];
+        [breadcumView setTag:888];
+    }
+    
+    int x = 100;
+    
+    for (int k=0; k< self.filterOrder.count; k++) {
+        NSString *filterName = [self.filterOrder objectAtIndex:k];
+        //NSLog(@" %@",filterName);
+        
+        for (NSString *key in keys) {
+            
+            if([key isEqualToString:filterName]){
+                
+                
+                // for (NSString *key in keys) {
+                
+                //[arrayActiveFilters addObject:key];
+                //[arrayActiveFilters2 addObject:[self.selected_refinements objectForKey:key]];
+                
+                int withlong = 100;
+                if([[self.selected_refinements objectForKey:key] length] > 13){
+                    withlong = 150;
+                }
+                
+                UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, withlong, 40)];
+                
+                
+                NSString *text = [self.selected_refinements objectForKey:key];
+                NSString *capitalized = [[[text substringToIndex:1] uppercaseString] stringByAppendingString:[text substringFromIndex:1]];
+                
+                [breadcumLabel setText:capitalized];
+                
+                [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+                [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+                [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+                [breadcumView addSubview:breadcumLabel];
+                
+                CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+                
+                UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+                [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+                [breadcumView addSubview:breadcumImage];
+                
+                x = x + textSize.width + 40;
+                break;
+            }
+            
+        }
+        
+    }
+    
+    self.searchQuery = nil;
+    if(product.category != nil){
+        NSString *value = product.category;
+        
+        if([value isEqualToString:@"Men"] || [value isEqualToString:@"Women"] || [value isEqualToString:@"Kids"]){
+            
+            value =[NSString stringWithFormat:@"cgid=%@", [product.category lowercaseString]];
+            [self loadingFromWeb : value : nil];
+        }else{
+            [self loadingFromWeb : nil : value];
+            self.searchQuery =  value;
+        }
+        
+    }
+    
+    if(self.searchQuery != nil){
+        NSString *labelQuery = self.searchQuery;
+        int widthlong = 100;
+        if([labelQuery length] > 12){
+            widthlong = 250;
+        }else if([labelQuery length] > 15)  {
+            widthlong = 390;
+        }else if([labelQuery length] > 20)  {
+            widthlong = 490;
+        }
+        
+        UILabel *breadcumLabel = [[UILabel alloc]initWithFrame:CGRectMake(x, 6, widthlong, 40)];
+        
+        [breadcumLabel setBackgroundColor:[UIColor clearColor]];
+        
+        
+        NSString *filename = [[labelQuery lastPathComponent] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        [breadcumLabel setText: filename];
+        [breadcumLabel setTextColor:[UIColor darkGrayColor]];
+        [breadcumLabel setFont:[UIFont fontWithName:@"HelveticaNeue-Bold" size:14.0]];
+        [breadcumView addSubview:breadcumLabel];
+        
+        CGSize textSize = [[breadcumLabel text] sizeWithFont:[breadcumLabel font]];
+        
+        UIImageView *breadcumImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bread_crumb_separador.png"]];
+        [breadcumImage setFrame:CGRectMake(x + textSize.width + 10, 10, 13, 36)];
+        [breadcumView addSubview:breadcumImage];
+        
+    }
+    
+    [breadcumViewComplete addSubview:breadcumView];
+    
+    self.Commenthits = [[NSMutableArray alloc] init];
+    
+    //Loading Overview and Color Information
+    [self loadingProductFromWeb:product.product_id];
+    [self loadingCommentProductFromWeb:product.product_id];
+    [self loadingOtherStoresInformation:product.product_id];
+    
+    
+    
+    [self.mybuttonComments addTarget:self action:@selector(myButtonClick:) forControlEvents:(UIControlEvents)UIControlEventTouchDown];
+    
+    
+    //Setting Lateral Menus
+    self.leftMenuVisible = NO;
+    self.rightMenuVisible = NO;
+    rightMenuY = 0;
+    rightBevelWidth = 50;
+    leftMenuY = 0;
+    leftBevelWidth = 50;
+    
+    UIPanGestureRecognizer *leftRecognizer;
+    leftRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragMenu:)];
+    [self.leftMenu addGestureRecognizer:leftRecognizer];
+    
+    UIPanGestureRecognizer *rightRecognizer;
+    rightRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragMenu:)];
+    [self.rightMenu addGestureRecognizer:rightRecognizer];
+    
+    
+    
+    
+    
+    if (!expandedSections)
+    {
+        expandedSections = [[NSMutableIndexSet alloc] init];
+    }
+    
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(yourNotificationHandler:)
+                                                 name:@"MODELVIEW" object:nil];
+
+}
+
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     self.leftMenu.frame = CGRectMake(self.leftMenu.frame.size.width * -1 + leftBevelWidth, leftMenuY, self.leftMenu.frame.size.width, self.leftMenu.frame.size.height);
     self.leftMenu.hidden = false;
-    
-    //self.rightMenu.frame = CGRectMake(self.view.frame.size.width - rightBevelWidth, rightMenuY, self.rightMenu.frame.size.width, self.rightMenu.frame.size.height);
     
     self.rightMenu.frame = CGRectMake(self.view.frame.size.width - rightBevelWidth, rightMenuY, self.rightMenu.frame.size.width, self.rightMenu.frame.size.height);
     self.rightMenu.hidden = false;
@@ -407,7 +628,23 @@
         StoresViewController *storesViewController = [segue destinationViewController];
         storesViewController.managedObjectContext = self.managedObjectContext;
         
-    }}
+    }
+
+
+    if ([segue.identifier isEqualToString:@"History"]) {
+        HistoryViewController *historyViewController = [segue destinationViewController];
+        historyViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+    
+    if ([segue.identifier isEqualToString:@"Settings"]) {
+        SettingsViewController *settingsViewController = [segue destinationViewController];
+        settingsViewController.managedObjectContext = self.managedObjectContext;
+        
+    }
+
+
+}
 
 
 #pragma mark - Lateral Menu Methods
@@ -609,26 +846,6 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
     self.sizesInfo = [JSON mutableCopy];
     
     
-   // if ((![self.userInfo.store isEqualToString:defaultStore.text] && self.sizesPickerView != NULL && ![inStockLabel1.text isEqualToString:@"Select a size"]) || ([self.userInfo.stock boolValue] != self.stockVisible && self.sizesPickerView != NULL && ![inStockLabel1.text isEqualToString:@"Select a size"])) {
-    /*8
-        [self searchSize:self.sizeDescription];
-    }
-    
-    self.stockVisible = [self.userInfo.stock boolValue];
-    
-    //Put label for default store
-    defaultStore.text = self.userInfo.store;
-    defaultCity1.text = self.userInfo.city;
-    defaultCity2.text = self.userInfo.city;
-    
-    if ([self.sizes count] == 1) {
-        [self.sizesPickerView determineCurrentRow];
-    }
-    */
-    //if (self.sizeDescription != nil) {
-    //    [self updateAllStock];
-    //}
-    
     
 } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
     //NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
@@ -655,6 +872,11 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
     //[indicator startAnimating];
     //[loadingView addSubview:indicator];
     //loadingView.hidden = NO;
+    self.leftMenu.userInteractionEnabled = NO;
+    self.rightMenu.userInteractionEnabled = NO;
+    self.tableView.userInteractionEnabled = NO;
+    
+    
     self.progressView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     
     
@@ -744,6 +966,11 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         rateView.delegate = self;
         [self.rateView addSubview:rateView];
         
+        
+        self.leftMenu.userInteractionEnabled = YES;
+        self.rightMenu.userInteractionEnabled = YES;
+        self.tableView.userInteractionEnabled = YES;
+        
         //Dismiss Loading View
         //CATransition *animation = [CATransition animation];
         //animation.type = kCATransitionFade;
@@ -756,9 +983,11 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         NSLog(@"Request ERROR 1: %@, %@", error, error.userInfo);
         [self.progressView stopAnimating];
         
-        UIView *loadingView = (UIView *)[self.view viewWithTag:501];
-        loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
-        loadingView.hidden = YES;
+        //UIView *loadingView = (UIView *)[self.view viewWithTag:501];
+        //loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
+        //loadingView.hidden = YES;
+        self.leftMenu.userInteractionEnabled = YES;
+        self.rightMenu.userInteractionEnabled = YES;
 
         
         UIView *ErrorView = (UIView *)[self.view viewWithTag:404];
@@ -1092,14 +1321,15 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 
 -(void)listColors:(NSMutableArray *)colors :(NSMutableArray *)images :(NSMutableArray *)product_list {
     
+    int counter = 0;
     //Loading images for article
     freeList = [[NSMutableArray alloc] init];
-    
     for (Variant *productVariant in product_list) {
         
         NSString *productid = productVariant.product_id;
         NSString *nameColor = productVariant.color_variant;
-        
+      
+        int totalvalues = [images count];
         for (NSDictionary *imageInformation in images) {
             
             if([[imageInformation objectForKey:@"variation_value"] isEqualToString:nameColor] && [[imageInformation objectForKey:@"view_type"] isEqualToString:@"large"]) {
@@ -1120,12 +1350,13 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
                  {
                      ListItem *item1 = [[ListItem alloc] initWithFrame:CGRectZero image:imageView text:nil text:productid];
                      [freeList addObject:item1];
+                     
                      [self.tableView reloadData];
                      
                  }];
                 
                 
-                
+               
             }
         }
         
