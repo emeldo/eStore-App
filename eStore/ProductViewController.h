@@ -23,6 +23,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *qtyValue;
 @property (weak, nonatomic) IBOutlet UILabel *qtyValueInfo;
+@property (weak, nonatomic) IBOutlet UILabel *qtyShoppingCart;
 
 @property (strong, nonatomic) IBOutlet UIWebView *webviewName;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;

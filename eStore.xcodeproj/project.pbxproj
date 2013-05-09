@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3B17CE30173AD30D008544F7 /* ShoppingCartViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B17CE2F173AD30C008544F7 /* ShoppingCartViewController.m */; };
+		3B17CE33173B2F5D008544F7 /* ShoppingCart.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B17CE32173B2F5D008544F7 /* ShoppingCart.m */; };
+		3B1808791739642A0058B07E /* AddProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1808781739642A0058B07E /* AddProductViewController.m */; };
 		3B27782C16F7B1FA007F228F /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B27782B16F7B1FA007F228F /* ProductViewController.m */; };
 		3B27783116F7BE67007F228F /* acordion_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27782F16F7BE67007F228F /* acordion_icon.png */; };
 		3B27783216F7BE67007F228F /* Overview_bar.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B27783016F7BE67007F228F /* Overview_bar.png */; };
@@ -57,6 +60,7 @@
 		3B716F4616F8AE5D00D84F85 /* Product_divider_list.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B716F4516F8AE5D00D84F85 /* Product_divider_list.png */; };
 		3B716F4916F8B95700D84F85 /* no_image_adidas_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B716F4716F8B95700D84F85 /* no_image_adidas_logo.png */; };
 		3B716F4A16F8B95700D84F85 /* no_image_adidas_logo@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B716F4816F8B95700D84F85 /* no_image_adidas_logo@2x.png */; };
+		3B97C9C7173BDFC700103A3F /* tag_windows.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B97C9C6173BDFC700103A3F /* tag_windows.png */; };
 		3B9F089D1703486500CD6C76 /* remove_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F089C1703486500CD6C76 /* remove_icon.png */; };
 		3B9F08A0170348AC00CD6C76 /* separador_hendler.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F089F170348AC00CD6C76 /* separador_hendler.png */; };
 		3B9F08A21703493D00CD6C76 /* Clear all_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9F08A11703493D00CD6C76 /* Clear all_button.png */; };
@@ -236,6 +240,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3B17CE2E173AD30C008544F7 /* ShoppingCartViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCartViewController.h; sourceTree = "<group>"; };
+		3B17CE2F173AD30C008544F7 /* ShoppingCartViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCartViewController.m; sourceTree = "<group>"; };
+		3B17CE31173B2F5D008544F7 /* ShoppingCart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShoppingCart.h; sourceTree = "<group>"; };
+		3B17CE32173B2F5D008544F7 /* ShoppingCart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShoppingCart.m; sourceTree = "<group>"; };
+		3B1808771739642A0058B07E /* AddProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddProductViewController.h; sourceTree = "<group>"; };
+		3B1808781739642A0058B07E /* AddProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddProductViewController.m; sourceTree = "<group>"; };
 		3B27782A16F7B1FA007F228F /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductViewController.h; sourceTree = "<group>"; };
 		3B27782B16F7B1FA007F228F /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductViewController.m; sourceTree = "<group>"; };
 		3B27782F16F7BE67007F228F /* acordion_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = acordion_icon.png; path = Images/acordion_icon.png; sourceTree = "<group>"; };
@@ -302,6 +312,7 @@
 		3B716F4516F8AE5D00D84F85 /* Product_divider_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Product_divider_list.png; path = Images/Product_divider_list.png; sourceTree = "<group>"; };
 		3B716F4716F8B95700D84F85 /* no_image_adidas_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = no_image_adidas_logo.png; sourceTree = "<group>"; };
 		3B716F4816F8B95700D84F85 /* no_image_adidas_logo@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "no_image_adidas_logo@2x.png"; sourceTree = "<group>"; };
+		3B97C9C6173BDFC700103A3F /* tag_windows.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tag_windows.png; sourceTree = "<group>"; };
 		3B9F089C1703486500CD6C76 /* remove_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = remove_icon.png; sourceTree = "<group>"; };
 		3B9F089F170348AC00CD6C76 /* separador_hendler.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = separador_hendler.png; sourceTree = "<group>"; };
 		3B9F08A11703493D00CD6C76 /* Clear all_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Clear all_button.png"; sourceTree = "<group>"; };
@@ -627,6 +638,7 @@
 		3B716F4B16F8B96200D84F85 /* General */ = {
 			isa = PBXGroup;
 			children = (
+				3B97C9C6173BDFC700103A3F /* tag_windows.png */,
 				3BCF58ED1728164F00665E17 /* adidas_Brand_Center_icon.png */,
 				3BCF58EE1728164F00665E17 /* adidas_Brand_Center_icon@2x.png */,
 				3BCF58E917280FA800665E17 /* performance-logo.jpg */,
@@ -678,6 +690,8 @@
 		3BFB7FAC16F74E3A00964FF2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3B17CE31173B2F5D008544F7 /* ShoppingCart.h */,
+				3B17CE32173B2F5D008544F7 /* ShoppingCart.m */,
 				84ADC2021724F39C00A9CF42 /* Settings.h */,
 				84ADC2031724F39C00A9CF42 /* Settings.m */,
 				84ADC1F71724E74B00A9CF42 /* City.h */,
@@ -855,6 +869,10 @@
 				3B3BBFAB171F8777006B1531 /* StoresViewController.m */,
 				3B3BBFAE171F8F77006B1531 /* SettingsViewController.h */,
 				3B3BBFAF171F8F77006B1531 /* SettingsViewController.m */,
+				3B1808771739642A0058B07E /* AddProductViewController.h */,
+				3B1808781739642A0058B07E /* AddProductViewController.m */,
+				3B17CE2E173AD30C008544F7 /* ShoppingCartViewController.h */,
+				3B17CE2F173AD30C008544F7 /* ShoppingCartViewController.m */,
 			);
 			path = eStore;
 			sourceTree = "<group>";
@@ -1341,6 +1359,7 @@
 				3BCF58EC17280FA800665E17 /* originals-logo.png in Resources */,
 				3BCF58EF1728164F00665E17 /* adidas_Brand_Center_icon.png in Resources */,
 				3BCF58F01728164F00665E17 /* adidas_Brand_Center_icon@2x.png in Resources */,
+				3B97C9C7173BDFC700103A3F /* tag_windows.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1398,6 +1417,9 @@
 				84ADC2071724FA4D00A9CF42 /* KGModal.m in Sources */,
 				3BB44C2E1726CA2000174342 /* StoreLocation.m in Sources */,
 				3BB44C471726E97700174342 /* DACircularProgressView.m in Sources */,
+				3B1808791739642A0058B07E /* AddProductViewController.m in Sources */,
+				3B17CE30173AD30D008544F7 /* ShoppingCartViewController.m in Sources */,
+				3B17CE33173B2F5D008544F7 /* ShoppingCart.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

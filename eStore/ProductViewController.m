@@ -11,6 +11,7 @@
 #import "AFJSONRequestOperation.h"
 #import "UIImageView+WebCache.h"
 #import "DYRateView.h"
+#import "CoreDataHelper.h"
 #import "Variant.h"
 #import "Comments.h"
 #import "CatalogViewController.h"
@@ -19,6 +20,8 @@
 #import "HistoryViewController.h"
 #import "StoresViewController.h"
 #import "ImageViewController.h"
+#import "AddProductViewController.h"
+#import "ShoppingCartViewController.h"
 
 @interface ProductViewController () {
     NSMutableArray *itemArray;
@@ -65,6 +68,7 @@
 
 @property (nonatomic, strong) NSArray *refinementsValues;
 @property (nonatomic, strong) NSArray *sorting_optionsValues;
+@property (nonatomic, strong) NSArray *shoppincartqty;
 
 @end
 
@@ -298,9 +302,46 @@
                                              selector:@selector(yourNotificationHandler:)
                                                  name:@"MODELVIEW" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(qtySCNotificationHandler:)
+                                                 name:@"EventShoppingCart" object:nil];
+    
+    
+    
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    self.shoppincartqty = [CoreDataHelper getObjectsForEntity:@"ShoppingCart" withSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+    
+    if ([self.shoppincartqty count] > 0) {
+        self.qtyShoppingCart.text = [NSString stringWithFormat:@"%i", [self.shoppincartqty count]];
+        self.qtyShoppingCart.hidden = NO;
+        
+        UIImageView *imageview =  (UIImageView *)[self.view viewWithTag:997];
+        imageview.hidden = NO;
+    }
+   
+}
 
+-(void)qtySCNotificationHandler:(NSNotification *) notification{
+    
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *dato = [userInfo objectForKey:@"qtyShoppingCart"];
+    self.qtyShoppingCart.text = [NSString stringWithFormat:@"%@", dato];
+    
+    UIImageView *imageview =  (UIImageView *)[self.view viewWithTag:997];
+    NSLog(@" %@",dato);
+    if([dato intValue] == 0){
+        self.qtyShoppingCart.hidden = YES;
+        imageview.hidden = YES;
+        NSLog(@"entro a yes");
+    }else{
+        self.qtyShoppingCart.hidden = NO;
+        imageview.hidden = NO;
+        NSLog(@"entro a no");
+    }
+
+}
 
 //Now create yourNotificationHandler: like this in parent class
 -(void)yourNotificationHandler:(NSNotification *) notification{
@@ -308,9 +349,6 @@
     self.productSelected = nil;
     NSDictionary *userInfo = notification.userInfo;
     self.productSelected = [userInfo objectForKey:@"someKey"];
-    
-    //NSLog(@"%@", self.productSelected.product_name);
-    //[self performSegueWithIdentifier:@"sendshowProductDetail" sender:nil];
     
     self.title = product.product_name;
     self.productNameLabel.text = product.product_name;
@@ -642,6 +680,27 @@
         settingsViewController.managedObjectContext = self.managedObjectContext;
         
     }
+    
+    if ([segue.identifier isEqualToString:@"Addtocart"]) {
+        AddProductViewController *addProductViewController = [segue destinationViewController];
+        addProductViewController.managedObjectContext = self.managedObjectContext;
+        addProductViewController.product = self.product;
+        addProductViewController.pageImages = self.pageImages;
+        
+    }
+   
+    if ([segue.identifier isEqualToString:@"ShoppingCart"]) {
+        ShoppingCartViewController *shoppingCartViewController = [segue destinationViewController];
+        shoppingCartViewController.managedObjectContext = self.managedObjectContext;
+        //shoppingCartViewController.product = self.product;
+        //shoppingCartViewController.pageImages = self.pageImages;
+        
+    }
+    
+    
+    
+    
+    
 
 
 }
@@ -1051,26 +1110,26 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
             Comment.Photos = [ResultsValues objectForKey:@"Photos"];
             Comment.Videos = [ResultsValues objectForKey:@"Videos"];
 
-             NSArray *ContextDataValues = [ResultsValues objectForKey:@"ContextDataValues"];
-             NSArray *ContextDataValuesOrder = [ResultsValues objectForKey:@"ContextDataValuesOrder"];
+             //NSArray *ContextDataValues = [ResultsValues objectForKey:@"ContextDataValues"];
+             //NSArray *ContextDataValuesOrder = [ResultsValues objectForKey:@"ContextDataValuesOrder"];
             // NSArray *Context = [ContextDataValues allKeys];
             
              //NSLog(@"total  %i", [ContextDataValues count]);
             
-            for(int j = 0 ; j < [ContextDataValuesOrder count]; j++){
-               NSString *value =  [ContextDataValuesOrder objectAtIndex:j];
+            //for(int j = 0 ; j < [ContextDataValuesOrder count]; j++){
+              // NSString *value =  [ContextDataValuesOrder objectAtIndex:j];
                // NSLog(@" %@",value);
                
                 
-                 for(int K = 0 ; K < [ContextDataValues count]; K++){
+                // for(int K = 0 ; K < [ContextDataValues count]; K++){
                 // NSDictionary *xa =  [ContextDataValues :K];
                 // NSLog(@" %@ ", xa );
-                 }
+                // }
             
                    
                 
   
-            }
+            //}
             
             
             [self.Commenthits addObject:Comment];
@@ -1321,7 +1380,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
 
 -(void)listColors:(NSMutableArray *)colors :(NSMutableArray *)images :(NSMutableArray *)product_list {
     
-    int counter = 0;
+    //int counter = 0;
     //Loading images for article
     freeList = [[NSMutableArray alloc] init];
     for (Variant *productVariant in product_list) {
@@ -1329,7 +1388,7 @@ AFJSONRequestOperation *operation3 = [AFJSONRequestOperation JSONRequestOperatio
         NSString *productid = productVariant.product_id;
         NSString *nameColor = productVariant.color_variant;
       
-        int totalvalues = [images count];
+        //int totalvalues = [images count];
         for (NSDictionary *imageInformation in images) {
             
             if([[imageInformation objectForKey:@"variation_value"] isEqualToString:nameColor] && [[imageInformation objectForKey:@"view_type"] isEqualToString:@"large"]) {

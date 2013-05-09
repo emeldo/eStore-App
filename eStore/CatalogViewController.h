@@ -20,8 +20,6 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 @property (strong, nonatomic) IBOutlet UITableView *selectionTableView;
 
 @property (nonatomic, strong) NSMutableDictionary *selected_refinements;
-
-
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @property (strong, nonatomic) NSString *searchQuery;
@@ -34,6 +32,7 @@ UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, DYRateViewDelega
 
 @property (strong, nonatomic) IBOutlet UIStepper *stepper;
 @property (strong, nonatomic) IBOutlet UILabel *progressLabel;
+@property (strong, nonatomic) IBOutlet UILabel *qtyShoppingCart;
 @property (strong, nonatomic) IBOutlet UISwitch *continuousSwitch;
 @property (strong, nonatomic) IBOutlet UISwitch *indeterminateSwitch;
 

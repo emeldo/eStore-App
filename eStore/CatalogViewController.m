@@ -14,6 +14,7 @@
 #import "StoresViewController.h"
 #import "HistoryViewController.h"
 #import "SettingsViewController.h"
+#import "ShoppingCartViewController.h"
 #import "UIImageView+WebCache.h"
 #import "CoreDataHelper.h"
 #import "Settings.h"
@@ -62,6 +63,10 @@
 @property (nonatomic, strong) NSArray  *recipeImages;
 @property (nonatomic, strong) NSArray  *recipes;
 @property (nonatomic, strong) NSMutableArray  *producthits;
+
+@property (nonatomic, strong) UIView *loadingView;
+
+@property (nonatomic, strong) NSArray *shoppincartqty;
 
 
 //////////////////////////////////////////////////EMELDO
@@ -179,6 +184,11 @@
     
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(qtySCNotificationHandler:)
+                                                 name:@"EventShoppingCart" object:nil];
+
+    
     
 }
 
@@ -212,7 +222,23 @@
                                              selector:@selector(yourNotificationHandler:)
                                                  name:@"MODELVIEW" object:nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(qtySCNotificationHandler:)
+                                                 name:@"EventShoppingCart" object:nil];
+    
+    self.shoppincartqty = [CoreDataHelper getObjectsForEntity:@"ShoppingCart" withSortKey:@"name" andSortAscending:YES andContext:self.managedObjectContext];
+    
+    if ([self.shoppincartqty count] > 0) {
+        self.qtyShoppingCart.text = [NSString stringWithFormat:@"%i", [self.shoppincartqty count]];
+        self.qtyShoppingCart.hidden = NO;
+        
+        UIImageView *imageview =  (UIImageView *)[self.view viewWithTag:997];
+        imageview.hidden = NO;
+    }
+
+    
 }
+
 
 
 
@@ -225,6 +251,26 @@
     
     NSLog(@"%@", self.productSelected.product_name);
     [self performSegueWithIdentifier:@"sendshowProductDetail" sender:nil];
+    
+}
+
+-(void)qtySCNotificationHandler:(NSNotification *) notification{
+    
+    NSDictionary *userInfo = notification.userInfo;
+    NSNumber *dato = [userInfo objectForKey:@"qtyShoppingCart"];
+    self.qtyShoppingCart.text = [NSString stringWithFormat:@"%@", dato];
+    
+    UIImageView *imageview =  (UIImageView *)[self.view viewWithTag:997];
+    NSLog(@" %@",dato);
+    if([dato intValue] == 0){
+        self.qtyShoppingCart.hidden = YES;
+        imageview.hidden = YES;
+        NSLog(@"entro a yes");
+    }else{
+        self.qtyShoppingCart.hidden = NO;
+        imageview.hidden = NO;
+        NSLog(@"entro a no");
+    }
     
 }
 
@@ -390,14 +436,14 @@
     
     self.leftMenu.userInteractionEnabled = NO;
     self.rightMenu.userInteractionEnabled = NO;
-    UIView *loadingView = (UIView *)[self.view viewWithTag:10];
+    self.loadingView = (UIView *)[self.view viewWithTag:10];
     
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle: UIActivityIndicatorViewStyleWhiteLarge];
     indicator.frame = CGRectMake(403, 225, 10, 10);
     indicator.color = [UIColor darkGrayColor];
     [indicator startAnimating];
-    [loadingView addSubview:indicator];
-    loadingView.hidden = NO;
+    [self.loadingView addSubview:indicator];
+    self.loadingView.hidden = NO;
     
     
     if ([self.arrays count] > 0) {
@@ -483,7 +529,7 @@
         CATransition *animation = [CATransition animation];
         animation.type = kCATransitionFade;
         animation.duration = 0.4;
-        [loadingView.layer addAnimation:animation forKey:nil];
+        [self.loadingView.layer addAnimation:animation forKey:nil];
         
         NSDictionary *mainDict = JSON;
         
@@ -690,15 +736,13 @@
         self.leftMenu.userInteractionEnabled = YES;
         self.rightMenu.userInteractionEnabled = YES;
         
-        loadingView.hidden = YES;
+        self.loadingView.hidden = YES;
        
         
     }failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
         
-        UIView *loadingView = (UIView *)[self.view viewWithTag:10];
-        loadingView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"product_cont_holder.png"]];
-        loadingView.hidden = YES;
+        self.loadingView.hidden = YES;
        // [self stopAnimation];
         
         UIView *errorView = (UIView *)[self.view viewWithTag:404];
@@ -725,7 +769,11 @@
 {
     [self.producthits  removeAllObjects];
     [searchBar resignFirstResponder];
-    [self loadingFromWeb : nil : [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
+    
+    self.searchQuery = [searchBar.text stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    [self closeMenu:self.leftMenu];
+    [self closeMenu:self.rightMenu];
+    [self loadingFromWeb : nil : self.searchQuery];
     searchBar.text = @"";
 }
 
@@ -1333,6 +1381,7 @@
                 
                 [self.producthits  removeAllObjects];
                 [self closeMenu:self.leftMenu];
+                [self closeMenu:self.rightMenu];
                 
                 [self loadingFromWeb : self.menuQuery : self.searchQuery];
                 
@@ -1363,6 +1412,7 @@
         [self.producthits  removeAllObjects];
         
         [self closeMenu:self.leftMenu];
+        [self closeMenu:self.rightMenu];
         
         self.selected_refinements = SinFiltro;
         
@@ -1593,6 +1643,14 @@
         settingsViewController.managedObjectContext = self.managedObjectContext;
         
     }
+    
+    if ([segue.identifier isEqualToString:@"ShoppingCart"]) {
+        ShoppingCartViewController *shoppingCartViewController = [segue destinationViewController];
+        shoppingCartViewController.managedObjectContext = self.managedObjectContext;
+        //shoppingCartViewController.product = self.product;
+        //shoppingCartViewController.pageImages = self.pageImages;
+        
+    }
 
 }
 
@@ -1712,6 +1770,7 @@
            }
     
     [self closeMenu:self.rightMenu];
+    [self closeMenu:self.leftMenu];
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
     
     
@@ -1735,6 +1794,8 @@
                       colorValue];
     
     [self closeMenu:self.leftMenu];
+    [self closeMenu:self.rightMenu];
+    
     [self.producthits removeAllObjects];
     [self loadingFromWeb : self.menuQuery : self.searchQuery];
     
@@ -1755,6 +1816,7 @@
     
     
     [self closeMenu:self.leftMenu];
+    [self closeMenu:self.rightMenu];
     
     [self.producthits removeAllObjects];
     
@@ -1765,6 +1827,7 @@
 {
     
     [self closeMenu:self.leftMenu];
+    [self closeMenu:self.rightMenu];
     
     [self.producthits removeAllObjects];
     
